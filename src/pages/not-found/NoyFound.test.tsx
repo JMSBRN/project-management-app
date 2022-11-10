@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
-import Header from "./Header";
+import NotFound from "./NotFound";
 
-describe("<Header />", () => {
+describe("<NotFound />", () => {
   it("should be ", () => {
-    render(<Header />);
+    render(<NotFound />);
   });
 });

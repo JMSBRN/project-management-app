@@ -5,7 +5,7 @@ export const HeadersWrapper = styled.div`
   color: red;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   border: 1px solid grey;
 `;
 
