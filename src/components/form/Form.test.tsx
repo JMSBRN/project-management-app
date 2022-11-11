@@ -4,6 +4,6 @@ import Form from "./Form";
 
 describe("<Form />", () => {
   it("should be ", () => {
-    render(<Form />);
+    render(<Form label="test" />);
   });
 });

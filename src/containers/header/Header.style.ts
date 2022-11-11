@@ -10,7 +10,7 @@ export const HeadersWrapper = styled.div`
 `;
 
 export const LinksNavWrapper = styled.div`
-  width: 40%;
+  width: 60%;
   color: red;
   display: flex;
   align-items: center;

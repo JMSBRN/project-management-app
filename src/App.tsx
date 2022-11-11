@@ -1,3 +1,4 @@
+import ProtectedRoutes from "containers/protected-routes/ProtectedRoutes";
 import Auth from "pages/auth/Auth";
 import Boards from "pages/boards/Boards";
 import Main from "pages/main/Main";
@@ -14,7 +15,8 @@ function App() {
         <Route index element={false ? <Main /> : <Welcome />} />
         <Route path="/boards" element={<Boards />} />
         <Route path="/main" element={<Main />} />
-        <Route path="/auth" element={<Auth />} />
+        <Route path="/auth" element={<Auth isLogin={false} />} />
+        <ProtectedRoutes isLogin={true} redirectPath={"/"}></ProtectedRoutes>
       </Routes>
     </AppWrapper>
   );
