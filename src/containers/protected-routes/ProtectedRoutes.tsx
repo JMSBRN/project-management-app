@@ -1,16 +1,11 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
-interface IProtectedRoutesProps {
-  isLogin: boolean;
-  redirectPath: string;
+interface IProps {
+  auth: { isAuthenticated?: boolean };
 }
-const ProtectedRoutes = (props: IProtectedRoutesProps) => {
-  return (
-    <div>
-      {props.isLogin ? <Navigate to={props.redirectPath} /> : <Outlet />}
-    </div>
-  );
+const ProtectedRoutes = ({ auth: { isAuthenticated } }: IProps) => {
+  return isAuthenticated ? <Outlet /> : <Navigate to="/" />;
 };
 
 export default ProtectedRoutes;

@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
-import Welcome from "./Welcome";
+import EditProfile from "./EditProfile";
 
-describe("<Baords />", () => {
+describe("<EditProfile />", () => {
   it("should be ", () => {
-    render(<Welcome isAuth={false} />);
+    render(<EditProfile />);
   });
 });

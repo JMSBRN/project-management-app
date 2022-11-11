@@ -3,10 +3,13 @@ import Team from "containers/team/Team";
 import React from "react";
 import { WelcomeWrapper } from "./Welcome.style";
 
-const Welcome = () => {
+interface IWelcomeProps {
+  isAuth: boolean;
+}
+const Welcome = (props: IWelcomeProps) => {
   return (
     <WelcomeWrapper>
-      {false ? (
+      {props.isAuth ? (
         <Link to={"/main"} text=" to main page" />
       ) : (
         <>
