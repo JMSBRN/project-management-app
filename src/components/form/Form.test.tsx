@@ -4,6 +4,7 @@ import Form from "./Form";
 
 describe("<Form />", () => {
   it("should be ", () => {
-    render(<Form label="test" />);
+    const mockOnSubmit = jest.fn();
+    render(<Form onSubmit={mockOnSubmit} label="test" />);
   });
 });

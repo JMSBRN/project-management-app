@@ -1,23 +1,30 @@
-import Form from "components/form/Form";
 import React from "react";
-import { AuthtWrapper } from "./Auth.style";
+import Form from "components/form/Form";
+import { setIsLogin } from "features/user/UserSlice";
+import { useAppDispatch } from "app/hooks";
+import { useNavigate } from "react-router-dom";
+import { AuthtFormWRapper, AuthtWrapper } from "./Auth.style";
 
 interface IAuthProps {
-  isLogin: boolean;
+  isSingInForm: boolean;
 }
 const Auth = (props: IAuthProps) => {
+  const navigate = useNavigate();
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(setIsLogin(true));
+    navigate("/");
+  };
+  const dispatch = useAppDispatch();
   return (
     <AuthtWrapper>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      {props.isLogin ? (
-        <Form label="sing in Form" />
-      ) : (
-        <Form label="sing out Form" />
-      )}
+      <AuthtFormWRapper>
+        {props.isSingInForm ? (
+          <Form onSubmit={(e) => handleSubmit(e)} label="sing in Form" />
+        ) : (
+          <Form onSubmit={(e) => handleSubmit(e)} label="sing out Form" />
+        )}
+      </AuthtFormWRapper>
     </AuthtWrapper>
   );
 };

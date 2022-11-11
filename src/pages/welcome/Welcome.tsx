@@ -1,7 +1,7 @@
 import Link from "components/link/Link";
 import Team from "containers/team/Team";
 import React from "react";
-import { WelcomeWrapper } from "./Welcome.style";
+import { WelcomeLinksWrapper, WelcomeWrapper } from "./Welcome.style";
 
 interface IWelcomeProps {
   isAuth: boolean;
@@ -9,14 +9,16 @@ interface IWelcomeProps {
 const Welcome = (props: IWelcomeProps) => {
   return (
     <WelcomeWrapper>
-      {props.isAuth ? (
-        <Link to={"/main"} text=" to main page" />
-      ) : (
-        <>
-          <Link to={"/auth"} text=" sing in" />
-          <Link to={"/auth"} text=" sing out" />
-        </>
-      )}
+      <WelcomeLinksWrapper>
+        {props.isAuth ? (
+          <Link to={"/main"} text=" to main page" />
+        ) : (
+          <>
+            <Link to={"/auth-sing-in"} text=" sing in" />
+            <Link to={"/auth-sing-out"} text=" sing out" />
+          </>
+        )}
+      </WelcomeLinksWrapper>
       <br />
       <br />
       <br />

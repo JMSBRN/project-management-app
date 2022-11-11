@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const FormWrapper = styled.div`
+export const FormWrapper = styled.form`
   width: 300px;
   display: grid;
   padding: 10px;

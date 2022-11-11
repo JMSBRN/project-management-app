@@ -4,6 +4,6 @@ import Auth from "./Auth";
 
 describe("<Auth />", () => {
   it("should be ", () => {
-    render(<Auth isLogin={false} />);
+    render(<Auth isSingInForm={false} />);
   });
 });
