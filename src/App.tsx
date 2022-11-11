@@ -1,7 +1,6 @@
-import Header from "containers/header/Header";
-import About from "pages/about/About";
+import Auth from "pages/auth/Auth";
 import Boards from "pages/boards/Boards";
-import NotFound from "pages/not-found/NotFound";
+import Main from "pages/main/Main";
 import Welcome from "pages/welcome/Welcome";
 import React from "react";
 import { Route, Routes } from "react-router-dom";
@@ -11,12 +10,11 @@ import "./main.style.ts";
 function App() {
   return (
     <AppWrapper>
-      <Header />
       <Routes>
-        <Route index element={<Welcome />} />
-        <Route path="boards" element={<Boards />} />
-        <Route path="about" element={<About />} />
-        <Route path="*" element={<NotFound />} />
+        <Route index element={false ? <Main /> : <Welcome />} />
+        <Route path="/boards" element={<Boards />} />
+        <Route path="/main" element={<Main />} />
+        <Route path="/auth" element={<Auth />} />
       </Routes>
     </AppWrapper>
   );

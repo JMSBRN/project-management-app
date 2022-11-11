@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
-import About from "./About";
+import Main from "./Main";
 
-describe("<About />", () => {
+describe("<Main />", () => {
   it("should be ", () => {
-    render(<About />);
+    render(<Main />);
   });
 });

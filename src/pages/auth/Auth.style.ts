@@ -1,5 +1,5 @@
 import styled from "styled-components";
 
-export const AboutWrapper = styled.div`
+export const AuthtWrapper = styled.div`
   color: red;
 `;
