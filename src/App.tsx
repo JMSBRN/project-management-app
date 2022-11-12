@@ -10,15 +10,17 @@ import NotFound from "pages/not-found/NotFound";
 import Welcome from "pages/welcome/Welcome";
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { AppWrapper } from "./main.style";
+import { GlobalStyle } from "./main.style";
 import "./main.style.ts";
 
 function App() {
   const { isLogin } = useAppSelector(selectUser);
   return (
-    <AppWrapper>
+    <>
+      <GlobalStyle />
+      <Header isAuth={isLogin} />
       <Routes>
-        <Route index element={<Welcome isAuth={isLogin} />} />
+        <Route index element={<Welcome />} />
         <Route path="/auth-sing-in" element={<Auth isSingInForm={true} />} />
         <Route path="/auth-sing-out" element={<Auth isSingInForm={false} />} />
         <Route path="*" element={<NotFound />} />
@@ -31,14 +33,12 @@ function App() {
             />
           }
         >
-          <Route element={<Header />}>
-            <Route path="/main" element={<Main />} />
-            <Route path="/boards" element={<Boards />} />
-            <Route path="/edit-profile" element={<EditProfile />} />
-          </Route>
+          <Route path="/main" element={<Main />} />
+          <Route path="/boards" element={<Boards />} />
+          <Route path="/edit-profile" element={<EditProfile />} />
         </Route>
       </Routes>
-    </AppWrapper>
+    </>
   );
 }
 
