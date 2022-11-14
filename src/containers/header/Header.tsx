@@ -1,6 +1,6 @@
 import { useAppDispatch } from "app/hooks";
 import Link from "components/link/Link";
-import { setIsLogin } from "features/user/UserSlice";
+import { setToken } from "features/api/ApiSlice";
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { LinksNavWrapper, HeadersWrapper } from "./Header.style";
@@ -14,7 +14,7 @@ const Header = () => {
           <Link to="/edit-profile" text="edit profile" />
           <Link to="/boards" text="create new board" />
           <Link to="#" text="select language" />
-          <div onClick={() => dispatch(setIsLogin(false))}>
+          <div onClick={() => dispatch(setToken(""))}>
             <Link to="/" text="sing out" />
           </div>
         </LinksNavWrapper>

@@ -13,14 +13,18 @@ const Form = (props: IFormProps) => {
   const [password, setPassword] = useState("");
   const dispatch = useAppDispatch();
   useEffect(() => {
-    const currUser = { name: name, login: login, password: password };
-    dispatch(setUser(currUser));
-  }, [dispatch, login, name, password]);
-
+    if (props.isNameInput) {
+      const signUpUser = { name: name, login: login, password: password };
+      dispatch(setUser(signUpUser));
+    } else {
+      const signInUser = { login: login, password: password };
+      dispatch(setUser(signInUser));
+    }
+  }, [dispatch, login, name, password, props.isNameInput]);
   return (
     <FormWrapper onSubmit={(e) => props.onSubmit(e)}>
       {props.label}
-      {props.isNameInput && (
+      {(props.isNameInput || false) && (
         <input
           type="text"
           placeholder="name"

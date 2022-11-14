@@ -9,7 +9,6 @@ interface IInitState {
 const initialState: IInitState = {
   isLogin: false,
   user: {
-    name: "",
     login: "",
     password: "",
   },
@@ -18,14 +17,11 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setIsLogin: (state, action) => {
-      state.isLogin = action.payload;
-    },
     setUser: (state, action) => {
       state.user = action.payload;
     },
   },
 });
-export const { setIsLogin, setUser } = userSlice.actions;
+export const { setUser } = userSlice.actions;
 export const selectUser = (state: RootState) => state.user;
 export default userSlice.reducer;

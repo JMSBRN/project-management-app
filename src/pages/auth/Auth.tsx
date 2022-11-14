@@ -1,9 +1,10 @@
 import React from "react";
 import Form from "components/form/Form";
-import { setIsLogin } from "features/user/UserSlice";
-import { useAppDispatch } from "app/hooks";
+import { selectUser } from "features/user/UserSlice";
+import { useAppDispatch, useAppSelector } from "app/hooks";
 import { useNavigate } from "react-router-dom";
 import { AuthtFormWRapper, AuthtWrapper } from "./Auth.style";
+import { apiSliceSignIn, apiSliceSignUp } from "features/api/ApiSlice";
 
 interface IAuthProps {
   isSingInForm: boolean;
@@ -11,22 +12,28 @@ interface IAuthProps {
 const Auth = (props: IAuthProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const { user } = useAppSelector(selectUser);
+  const handleSignInSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(setIsLogin(true));
     navigate("/");
+    dispatch(apiSliceSignIn(user));
+  };
+  const handleSignUpSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    navigate("/");
+    dispatch(apiSliceSignUp(user));
   };
   return (
     <AuthtWrapper>
       <AuthtFormWRapper>
         {props.isSingInForm ? (
-          <Form
-            isNameInput={false}
-            onSubmit={(e) => handleSubmit(e)}
-            label="sing in Form"
-          />
+          <Form onSubmit={(e) => handleSignInSubmit(e)} label="sing in Form" />
         ) : (
-          <Form onSubmit={(e) => handleSubmit(e)} label="sing out Form" />
+          <Form
+            isNameInput={true}
+            onSubmit={(e) => handleSignUpSubmit(e)}
+            label="sing out Form"
+          />
         )}
       </AuthtFormWRapper>
     </AuthtWrapper>

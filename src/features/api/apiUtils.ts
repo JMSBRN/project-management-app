@@ -22,6 +22,7 @@ export const getUsers = async () => {
   }
 };
 export interface IUser {
+  id?: string;
   name?: string;
   login: string;
   password: string;
@@ -56,7 +57,6 @@ export const apiSignUp = async (user: IUser) => {
     });
     const data = await res.json();
     if (res.status !== 200) {
-      console.log(data.message);
       return;
     }
     return data;
@@ -75,7 +75,6 @@ export const apiSignIn = async (user: IUser) => {
     body: JSON.stringify(user),
   });
   const data = await res.json();
-  console.log(data);
   return data;
 };
 export const deleteUser = async (id: string) => {
