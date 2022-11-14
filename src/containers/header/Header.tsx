@@ -43,7 +43,7 @@ const Header = (props: IProps) => {
             <>
               <Language />
               <Link to={"/auth-sing-in"} text=" sing in" />
-              <Link to={"/auth-sing-out"} text=" sing out" />
+              <Link to={"/auth-sing-up"} text=" sing up" />
             </>
           )}
         </LinksNavWrapper>

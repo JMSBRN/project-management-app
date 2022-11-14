@@ -12,7 +12,7 @@ export const Lang = styled.div`
   cursor: pointer;
   margin: 3px;
   :hover {
-    font-size: 23px;
-    margin: 1.5px;
+    font-size: 21px;
+    margin: 1px;
   }
 `;

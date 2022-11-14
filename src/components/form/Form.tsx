@@ -1,5 +1,11 @@
+import Email from "components/email/Email";
 import React from "react";
-import { FormWrapper } from "./Form.style";
+import {
+  ButtonWrapper,
+  FormWrapper,
+  InputWrapper,
+  LabelWrapper,
+} from "./Form.style";
 interface IFormProps {
   label: string;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -8,11 +14,16 @@ const Form = (props: IFormProps) => {
   return (
     <FormWrapper onSubmit={(e) => props.onSubmit(e)}>
       {props.label}
-      <input type="text" />
-      <input type="password" />
-      <input type="eamil" />
-      <input type="date" />
-      <input type="submit" />
+      {props.label === "sing up Form" ? <Email /> : null}
+      <LabelWrapper>
+        login
+        <InputWrapper type="text" />
+      </LabelWrapper>
+      <LabelWrapper>
+        password
+        <InputWrapper type="password" />
+      </LabelWrapper>
+      <ButtonWrapper>Submit</ButtonWrapper>
     </FormWrapper>
   );
 };

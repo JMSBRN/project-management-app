@@ -11,6 +11,7 @@ interface IHeaderWrapper {
 
 export const HeadersWrapper = styled.div<IHeaderWrapper>`
   width: 100%;
+  height: 70px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -22,13 +23,13 @@ export const HeadersWrapper = styled.div<IHeaderWrapper>`
 `;
 
 export const LinksNavWrapper = styled.div<ILinksNav>`
-  width: ${(props) => (props.isAuth ? "500px" : "320px")};
+  width: ${(props) => (props.isAuth ? "560px" : "360px")};
   display: flex;
   align-items: center;
   justify-content: space-around;
   margin-right: 5%;
   @media (max-width: 650px) {
-    width: 150px;
+    width: 180px;
     height: ${(props) => (props.isAuth ? "200px" : "160px")};
     flex-direction: column;
     justify-content: space-around;

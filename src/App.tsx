@@ -22,7 +22,7 @@ function App() {
       <Routes>
         <Route index element={<Welcome />} />
         <Route path="/auth-sing-in" element={<Auth isSingInForm={true} />} />
-        <Route path="/auth-sing-out" element={<Auth isSingInForm={false} />} />
+        <Route path="/auth-sing-up" element={<Auth isSingInForm={false} />} />
         <Route path="*" element={<NotFound />} />
         <Route
           element={

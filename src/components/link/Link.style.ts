@@ -7,8 +7,9 @@ export const LinkWrapper = styled(Link)`
   border-radius: 10px;
   text-decoration: none;
   padding: 5px 15px;
-  margin: 1.5px;
+  margin: 3.5px;
   :hover {
+    font-size: 19px;
     color: white;
     background: black;
     transition: 0.6s;
