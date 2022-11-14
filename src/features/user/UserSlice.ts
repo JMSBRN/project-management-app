@@ -1,11 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "app/store";
+import { IUser } from "features/api/apiUtils";
 
 interface IInitState {
   isLogin: boolean;
+  user: IUser;
 }
 const initialState: IInitState = {
   isLogin: false,
+  user: {
+    name: "",
+    login: "",
+    password: "",
+  },
 };
 export const userSlice = createSlice({
   name: "user",
@@ -13,10 +20,12 @@ export const userSlice = createSlice({
   reducers: {
     setIsLogin: (state, action) => {
       state.isLogin = action.payload;
-      console.log(state.isLogin);
+    },
+    setUser: (state, action) => {
+      state.user = action.payload;
     },
   },
 });
-export const { setIsLogin } = userSlice.actions;
+export const { setIsLogin, setUser } = userSlice.actions;
 export const selectUser = (state: RootState) => state.user;
 export default userSlice.reducer;

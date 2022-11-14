@@ -10,17 +10,21 @@ interface IAuthProps {
 }
 const Auth = (props: IAuthProps) => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(setIsLogin(true));
     navigate("/");
   };
-  const dispatch = useAppDispatch();
   return (
     <AuthtWrapper>
       <AuthtFormWRapper>
         {props.isSingInForm ? (
-          <Form onSubmit={(e) => handleSubmit(e)} label="sing in Form" />
+          <Form
+            isNameInput={false}
+            onSubmit={(e) => handleSubmit(e)}
+            label="sing in Form"
+          />
         ) : (
           <Form onSubmit={(e) => handleSubmit(e)} label="sing out Form" />
         )}

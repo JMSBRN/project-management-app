@@ -12,17 +12,16 @@ export const getUsers = async () => {
     });
     const data = await res.json();
     if (res.status !== 200) {
-      console.log(data.message);
       return;
     }
-    console.log(data);
+    return data;
   } catch (e) {
     console.error("error from getUser", e);
     return;
   }
 };
 export interface IUser {
-  name: string;
+  name?: string;
   login: string;
   password: string;
 }
@@ -38,7 +37,6 @@ export const getUserById = async (id: string) => {
     if (res.status !== 200) {
       console.log(data.message);
     }
-    console.log(data);
     return data;
   } catch (e) {
     console.error("error from getUser", e);
@@ -75,7 +73,6 @@ export const deleteUser = async (id: string) => {
         Authorization: `Bearer ${Api.TOKEN}`,
       },
     });
-    console.log(res);
   } catch (e) {
     console.error("error from deleteUser", e);
   }

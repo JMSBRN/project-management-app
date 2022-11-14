@@ -1,37 +1,35 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "app/store";
-import { getUsers } from "./apiUtils";
 
-interface IUser {
-  name: string;
-}
 interface IinitState {
-  user: IUser;
+  formValues: string[];
 }
 const initialState: IinitState = {
-  user: { name: "" },
+  formValues: [],
 };
-export const apiAsyncgetUser = createAsyncThunk("api/get-user", () => {
-  getUsers();
-  console.log("ee");
-});
+export const apiSingIn = createAsyncThunk("api/get-user", () => {});
 const apiSlice = createSlice({
   name: "api",
   initialState,
-  reducers: {},
+  reducers: {
+    setFormValues: (state, action) => {
+      state.formValues = action.payload;
+      console.log(state.formValues);
+    },
+  },
   extraReducers(builder) {
     builder
-      .addCase(apiAsyncgetUser.pending, () => {
+      .addCase(apiSingIn.pending, () => {
         console.log("pending");
       })
-      .addCase(apiAsyncgetUser.fulfilled, () => {
+      .addCase(apiSingIn.fulfilled, () => {
         console.log("fullFilled");
       })
-      .addCase(apiAsyncgetUser.rejected, () => {
+      .addCase(apiSingIn.rejected, () => {
         console.log("rejected");
       });
   },
 });
-export const {} = apiSlice.actions;
+export const { setFormValues } = apiSlice.actions;
 export const selectApi = (state: RootState) => state.api;
 export default apiSlice.reducer;
