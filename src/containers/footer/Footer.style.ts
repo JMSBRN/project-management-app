@@ -8,6 +8,7 @@ export const FooterWrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   white-space: nowrap;
+  background: white;
   padding: 20px;
   @media (max-width: 450px) {
     font-size: 15px;

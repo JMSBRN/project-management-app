@@ -6,7 +6,6 @@ export const WelcomeWrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-image: linear-gradient(to right, #44a08d, #093637);
   color: white;
   padding-top: 20px;
   padding-bottom: 50px;

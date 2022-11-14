@@ -16,4 +16,5 @@ export const AppWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background-image: linear-gradient(to right, #44a08d, #093637);
 `;
