@@ -16,7 +16,7 @@ export const HeadersWrapper = styled.div<IHeaderWrapper>`
   justify-content: space-between;
   align-items: center;
   position: fixed;
-  background-color: ${(props) => (props.scroll < 50 ? "white" : "lightgray")};
+  background-color: ${(props) => (props.scroll < 50 ? "white" : "#43c6ac")};
   transition: 0.7s;
   padding: 5px 0 5px 0;
   z-index: 1;
@@ -37,7 +37,7 @@ export const LinksNavWrapper = styled.div<ILinksNav>`
     position: fixed;
     top: 0;
     right: 0;
-    background-color: ${(props) => (props.scroll < 50 ? "white" : "lightgray")};
+    background-color: ${(props) => (props.scroll < 50 ? "white" : "#43c6ac")};
     transform: ${(props) =>
       props.burger ? "translateX(0)" : "translateX(300%)"};
     transition: 0.7s;
