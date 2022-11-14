@@ -1,7 +1,8 @@
 import { Api } from "./apiConstants";
 const url = Api.API_URL;
 const urlUsers = `${url}/users`;
-const urlCreateUser = `${url}/signup`;
+const urlSignIn = `${url}/signin`;
+const urlSignUp = `${url}/signup`;
 
 export const getUsers = async () => {
   try {
@@ -43,9 +44,9 @@ export const getUserById = async (id: string) => {
     return;
   }
 };
-export const createUser = async (user: IUser) => {
+export const apiSignUp = async (user: IUser) => {
   try {
-    const res = await fetch(urlCreateUser, {
+    const res = await fetch(urlSignUp, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -64,6 +65,19 @@ export const createUser = async (user: IUser) => {
     return;
   }
 };
+export const apiSignIn = async (user: IUser) => {
+  const res = await fetch(urlSignIn, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  });
+  const data = await res.json();
+  console.log(data);
+  return data;
+};
 export const deleteUser = async (id: string) => {
   try {
     const res = await fetch(`${urlUsers}/${id}`, {
@@ -73,6 +87,11 @@ export const deleteUser = async (id: string) => {
         Authorization: `Bearer ${Api.TOKEN}`,
       },
     });
+    const data = await res.json();
+    if (res.status !== 200) {
+      console.log(data.message);
+      return;
+    }
   } catch (e) {
     console.error("error from deleteUser", e);
   }
