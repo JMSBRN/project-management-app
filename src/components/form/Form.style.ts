@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 export const FormWrapper = styled.form`
   width: 300px;
-  height: 270px;
+  height: 380px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   color: white;
   border-radius: 15px;
@@ -13,30 +13,40 @@ export const FormWrapper = styled.form`
 `;
 
 export const InputWrapper = styled.input`
+  width: 250px;
+  display: block;
+  margin: 0 auto;
   padding: 6px;
   border-radius: 7px;
 `;
 
-export const LabelWrapper = styled.label`
-  display: flex;
-  flex-direction: column;
+export const LabelWrapper = styled.div`
+  div {
+    width: 250px;
+    height: 38px;
+    color: red;
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
 `;
 
-export const ButtonWrapper = styled.button`
+interface ISubmit {
+  isValid: boolean;
+}
+
+export const ButtonWrapper = styled.button<ISubmit>`
   border-radius: 7px;
   color: black;
   border: 1px solid black;
   border-radius: 10px;
   text-decoration: none;
   padding: 5px 15px;
-  margin: 1.5px;
   cursor: pointer;
   :hover {
-    font-size: 19px;
-    color: white;
-    background: #43c6ac;
+    color: ${(props) => (props.isValid ? "white" : "black")};
+    background: ${(props) => (props.isValid ? "#43c6ac" : "#60938e")};
     transition: 0.6s;
-    padding: 6px 16.5px;
+    padding: ${(props) => (props.isValid ? "5px 20px" : "5px 15px")};
     margin: 0;
   }
 `;
