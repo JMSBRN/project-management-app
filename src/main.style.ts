@@ -1,10 +1,11 @@
-import styled from "styled-components";
+import { createGlobalStyle } from "styled-components";
 
-export const AppWrapper = styled.div`
-  color: red;
-  :root {
+export const GlobalStyle = createGlobalStyle`
+  * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Rubik Bubbles', cursive;
+    font-size: 18px;
   }
 `;
