@@ -7,8 +7,9 @@ export const FormWrapper = styled.form`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  color: white;
   border-radius: 15px;
-  border: 1px solid grey;
+  border: 1px solid white;
 `;
 
 export const InputWrapper = styled.input`
@@ -33,7 +34,7 @@ export const ButtonWrapper = styled.button`
   :hover {
     font-size: 19px;
     color: white;
-    background: black;
+    background: #43c6ac;
     transition: 0.6s;
     padding: 6px 16.5px;
     margin: 0;

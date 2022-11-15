@@ -11,7 +11,7 @@ export const LinkWrapper = styled(Link)`
   :hover {
     font-size: 19px;
     color: white;
-    background: black;
+    background: #43c6ac;
     transition: 0.6s;
     padding: 6px 16.5px;
     margin: 0;
