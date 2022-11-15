@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import img from "../../assets/img/girlAnime.png";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import img from '../../assets/img/girlAnime.png';
 
 export const NotFoundWrapper = styled.div`
   width: 100%;

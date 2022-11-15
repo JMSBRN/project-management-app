@@ -1,5 +1,5 @@
-import React from "react";
-import { NotFoundImg, NotFoundLink, NotFoundWrapper } from "./NotFound.style";
+import React from 'react';
+import { NotFoundWrapper, NotFoundImg, NotFoundLink } from './NotFound.style';
 
 const NotFound = () => {
   return (

@@ -1,5 +1,5 @@
-import React from "react";
-import { Lang, LanguageWrapper } from "./Language.style";
+import React from 'react';
+import { Lang, LanguageWrapper } from './Language.style';
 
 const Language = () => {
   return (

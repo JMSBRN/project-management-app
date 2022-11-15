@@ -1,5 +1,5 @@
-import React from "react";
-import { LinkWrapper } from "./Link.style";
+import React from 'react';
+import { LinkWrapper } from './Link.style';
 
 interface ILinkProps {
   text: string;

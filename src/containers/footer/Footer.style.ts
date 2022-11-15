@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const FooterWrapper = styled.div`
   width: 100%;
@@ -42,9 +42,9 @@ export const AutorLink = styled.a`
   :before {
     width: 20px;
     height: 20px;
-    background-image: url("https://cdn-icons-png.flaticon.com/512/25/25231.png");
+    background-image: url('https://cdn-icons-png.flaticon.com/512/25/25231.png');
     background-size: 100%;
-    content: "";
+    content: '';
     float: right;
     margin-right: 5px;
   }

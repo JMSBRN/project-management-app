@@ -1,6 +1,6 @@
-import React from "react";
-import Form from "components/form/Form";
-import { AuthtWrapper } from "./Auth.style";
+import React from 'react';
+import Form from 'components/form/Form';
+import { AuthtWrapper } from './Auth.style';
 
 interface IAuthProps {
   isSingInForm: boolean;
@@ -8,11 +8,7 @@ interface IAuthProps {
 const Auth = (props: IAuthProps) => {
   return (
     <AuthtWrapper>
-      {props.isSingInForm ? (
-        <Form label="sing in Form" />
-      ) : (
-        <Form label="sing up Form" />
-      )}
+      {props.isSingInForm ? <Form label="sing in Form" /> : <Form label="sing up Form" />}
     </AuthtWrapper>
   );
 };

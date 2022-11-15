@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const FormWrapper = styled.form`
   width: 300px;
@@ -43,10 +43,10 @@ export const ButtonWrapper = styled.button<ISubmit>`
   padding: 5px 15px;
   cursor: pointer;
   :hover {
-    color: ${(props) => (props.isValid ? "white" : "black")};
-    background: ${(props) => (props.isValid ? "#43c6ac" : "#60938e")};
+    color: ${(props) => (props.isValid ? 'white' : 'black')};
+    background: ${(props) => (props.isValid ? '#43c6ac' : '#60938e')};
     transition: 0.6s;
-    padding: ${(props) => (props.isValid ? "5px 20px" : "5px 15px")};
+    padding: ${(props) => (props.isValid ? '5px 20px' : '5px 15px')};
     margin: 0;
   }
 `;

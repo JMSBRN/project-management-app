@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "app/store";
+import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from 'app/store';
 
 interface IInitState {
   isLogin: boolean;
@@ -8,7 +8,7 @@ const initialState: IInitState = {
   isLogin: false,
 };
 export const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
   reducers: {
     setIsLogin: (state, action) => {
