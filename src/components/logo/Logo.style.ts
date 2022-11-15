@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import logo from "../../assets/img/logo.png";
+import styled from 'styled-components';
+import logo from '../../assets/img/logo.png';
 
 export const LogoWrapper = styled.div`
   width: 40px;

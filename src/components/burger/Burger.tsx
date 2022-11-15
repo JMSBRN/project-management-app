@@ -1,5 +1,5 @@
-import React from "react";
-import { BurgerWrapper } from "./Burger.style";
+import React from 'react';
+import { BurgerWrapper } from './Burger.style';
 
 interface IProps {
   changeBurgerMenu(): void;
@@ -7,12 +7,7 @@ interface IProps {
 }
 
 const Burger = (props: IProps) => {
-  return (
-    <BurgerWrapper
-      burger={props.burger}
-      onClick={() => props.changeBurgerMenu()}
-    />
-  );
+  return <BurgerWrapper burger={props.burger} onClick={() => props.changeBurgerMenu()} />;
 };
 
 export default Burger;
