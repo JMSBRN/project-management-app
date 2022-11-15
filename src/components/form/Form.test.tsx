@@ -1,9 +1,9 @@
-import { render } from "@testing-library/react";
-import React from "react";
-import Form from "./Form";
+import { render } from '@testing-library/react';
+import React from 'react';
+import Form from './Form';
 
-describe("<Form />", () => {
-  it("should be ", () => {
+describe('<Form />', () => {
+  it('should be ', () => {
     render(<Form label="test" />);
   });
 });

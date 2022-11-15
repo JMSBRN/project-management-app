@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const TeamWrapper = styled.div`
   margin: 100px auto;

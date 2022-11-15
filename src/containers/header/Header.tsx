@@ -3,7 +3,7 @@ import Burger from 'components/burger/Burger';
 import Language from 'components/Language/Language';
 import Link from 'components/link/Link';
 import Logo from 'components/logo/Logo';
-import { setIsLogin } from 'features/user/UserSlice';
+import { setToken } from 'features/api/ApiSlice';
 import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { LinksNavWrapper, HeadersWrapper } from './Header.style';
@@ -35,7 +35,7 @@ const Header = (props: IProps) => {
               <Language />
               <Link to="/edit-profile" text="edit profile" />
               <Link to="/boards" text="new board" />
-              <div onClick={() => dispatch(setIsLogin(false))}>
+              <div onClick={() => dispatch(setToken(''))}>
                 <Link to="/" text="sing out" />
               </div>
             </>

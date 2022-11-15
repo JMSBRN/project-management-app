@@ -1,8 +1,7 @@
 import { useAppDispatch } from 'app/hooks';
-import { setIsLogin } from 'features/user/UserSlice';
+import { apiSliceSignIn } from 'features/api/ApiSlice';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { ButtonWrapper, FormWrapper, InputWrapper, LabelWrapper } from './Form.style';
 interface IFormProps {
   label: string;
@@ -15,7 +14,6 @@ interface FormValues {
 }
 
 const Form = (props: IFormProps) => {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const {
     register,
@@ -26,9 +24,7 @@ const Form = (props: IFormProps) => {
     mode: 'onChange',
   });
   const onSubmit = (data: FormValues) => {
-    dispatch(setIsLogin(true));
-    navigate('/');
-    console.log(data);
+    dispatch(apiSliceSignIn(data));
     reset();
   };
   return (
@@ -88,5 +84,4 @@ const Form = (props: IFormProps) => {
     </FormWrapper>
   );
 };
-
 export default Form;

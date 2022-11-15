@@ -2,7 +2,7 @@ import { useAppSelector } from 'app/hooks';
 import Footer from 'containers/footer/Footer';
 import Header from 'containers/header/Header';
 import ProtectedRoutes from 'containers/protected-routes/ProtectedRoutes';
-import { selectUser } from 'features/user/UserSlice';
+import { selectApi } from 'features/api/ApiSlice';
 import Auth from 'pages/auth/Auth';
 import Boards from 'pages/boards/Boards';
 import EditProfile from 'pages/edit-profile/EditProfile';
@@ -15,12 +15,18 @@ import { AppWrapper, GlobalStyle } from './main.style';
 import './main.style.ts';
 
 function App() {
-  const { isLogin } = useAppSelector(selectUser);
+  const { token } = useAppSelector(selectApi);
+  let isToken = false;
+  if (token === undefined) {
+    isToken = false;
+  } else {
+    isToken = token.length > 2;
+  }
   return (
     <>
       <AppWrapper>
         <GlobalStyle />
-        <Header isAuth={isLogin} />
+        <Header isAuth={isToken} />
         <Routes>
           <Route index element={<Welcome />} />
           <Route path="/auth-sing-in" element={<Auth isSingInForm={true} />} />
@@ -30,7 +36,7 @@ function App() {
             element={
               <ProtectedRoutes
                 auth={{
-                  isAuthenticated: isLogin,
+                  isAuthenticated: isToken,
                 }}
               />
             }
