@@ -1,4 +1,4 @@
-import { Api } from "./apiConstants";
+import { Api } from './apiConstants';
 const url = Api.API_URL;
 const urlUsers = `${url}/users`;
 const urlSignIn = `${url}/signin`;
@@ -17,7 +17,7 @@ export const getUsers = async () => {
     }
     return data;
   } catch (e) {
-    console.error("error from getUser", e);
+    console.error('error from getUser', e);
     return;
   }
 };
@@ -31,7 +31,7 @@ export const getUserById = async (id: string) => {
   try {
     const res = await fetch(`${urlUsers}/${id}`, {
       headers: {
-        Accept: "application/json",
+        Accept: 'application/json',
         Authorization: `Bearer ${Api.TOKEN}`,
       },
     });
@@ -41,57 +41,62 @@ export const getUserById = async (id: string) => {
     }
     return data;
   } catch (e) {
-    console.error("error from getUser", e);
+    console.error('error from getUser', e);
     return;
   }
 };
 export const apiSignUp = async (user: IUser) => {
   try {
     const res = await fetch(urlSignUp, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(user),
     });
     const data = await res.json();
     if (res.status !== 200) {
-      return;
+      const error = await data.message;
+      return error;
     }
     return data;
   } catch (e) {
-    console.error("error from createUser", e);
+    console.error('error from createUser', e);
     return;
   }
 };
 export const apiSignIn = async (user: IUser) => {
   const res = await fetch(urlSignIn, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(user),
   });
   const data = await res.json();
+  if (res.status !== 200) {
+    const error = await data.message;
+    return error;
+  }
   return data;
 };
 export const deleteUser = async (id: string) => {
   try {
     const res = await fetch(`${urlUsers}/${id}`, {
-      method: "DELETE",
+      method: 'DELETE',
       headers: {
-        Accept: "*/*",
+        Accept: '*/*',
         Authorization: `Bearer ${Api.TOKEN}`,
       },
     });
     const data = await res.json();
     if (res.status !== 200) {
-      console.log(data.message);
-      return;
+      const error = await data.message;
+      return error;
     }
   } catch (e) {
-    console.error("error from deleteUser", e);
+    console.error('error from deleteUser', e);
   }
 };

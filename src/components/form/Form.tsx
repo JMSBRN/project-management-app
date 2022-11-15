@@ -6,6 +6,11 @@ interface IFormProps {
   label: string;
   isNameInput?: boolean;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  errors: {
+    name: string;
+    login: string;
+    password: string;
+  };
 }
 const Form = (props: IFormProps) => {
   const [name, setName] = useState("");
@@ -25,22 +30,27 @@ const Form = (props: IFormProps) => {
     <FormWrapper onSubmit={(e) => props.onSubmit(e)}>
       {props.label}
       {(props.isNameInput || false) && (
-        <input
-          type="text"
-          placeholder="name"
-          onChange={(e) => setName(e.target.value)}
-        />
+        <>
+          <input
+            type="text"
+            placeholder="name"
+            onChange={(e) => setName(e.target.value)}
+          />
+          <div className="">{props.errors.name}</div>
+        </>
       )}
       <input
         type="text"
         placeholder="login"
         onChange={(e) => setLogin(e.target.value)}
       />
+      <div className="">{props.errors.login}</div>
       <input
         type="password"
         placeholder="password"
         onChange={(e) => setPassword(e.target.value)}
       />
+      <div className="">{props.errors.password}</div>
       <input type="submit" />
     </FormWrapper>
   );
