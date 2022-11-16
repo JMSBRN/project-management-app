@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
-import { apiSignIn, apiSignUp, getParsedJwt, getUserById, IUser } from './apiUtils';
+import { apiSignIn, apiSignUp, getLoggedUserByIdName, getParsedJwt, IUser } from './apiUtils';
 
 interface IUserSignUpData {
   id: string;
@@ -12,10 +12,14 @@ interface IinitState {
   token: string;
   userSignUpData: IUserSignUpData;
   errorApiMessage: string;
+  nameLoggedUserById: string;
+  idLoggedUser: string;
 }
 const initialState: IinitState = {
   isloggedIn: false,
   errorApiMessage: '',
+  nameLoggedUserById: '',
+  idLoggedUser: '',
   token: localStorage.getItem('token') || "''",
   userSignUpData: {
     id: '',
@@ -31,6 +35,12 @@ export const apiSliceSignIn = createAsyncThunk('api/sign-in-user', (user: IUser,
       dispatch(setToken(data.token));
       dispatch(setIsLoggedIn(true));
       dispatch(setErrorApiMessage(''));
+      const loggedUserData = getParsedJwt(data.token);
+      const id = loggedUserData && loggedUserData.userId;
+      const userData = getLoggedUserByIdName(id as string);
+      userData.then((name) => {
+        dispatch(setNameLoggedUserById(name));
+      });
     }
   });
 });
@@ -59,18 +69,18 @@ const apiSlice = createSlice({
     setErrorApiMessage: (state, action) => {
       state.errorApiMessage = action.payload;
     },
+    setIdLoggedUser: (state, action) => {
+      state.idLoggedUser = action.payload;
+    },
+    setNameLoggedUserById: (state, action) => {
+      state.nameLoggedUserById = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
       .addCase(apiSliceSignIn.pending, () => {})
-      .addCase(apiSliceSignIn.fulfilled, (state) => {
+      .addCase(apiSliceSignIn.fulfilled, () => {
         console.log('fulfilled sign in ');
-        const loggedUserData = getParsedJwt(state.token);
-        const id = loggedUserData && loggedUserData.userId;
-        const userDataById = getUserById(id as string);
-        userDataById.then((userDataById) => {
-          console.log(userDataById.name);
-        });
       })
       .addCase(apiSliceSignIn.rejected, () => {})
       .addCase(apiSliceSignUp.fulfilled, (state) => {
@@ -82,6 +92,13 @@ const apiSlice = createSlice({
       });
   },
 });
-export const { setToken, setUserSignUpData, setIsLoggedIn, setErrorApiMessage } = apiSlice.actions;
+export const {
+  setToken,
+  setUserSignUpData,
+  setIsLoggedIn,
+  setErrorApiMessage,
+  setNameLoggedUserById,
+  setIdLoggedUser,
+} = apiSlice.actions;
 export const selectApi = (state: RootState) => state.api;
 export default apiSlice.reducer;

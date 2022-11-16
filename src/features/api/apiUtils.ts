@@ -98,3 +98,10 @@ export function getParsedJwt<T extends object = { [k: string]: string | number }
     return undefined;
   }
 }
+
+export const getLoggedUserByIdName = async (id: string) => {
+  const user = getUserById(id);
+  const userName = await user;
+  const name = await userName.name;
+  return name;
+};
