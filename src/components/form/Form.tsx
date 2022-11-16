@@ -6,6 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import { ButtonWrapper, FormWrapper, InputWrapper, LabelWrapper } from './Form.style';
 interface IFormProps {
   label: string;
+  isEditProfileForm?: boolean;
+  onClickDeletUserBtn?: () => void;
+  isGetIdUser?: boolean;
 }
 
 interface FormValues {
@@ -88,6 +91,19 @@ const Form = (props: IFormProps) => {
       <ButtonWrapper type="submit" disabled={!isValid} isValid={isValid}>
         Submit
       </ButtonWrapper>
+      {props.isEditProfileForm && (
+        <>
+          <br />
+          <ButtonWrapper
+            onClick={props.onClickDeletUserBtn}
+            disabled={!props.isGetIdUser}
+            type="button"
+            isValid={isValid}
+          >
+            Delete User
+          </ButtonWrapper>
+        </>
+      )}
     </FormWrapper>
   );
 };
