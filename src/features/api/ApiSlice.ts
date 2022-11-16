@@ -18,9 +18,9 @@ interface IinitState {
 const initialState: IinitState = {
   isloggedIn: false,
   errorApiMessage: '',
-  nameLoggedUserById: '',
+  nameLoggedUserById: JSON.parse(localStorage.getItem('user-name') || '""'),
   idLoggedUser: '',
-  token: localStorage.getItem('token') || "''",
+  token: '',
   userSignUpData: {
     id: '',
     name: '',
@@ -58,7 +58,6 @@ const apiSlice = createSlice({
   reducers: {
     setToken: (state, action) => {
       state.token = action.payload;
-      state.token !== undefined && localStorage.setItem('token', JSON.stringify(state.token));
     },
     setUserSignUpData: (state, action) => {
       state.userSignUpData = action.payload;
@@ -74,13 +73,14 @@ const apiSlice = createSlice({
     },
     setNameLoggedUserById: (state, action) => {
       state.nameLoggedUserById = action.payload;
+      localStorage.setItem('user-name', JSON.stringify(state.nameLoggedUserById));
     },
   },
   extraReducers(builder) {
     builder
       .addCase(apiSliceSignIn.pending, () => {})
-      .addCase(apiSliceSignIn.fulfilled, () => {
-        console.log('fulfilled sign in ');
+      .addCase(apiSliceSignIn.fulfilled, (state) => {
+        state.nameLoggedUserById && (state.isloggedIn = true);
       })
       .addCase(apiSliceSignIn.rejected, () => {})
       .addCase(apiSliceSignUp.fulfilled, (state) => {

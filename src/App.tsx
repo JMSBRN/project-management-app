@@ -15,12 +15,12 @@ import { AppWrapper, GlobalStyle } from './main.style';
 import './main.style.ts';
 
 function App() {
-  const { isloggedIn } = useAppSelector(selectApi);
+  const { nameLoggedUserById } = useAppSelector(selectApi);
   return (
     <>
       <AppWrapper>
         <GlobalStyle />
-        <Header isAuth={isloggedIn} />
+        <Header isAuth={!!nameLoggedUserById} />
         <Routes>
           <Route index element={<Welcome />} />
           <Route path="/auth-sing-in" element={<Auth isSingInForm={true} />} />
@@ -30,7 +30,7 @@ function App() {
             element={
               <ProtectedRoutes
                 auth={{
-                  isAuthenticated: isloggedIn,
+                  isAuthenticated: !!nameLoggedUserById,
                 }}
               />
             }

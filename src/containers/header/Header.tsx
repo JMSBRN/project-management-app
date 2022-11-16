@@ -3,7 +3,7 @@ import Burger from 'components/burger/Burger';
 import Language from 'components/Language/Language';
 import Link from 'components/link/Link';
 import Logo from 'components/logo/Logo';
-import { selectApi, setIsLoggedIn, setToken } from 'features/api/ApiSlice';
+import { selectApi, setIsLoggedIn, setNameLoggedUserById, setToken } from 'features/api/ApiSlice';
 import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { LinksNavWrapper, HeadersWrapper } from './Header.style';
@@ -28,6 +28,8 @@ const Header = (props: IProps) => {
   const handleSingOut = () => {
     dispatch(setIsLoggedIn(false));
     dispatch(setToken(''));
+    dispatch(setNameLoggedUserById(''));
+    localStorage.removeItem('user-name');
   };
   return (
     <>

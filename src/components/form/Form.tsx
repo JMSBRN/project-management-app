@@ -17,7 +17,7 @@ interface FormValues {
 const Form = (props: IFormProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { isloggedIn } = useAppSelector(selectApi);
+  const { nameLoggedUserById } = useAppSelector(selectApi);
   const isSignUpForm = props.label === 'sing up Form';
   const {
     register,
@@ -30,7 +30,9 @@ const Form = (props: IFormProps) => {
   const onSubmit = (data: FormValues) => {
     isSignUpForm ? dispatch(apiSliceSignUp(data)) : dispatch(apiSliceSignIn(data));
     reset();
-    isloggedIn && navigate('/main');
+    setTimeout(() => {
+      navigate(`${nameLoggedUserById !== '""' && '/boards'}`);
+    }, 3500);
   };
   return (
     <FormWrapper onSubmit={handleSubmit(onSubmit)}>
