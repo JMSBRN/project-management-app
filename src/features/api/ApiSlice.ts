@@ -52,6 +52,17 @@ export const apiSliceSignUp = createAsyncThunk(
     dispatch(setUserSignUpData(userSignUpData));
   }
 );
+export const apiSliceDeleteUser = createAsyncThunk(
+  'api/delete-user',
+  async (user: IUser, { dispatch }) => {
+    const res = apiSignIn(user);
+    const data = await res;
+    const token = data.token;
+    const loggedUserData = getParsedJwt(token);
+    const id = loggedUserData && loggedUserData.userId;
+    dispatch(setIdLoggedUser(id));
+  }
+);
 const apiSlice = createSlice({
   name: 'api',
   initialState,

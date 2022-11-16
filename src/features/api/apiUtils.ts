@@ -85,10 +85,7 @@ export const deleteUser = async (id: string) => {
       },
     });
     const data = await res.json();
-    if (res.status !== 200) {
-      const error = await data.message;
-      return error;
-    }
+    return data;
   } catch (e) {
     console.error('error from deleteUser', e);
   }
