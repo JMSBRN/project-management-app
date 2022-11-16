@@ -1,20 +1,24 @@
-import { useAppDispatch } from 'app/hooks';
-import { apiSliceSignIn } from 'features/api/ApiSlice';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { apiSliceSignIn, apiSliceSignUp, selectApi } from 'features/api/ApiSlice';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { ButtonWrapper, FormWrapper, InputWrapper, LabelWrapper } from './Form.style';
 interface IFormProps {
   label: string;
 }
 
 interface FormValues {
+  name: string;
   login: string;
   password: string;
-  email: string;
 }
 
 const Form = (props: IFormProps) => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { isloggedIn } = useAppSelector(selectApi);
+  const isSignUpForm = props.label === 'sing up Form';
   const {
     register,
     handleSubmit,
@@ -24,32 +28,33 @@ const Form = (props: IFormProps) => {
     mode: 'onChange',
   });
   const onSubmit = (data: FormValues) => {
-    dispatch(apiSliceSignIn(data));
+    isSignUpForm ? dispatch(apiSliceSignUp(data)) : dispatch(apiSliceSignIn(data));
     reset();
+    isloggedIn && navigate('/main');
   };
   return (
     <FormWrapper onSubmit={handleSubmit(onSubmit)}>
       {props.label}
-      {props.label === 'sing up Form' ? (
+      {isSignUpForm && (
         <LabelWrapper>
-          email
+          name
           <InputWrapper
-            type="email"
-            {...register('email', {
-              required: 'Enter your email',
+            type="text"
+            {...register('name', {
+              required: 'Enter your name',
               minLength: {
                 value: 2,
-                message: 'Email must be more than one letter',
+                message: 'name must be more than one letter A-z',
               },
               pattern: {
-                value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-                message: 'email must contain @ and domain',
+                value: /^[A-Z][-a-zA-Z]+$/,
+                message: 'name must be more than one letter',
               },
             })}
           />
-          <div>{errors?.email && errors.email.message}</div>
+          <div>{errors?.name && errors.name.message}</div>
         </LabelWrapper>
-      ) : null}
+      )}
       <LabelWrapper>
         login
         <InputWrapper

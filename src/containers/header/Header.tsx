@@ -3,7 +3,7 @@ import Burger from 'components/burger/Burger';
 import Language from 'components/Language/Language';
 import Link from 'components/link/Link';
 import Logo from 'components/logo/Logo';
-import { setToken } from 'features/api/ApiSlice';
+import { setIsLoggedIn, setToken } from 'features/api/ApiSlice';
 import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { LinksNavWrapper, HeadersWrapper } from './Header.style';
@@ -24,7 +24,10 @@ const Header = (props: IProps) => {
   const changeBurgerMenu = () => {
     burger ? setBurger(false) : setBurger(true);
   };
-
+  const handleSingOut = () => {
+    dispatch(setIsLoggedIn(false));
+    dispatch(setToken(''));
+  };
   return (
     <>
       <HeadersWrapper scroll={scroll}>
@@ -35,7 +38,7 @@ const Header = (props: IProps) => {
               <Language />
               <Link to="/edit-profile" text="edit profile" />
               <Link to="/boards" text="new board" />
-              <div onClick={() => dispatch(setToken(''))}>
+              <div onClick={() => handleSingOut()}>
                 <Link to="/" text="sing out" />
               </div>
             </>

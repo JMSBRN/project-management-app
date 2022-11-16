@@ -3,11 +3,9 @@ import { RootState } from 'app/store';
 import { IUser } from 'features/api/apiUtils';
 
 interface IInitState {
-  isLogin: boolean;
   user: IUser;
 }
 const initialState: IInitState = {
-  isLogin: false,
   user: {
     login: '',
     password: '',

@@ -15,18 +15,12 @@ import { AppWrapper, GlobalStyle } from './main.style';
 import './main.style.ts';
 
 function App() {
-  const { token } = useAppSelector(selectApi);
-  let isToken = false;
-  if (token === undefined) {
-    isToken = false;
-  } else {
-    isToken = token.length > 2;
-  }
+  const { isloggedIn } = useAppSelector(selectApi);
   return (
     <>
       <AppWrapper>
         <GlobalStyle />
-        <Header isAuth={isToken} />
+        <Header isAuth={isloggedIn} />
         <Routes>
           <Route index element={<Welcome />} />
           <Route path="/auth-sing-in" element={<Auth isSingInForm={true} />} />
@@ -36,7 +30,7 @@ function App() {
             element={
               <ProtectedRoutes
                 auth={{
-                  isAuthenticated: isToken,
+                  isAuthenticated: isloggedIn,
                 }}
               />
             }

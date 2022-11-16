@@ -36,9 +36,6 @@ export const getUserById = async (id: string) => {
       },
     });
     const data = await res.json();
-    if (res.status !== 200) {
-      console.log(data.message);
-    }
     return data;
   } catch (e) {
     console.error('error from getUser', e);
@@ -92,3 +89,12 @@ export const deleteUser = async (id: string) => {
     console.error('error from deleteUser', e);
   }
 };
+export function getParsedJwt<T extends object = { [k: string]: string | number }>(
+  token: string
+): T | undefined {
+  try {
+    return JSON.parse(atob(token.split('.')[1]));
+  } catch {
+    return undefined;
+  }
+}
