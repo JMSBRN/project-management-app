@@ -31,8 +31,8 @@ const Form = (props: IFormProps) => {
     isSignUpForm ? dispatch(apiSliceSignUp(data)) : dispatch(apiSliceSignIn(data));
     reset();
     setTimeout(() => {
-      navigate(`${nameLoggedUserById !== '""' && '/boards'}`);
-    }, 3500);
+      navigate(`${nameLoggedUserById !== '""' && '/main'}`);
+    }, 4000);
   };
   return (
     <FormWrapper onSubmit={handleSubmit(onSubmit)}>

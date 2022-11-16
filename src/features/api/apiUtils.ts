@@ -60,16 +60,20 @@ export const apiSignUp = async (user: IUser) => {
   }
 };
 export const apiSignIn = async (user: IUser) => {
-  const res = await fetch(urlSignIn, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(user),
-  });
-  const data = await res.json();
-  return data;
+  try {
+    const res = await fetch(urlSignIn, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    });
+    const data = await res.json();
+    return data;
+  } catch (e) {
+    console.error('error from signIn', e);
+  }
 };
 export const deleteUser = async (id: string) => {
   try {
@@ -89,15 +93,15 @@ export const deleteUser = async (id: string) => {
     console.error('error from deleteUser', e);
   }
 };
-export function getParsedJwt<T extends object = { [k: string]: string | number }>(
+export const getParsedJwt = <T extends object = { [k: string]: string | number }>(
   token: string
-): T | undefined {
+): T | undefined => {
   try {
     return JSON.parse(atob(token.split('.')[1]));
   } catch {
     return undefined;
   }
-}
+};
 
 export const getLoggedUserByIdName = async (id: string) => {
   const user = getUserById(id);

@@ -23,8 +23,14 @@ function App() {
         <Header isAuth={!!nameLoggedUserById} />
         <Routes>
           <Route index element={<Welcome />} />
-          <Route path="/auth-sing-in" element={<Auth isSingInForm={true} />} />
-          <Route path="/auth-sing-up" element={<Auth isSingInForm={false} />} />
+          <Route
+            path="/auth-sing-in"
+            element={!!nameLoggedUserById ? <Main /> : <Auth isSingInForm={true} />}
+          />
+          <Route
+            path="/auth-sing-up"
+            element={!!nameLoggedUserById ? <Main /> : <Auth isSingInForm={false} />}
+          />
           <Route path="*" element={<NotFound />} />
           <Route
             element={
