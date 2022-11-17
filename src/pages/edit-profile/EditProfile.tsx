@@ -24,7 +24,9 @@ const EditProfile = () => {
     <EditProfileWrapper>
       <ErrorMessage>
         {errorApiMessage}
-        {dleteStatusMessage === 'No Content' && ' user deleted '}
+        {dleteStatusMessage === 'No Content'
+          ? ' User deleted '
+          : dleteStatusMessage === 'Not Found' && 'User not found'}
       </ErrorMessage>
       <Form
         onClickDeletUserBtn={handleDeleteUseryId}

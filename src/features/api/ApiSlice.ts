@@ -82,6 +82,9 @@ export const apiSliceDeleteUser = createAsyncThunk(
     const res = deleteUser(id);
     const data = await res;
     dispatch(setDeleteStatusMessage(data));
+    setTimeout(() => {
+      dispatch(setDeleteStatusMessage(''));
+    }, 3000);
   }
 );
 const apiSlice = createSlice({
