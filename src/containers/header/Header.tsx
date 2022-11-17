@@ -43,14 +43,14 @@ const Header = (props: IProps) => {
               <Link to="/edit-profile" text="edit profile" />
               <Link to="/boards" text="new board" />
               <div onClick={() => handleSingOut()}>
-                <Link to="/" text="sing out" />
+                <Link to="/" text="sign out" />
               </div>
             </>
           ) : (
             <>
               <Language />
-              <Link to={'/auth-sing-in'} text=" sing in" />
-              <Link to={'/auth-sing-up'} text=" sing up" />
+              <Link to={'/auth-sign-in'} text=" sign in" />
+              <Link to={'/auth-sign-up'} text=" sign up" />
             </>
           )}
         </LinksNavWrapper>

@@ -12,7 +12,7 @@ const Auth = (props: IAuthProps) => {
   return (
     <AuthtWrapper>
       <ErrorMessage>{errorApiMessage}</ErrorMessage>
-      {props.isSingInForm ? <Form label="sing in Form" /> : <Form label="sing up Form" />}
+      {props.isSingInForm ? <Form label="sign in Form" /> : <Form label="sign up Form" />}
     </AuthtWrapper>
   );
 };

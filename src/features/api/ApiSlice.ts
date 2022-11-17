@@ -42,7 +42,6 @@ export const apiSliceSignIn = createAsyncThunk('api/sign-in-user', (user: IUser,
     if (data.token) {
       dispatch(setToken(data.token));
       dispatch(setIsLoggedIn(true));
-      dispatch(setErrorApiMessage(''));
       const loggedUserData = getParsedJwt(data.token);
       const id = loggedUserData && loggedUserData.userId;
       const userData = getLoggedUserByIdName(id as string);
@@ -62,7 +61,15 @@ export const apiSliceSignUp = createAsyncThunk(
   async (user: IUser, { dispatch }) => {
     const data = apiSignUp(user);
     const userSignUpData = await data;
-    dispatch(setUserSignUpData(userSignUpData));
+    if (userSignUpData === typeof Object) {
+      dispatch(setUserSignUpData(userSignUpData));
+    } else {
+      const message = await data;
+      dispatch(setErrorApiMessage(message));
+      setTimeout(() => {
+        dispatch(setErrorApiMessage(''));
+      }, 3000);
+    }
   }
 );
 export const apiSliceGetIdUser = createAsyncThunk(
@@ -77,7 +84,7 @@ export const apiSliceGetIdUser = createAsyncThunk(
   }
 );
 export const apiSliceDeleteUser = createAsyncThunk(
-  'api/delet-user',
+  'api/delete-user',
   async (id: string, { dispatch }) => {
     const res = deleteUser(id);
     const data = await res;
@@ -124,7 +131,6 @@ const apiSlice = createSlice({
       .addCase(apiSliceSignUp.fulfilled, (state) => {
         const isSignUpData = Object.values(state.userSignUpData).every((item) => item);
         if (isSignUpData) {
-          console.log('you have successfully registered');
           state.isloggedIn = true;
         }
       });

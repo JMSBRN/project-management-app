@@ -53,6 +53,9 @@ export const apiSignUp = async (user: IUser) => {
       body: JSON.stringify(user),
     });
     const data = await res.json();
+    if (data.statusCode === 409) {
+      return data.message;
+    }
     return data;
   } catch (e) {
     console.error('error from createUser', e);

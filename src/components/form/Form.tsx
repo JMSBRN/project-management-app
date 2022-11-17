@@ -20,9 +20,7 @@ export interface FormValues {
 
 const Form = (props: IFormProps) => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const { nameLoggedUserById } = useAppSelector(selectApi);
-  const isSignUpForm = props.label === 'sing up Form';
+  const isSignUpForm = props.label === 'sign up Form';
   const {
     register,
     handleSubmit,
@@ -34,9 +32,6 @@ const Form = (props: IFormProps) => {
   const onSubmit = (data: FormValues) => {
     isSignUpForm ? dispatch(apiSliceSignUp(data)) : dispatch(apiSliceSignIn(data));
     reset();
-    setTimeout(() => {
-      navigate(`${nameLoggedUserById !== '""' && '/main'}`);
-    }, 4000);
   };
   return (
     <FormWrapper
