@@ -1,8 +1,7 @@
 import React from 'react';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { apiSliceSignIn, apiSliceSignUp, selectApi } from 'features/api/ApiSlice';
+import { useAppDispatch } from 'app/hooks';
+import { apiSliceSignIn, apiSliceSignUp } from 'features/api/ApiSlice';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { ButtonWrapper, FormWrapper, InputWrapper, LabelWrapper } from './Form.style';
 interface IFormProps {
   label: string;
@@ -86,11 +85,16 @@ const Form = (props: IFormProps) => {
         />
         <div>{errors?.password && errors.password.message}</div>
       </LabelWrapper>
-      <ButtonWrapper type="submit" disabled={!isValid} isValid={isValid}>
-        Submit
-      </ButtonWrapper>
+      {!props.isEditProfileForm && (
+        <ButtonWrapper type="submit" disabled={!isValid} isValid={isValid}>
+          Submit
+        </ButtonWrapper>
+      )}
       {props.isEditProfileForm && (
         <>
+          <ButtonWrapper type="submit" disabled={props.isGetIdUser} isValid={isValid}>
+            Submit
+          </ButtonWrapper>
           <br />
           <ButtonWrapper
             onClick={props.onClickDeletUserBtn}

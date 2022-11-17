@@ -21,7 +21,7 @@ interface IinitState {
   errorApiMessage: string;
   nameLoggedUserById: string;
   idLoggedUser: string;
-  dleteStatusMessage: string;
+  deleteStatusMessage: string;
 }
 const initialState: IinitState = {
   isloggedIn: false,
@@ -34,7 +34,7 @@ const initialState: IinitState = {
     name: '',
     login: '',
   },
-  dleteStatusMessage: '',
+  deleteStatusMessage: '',
 };
 export const apiSliceSignIn = createAsyncThunk('api/sign-in-user', (user: IUser, { dispatch }) => {
   const data = apiSignIn(user);
@@ -118,7 +118,7 @@ const apiSlice = createSlice({
       localStorage.setItem('user-name', JSON.stringify(state.nameLoggedUserById));
     },
     setDeleteStatusMessage: (state, action) => {
-      state.dleteStatusMessage = action.payload;
+      state.deleteStatusMessage = action.payload;
     },
   },
   extraReducers(builder) {
