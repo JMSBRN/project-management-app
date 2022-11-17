@@ -1,6 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
-import { apiSignIn, apiSignUp, getLoggedUserByIdName, getParsedJwt, IUser } from './apiUtils';
+import {
+  apiSignIn,
+  apiSignUp,
+  deleteUser,
+  getLoggedUserByIdName,
+  getParsedJwt,
+  IUser,
+} from './apiUtils';
 
 interface IUserSignUpData {
   id: string;
@@ -14,6 +21,7 @@ interface IinitState {
   errorApiMessage: string;
   nameLoggedUserById: string;
   idLoggedUser: string;
+  dleteStatusMessage: string;
 }
 const initialState: IinitState = {
   isloggedIn: false,
@@ -26,11 +34,11 @@ const initialState: IinitState = {
     name: '',
     login: '',
   },
+  dleteStatusMessage: '',
 };
 export const apiSliceSignIn = createAsyncThunk('api/sign-in-user', (user: IUser, { dispatch }) => {
   const data = apiSignIn(user);
   data.then((data) => {
-    data.message && dispatch(setErrorApiMessage(data.message));
     if (data.token) {
       dispatch(setToken(data.token));
       dispatch(setIsLoggedIn(true));
@@ -41,6 +49,11 @@ export const apiSliceSignIn = createAsyncThunk('api/sign-in-user', (user: IUser,
       userData.then((name) => {
         dispatch(setNameLoggedUserById(name));
       });
+    } else {
+      dispatch(setErrorApiMessage(data));
+      setTimeout(() => {
+        dispatch(setErrorApiMessage(''));
+      }, 3000);
     }
   });
 });
@@ -52,8 +65,8 @@ export const apiSliceSignUp = createAsyncThunk(
     dispatch(setUserSignUpData(userSignUpData));
   }
 );
-export const apiSliceDeleteUser = createAsyncThunk(
-  'api/delete-user',
+export const apiSliceGetIdUser = createAsyncThunk(
+  'api/get-id-user',
   async (user: IUser, { dispatch }) => {
     const res = apiSignIn(user);
     const data = await res;
@@ -61,6 +74,14 @@ export const apiSliceDeleteUser = createAsyncThunk(
     const loggedUserData = getParsedJwt(token);
     const id = loggedUserData && loggedUserData.userId;
     dispatch(setIdLoggedUser(id));
+  }
+);
+export const apiSliceDeleteUser = createAsyncThunk(
+  'api/delet-user',
+  async (id: string, { dispatch }) => {
+    const res = deleteUser(id);
+    const data = await res;
+    dispatch(setDeleteStatusMessage(data));
   }
 );
 const apiSlice = createSlice({
@@ -86,6 +107,9 @@ const apiSlice = createSlice({
       state.nameLoggedUserById = action.payload;
       localStorage.setItem('user-name', JSON.stringify(state.nameLoggedUserById));
     },
+    setDeleteStatusMessage: (state, action) => {
+      state.dleteStatusMessage = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -110,6 +134,7 @@ export const {
   setErrorApiMessage,
   setNameLoggedUserById,
   setIdLoggedUser,
+  setDeleteStatusMessage,
 } = apiSlice.actions;
 export const selectApi = (state: RootState) => state.api;
 export default apiSlice.reducer;

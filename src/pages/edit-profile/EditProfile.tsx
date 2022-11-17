@@ -1,25 +1,35 @@
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import Form, { FormValues } from 'components/form/Form';
-import { apiSliceDeleteUser, selectApi } from 'features/api/ApiSlice';
-import { deleteUser } from 'features/api/apiUtils';
+import {
+  apiSliceDeleteUser,
+  apiSliceGetIdUser,
+  apiSliceSignIn,
+  selectApi,
+} from 'features/api/ApiSlice';
 import React from 'react';
-import { EditProfileWrapper } from './EditProfile.style';
+import { EditProfileWrapper, ErrorMessage } from './EditProfile.style';
 
 const EditProfile = () => {
   const dispatch = useAppDispatch();
+  const { errorApiMessage, dleteStatusMessage } = useAppSelector(selectApi);
   const { idLoggedUser } = useAppSelector(selectApi);
   const handleDeleteUseryId = () => {
-    deleteUser(idLoggedUser);
+    dispatch(apiSliceDeleteUser(idLoggedUser));
   };
   const onSubmit = (data: FormValues) => {
-    dispatch(apiSliceDeleteUser(data));
+    dispatch(apiSliceSignIn(data));
+    dispatch(apiSliceGetIdUser(data));
   };
   return (
     <EditProfileWrapper>
+      <ErrorMessage>
+        {errorApiMessage}
+        {dleteStatusMessage === 'No Content' && ' user deleted '}
+      </ErrorMessage>
       <Form
         onClickDeletUserBtn={handleDeleteUseryId}
         onSumiteEditProfeileForm={onSubmit}
-        isGetIdUser={true}
+        isGetIdUser={!!idLoggedUser}
         label={'edit profile form'}
         isEditProfileForm={true}
       />

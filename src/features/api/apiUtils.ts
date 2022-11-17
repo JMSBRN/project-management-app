@@ -70,6 +70,9 @@ export const apiSignIn = async (user: IUser) => {
       body: JSON.stringify(user),
     });
     const data = await res.json();
+    if (data.statusCode === 403) {
+      return data.message;
+    }
     return data;
   } catch (e) {
     console.error('error from signIn', e);
@@ -84,8 +87,7 @@ export const deleteUser = async (id: string) => {
         Authorization: `Bearer ${Api.TOKEN}`,
       },
     });
-    const data = await res.json();
-    return data;
+    return res.statusText;
   } catch (e) {
     console.error('error from deleteUser', e);
   }

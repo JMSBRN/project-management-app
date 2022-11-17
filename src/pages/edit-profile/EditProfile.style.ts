@@ -7,3 +7,9 @@ export const EditProfileWrapper = styled.div`
   align-items: center;
   justify-content: center;
 `;
+export const ErrorMessage = styled.div`
+  position: absolute;
+  top: 300px;
+  height: 20px;
+  color: red;
+`;
