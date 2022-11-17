@@ -1,9 +1,9 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen } from '@testing-library/react';
 import React from "react";
 import Auth from "./Auth";
 
-describe("<Auth />", () => {
-  it("should be ", () => {
+describe('<Auth />', () => {
+  it('should be ', () => {
     render(<Auth isSingInForm={false} />);
   });
 });
