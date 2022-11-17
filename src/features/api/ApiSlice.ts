@@ -48,8 +48,9 @@ export const apiSliceSignIn = createAsyncThunk('api/sign-in-user', (user: IUser,
       userData.then((name) => {
         dispatch(setNameLoggedUserById(name));
       });
-    } else if (data) {
-      dispatch(setErrorApiMessage(data));
+    } else if (data.message) {
+      const message = data.message;
+      dispatch(setErrorApiMessage(message));
       setTimeout(() => {
         dispatch(setErrorApiMessage(''));
       }, 3000);
