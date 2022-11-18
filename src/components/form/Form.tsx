@@ -65,7 +65,7 @@ const Form = (props: IFormProps) => {
             required: 'Enter your login',
             minLength: {
               value: 2,
-              message: 'Login must be more than one letter',
+              message: 'Login must be more than one letter A-z',
             },
           })}
         />

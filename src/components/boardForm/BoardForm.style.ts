@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import close from '../../assets/img/close.png';
 
 export const BoardFormWrapper = styled.div`
   width: 100%;
@@ -12,14 +13,33 @@ export const BoardFormWrapper = styled.div`
 
 export const FormWrapper = styled.form`
   width: 300px;
-  height: 200px;
+  height: 250px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
+  position: relative;
   color: white;
   border-radius: 15px;
   border: 1px solid white;
+`;
+
+export const Close = styled.div`
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: 2.5px;
+  right: 12.5px;
+  background: url(${close}) no-repeat;
+  background-size: 100%;
+  filter: invert();
+  cursor: pointer;
+  :hover {
+    width: 30px;
+    height: 30px;
+    top: 0;
+    right: 10px;
+  }
 `;
 
 export const InputWrapper = styled.input`
@@ -33,7 +53,7 @@ export const InputWrapper = styled.input`
 export const LabelWrapper = styled.div`
   div {
     width: 250px;
-    height: 38px;
+    height: 20px;
     color: red;
     font-size: 16px;
     margin-bottom: 5px;

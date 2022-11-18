@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   padding-top: 70px;
 `;
 
-export const BardsWrapper = styled.div`
+export const BoardsWrapper = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -22,14 +22,21 @@ export interface IBoardWrapper {
 }
 
 export const BoardWrapper = styled.div<IBoardWrapper>`
-  width: 250px;
+  width: 300px;
   height: 120px;
   display: flex;
   flex-wrap: wrap;
   background: white;
   border-radius: 10px;
+  cursor: pointer;
   margin: 30px;
   padding: 10px;
+`;
+
+export const Board = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 `;
 
 export const Title = styled.div`

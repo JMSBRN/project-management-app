@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 
 export const TaskInformation = styled.div`
-  width: 250px;
+  width: 280px;
   height: 100%;
-  margin: 10px;
+  background: #43c6ac;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 5px;
 `;

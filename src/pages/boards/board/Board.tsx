@@ -7,28 +7,28 @@ import TaskCard from './taskCard/TaskCard ';
 export const data = [
   {
     id: '1',
-    Task: 'Create PR for the Task',
+    Task: '1 задача',
     message: 'Зделать что то много чего',
   },
   {
     id: '2',
-    Task: 'Fix Styling',
+    Task: '2 задача',
     message: 'ещё задачи',
   },
   {
     id: '3',
-    Task: 'Handle Api Changes',
+    Task: '3 задача',
     message: 'больше задач больше',
   },
   {
     id: '4',
-    Task: 'Blog on new features',
+    Task: '4 задача',
     message: 'Огромные дела огромных дел',
   },
   {
     id: '5',
-    Task: 'Call with Backend Team',
-    message: '05-Jan-2021',
+    Task: '5 задача',
+    message: 'дела деловых дел',
   },
 ];
 
