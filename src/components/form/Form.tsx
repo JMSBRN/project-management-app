@@ -1,14 +1,17 @@
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { apiSliceSignIn, apiSliceSignUp, selectApi } from 'features/api/ApiSlice';
 import React from 'react';
-import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from 'app/hooks';
+import { apiSliceSignIn, apiSliceSignUp } from 'features/api/ApiSlice';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { ButtonWrapper, FormWrapper, InputWrapper, LabelWrapper } from './Form.style';
 interface IFormProps {
   label: string;
+  isEditProfileForm?: boolean;
+  onClickDeletUserBtn?: () => void;
+  onSumiteEditProfeileForm?: SubmitHandler<FormValues>;
+  isGetIdUser?: boolean;
 }
 
-interface FormValues {
+export interface FormValues {
   name: string;
   login: string;
   password: string;
@@ -16,9 +19,7 @@ interface FormValues {
 
 const Form = (props: IFormProps) => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const { nameLoggedUserById } = useAppSelector(selectApi);
-  const isSignUpForm = props.label === 'sing up Form';
+  const isSignUpForm = props.label === 'sign up Form';
   const {
     register,
     handleSubmit,
@@ -30,12 +31,11 @@ const Form = (props: IFormProps) => {
   const onSubmit = (data: FormValues) => {
     isSignUpForm ? dispatch(apiSliceSignUp(data)) : dispatch(apiSliceSignIn(data));
     reset();
-    setTimeout(() => {
-      navigate(`${nameLoggedUserById !== '""' && '/main'}`);
-    }, 4000);
   };
   return (
-    <FormWrapper onSubmit={handleSubmit(onSubmit)}>
+    <FormWrapper
+      onSubmit={handleSubmit(props.isEditProfileForm ? props.onSumiteEditProfeileForm! : onSubmit)}
+    >
       {props.label}
       {isSignUpForm && (
         <LabelWrapper>
@@ -85,9 +85,27 @@ const Form = (props: IFormProps) => {
         />
         <div>{errors?.password && errors.password.message}</div>
       </LabelWrapper>
-      <ButtonWrapper type="submit" disabled={!isValid} isValid={isValid}>
-        Submit
-      </ButtonWrapper>
+      {!props.isEditProfileForm && (
+        <ButtonWrapper type="submit" disabled={!isValid} isValid={isValid}>
+          Submit
+        </ButtonWrapper>
+      )}
+      {props.isEditProfileForm && (
+        <>
+          <ButtonWrapper type="submit" disabled={props.isGetIdUser} isValid={isValid}>
+            Submit
+          </ButtonWrapper>
+          <br />
+          <ButtonWrapper
+            onClick={props.onClickDeletUserBtn}
+            disabled={!props.isGetIdUser}
+            type="button"
+            isValid={isValid}
+          >
+            Delete User
+          </ButtonWrapper>
+        </>
+      )}
     </FormWrapper>
   );
 };

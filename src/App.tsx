@@ -24,11 +24,11 @@ function App() {
         <Routes>
           <Route index element={<Welcome />} />
           <Route
-            path="/auth-sing-in"
+            path="/auth-sign-in"
             element={!!nameLoggedUserById ? <Main /> : <Auth isSingInForm={true} />}
           />
           <Route
-            path="/auth-sing-up"
+            path="/auth-sign-up"
             element={!!nameLoggedUserById ? <Main /> : <Auth isSingInForm={false} />}
           />
           <Route path="*" element={<NotFound />} />

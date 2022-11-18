@@ -53,6 +53,11 @@ export const apiSignUp = async (user: IUser) => {
       body: JSON.stringify(user),
     });
     const data = await res.json();
+    if (data.statusCode === 409) {
+      return data.message;
+    } else if (data.statusCode === 404) {
+      return;
+    }
     return data;
   } catch (e) {
     console.error('error from createUser', e);
@@ -70,6 +75,9 @@ export const apiSignIn = async (user: IUser) => {
       body: JSON.stringify(user),
     });
     const data = await res.json();
+    if (data.statusCode === 403) {
+      return data;
+    }
     return data;
   } catch (e) {
     console.error('error from signIn', e);
@@ -84,11 +92,7 @@ export const deleteUser = async (id: string) => {
         Authorization: `Bearer ${Api.TOKEN}`,
       },
     });
-    const data = await res.json();
-    if (res.status !== 200) {
-      const error = await data.message;
-      return error;
-    }
+    return res.statusText;
   } catch (e) {
     console.error('error from deleteUser', e);
   }
