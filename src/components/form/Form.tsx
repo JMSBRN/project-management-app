@@ -3,6 +3,9 @@ import { useAppDispatch } from 'app/hooks';
 import { apiSliceSignIn, apiSliceSignUp } from 'features/api/ApiSlice';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ButtonWrapper, FormWrapper, InputWrapper, LabelWrapper } from './Form.style';
+import { apiSignIn, getTimeFromToken } from 'features/api/apiUtils';
+import { useNavigate } from 'react-router-dom';
+
 interface IFormProps {
   label: string;
   isEditProfileForm?: boolean;
@@ -18,6 +21,7 @@ export interface FormValues {
 }
 
 const Form = (props: IFormProps) => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const isSignUpForm = props.label === 'sign up Form';
   const {
@@ -28,7 +32,25 @@ const Form = (props: IFormProps) => {
   } = useForm<FormValues>({
     mode: 'onChange',
   });
-  const onSubmit = (data: FormValues) => {
+  const setTimeFromToken = async (data: FormValues) => {
+    const res = await apiSignIn(data);
+    const userData = await res;
+    const currentToken = await userData.token;
+    const time: number = await getTimeFromToken(currentToken);
+    return time;
+  };
+  const onSubmit = async (data: FormValues) => {
+    const time = await setTimeFromToken(data);
+    const interval = setInterval(async () => {
+      const timed = await setTimeFromToken(data);
+      const isExpiredTime = timed - time < 20;
+      if (!isExpiredTime) {
+        clearInterval(interval);
+        console.log('stop');
+        navigate('/');
+      }
+    }, 3000);
+
     isSignUpForm ? dispatch(apiSliceSignUp(data)) : dispatch(apiSliceSignIn(data));
     reset();
   };

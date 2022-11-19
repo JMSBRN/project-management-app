@@ -106,10 +106,14 @@ export const getParsedJwt = <T extends object = { [k: string]: string | number }
     return undefined;
   }
 };
-
 export const getLoggedUserByIdName = async (id: string) => {
   const user = getUserById(id);
   const userName = await user;
   const name = await userName.name;
   return name;
+};
+export const getTimeFromToken = async (token: string) => {
+  const parsedJwt = getParsedJwt(token);
+  const timeFromToken = parsedJwt?.iat as number;
+  return timeFromToken;
 };
