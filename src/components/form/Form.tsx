@@ -1,8 +1,17 @@
 import React from 'react';
 import { useAppDispatch } from 'app/hooks';
-import { apiSliceSignIn, apiSliceSignUp } from 'features/api/ApiSlice';
+import {
+  apiSliceSignIn,
+  apiSliceSignUp,
+  setIsLoggedIn,
+  setNameLoggedUserById,
+  setToken,
+} from 'features/api/ApiSlice';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ButtonWrapper, FormWrapper, InputWrapper, LabelWrapper } from './Form.style';
+import { apiSignIn, getTimeFromToken } from 'features/api/apiUtils';
+import { useNavigate } from 'react-router-dom';
+
 interface IFormProps {
   label: string;
   isEditProfileForm?: boolean;
@@ -10,7 +19,6 @@ interface IFormProps {
   onSumiteEditProfeileForm?: SubmitHandler<FormValues>;
   isGetIdUser?: boolean;
 }
-
 export interface FormValues {
   name: string;
   login: string;
@@ -18,6 +26,7 @@ export interface FormValues {
 }
 
 const Form = (props: IFormProps) => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const isSignUpForm = props.label === 'sign up Form';
   const {
@@ -28,7 +37,31 @@ const Form = (props: IFormProps) => {
   } = useForm<FormValues>({
     mode: 'onChange',
   });
-  const onSubmit = (data: FormValues) => {
+  const setTimeFromToken = async (data: FormValues) => {
+    const res = await apiSignIn(data);
+    const userData = await res;
+    const currentToken = await userData.token;
+    const time: number = await getTimeFromToken(currentToken);
+    return time;
+  };
+  const onSubmit = async (data: FormValues) => {
+    const OneMinutes = 1000 * 60 * 1;
+    const timeFromFirstToken = await setTimeFromToken(data);
+    const interval = setInterval(async () => {
+      const currentTime = await setTimeFromToken(data);
+      const totalIntervals = 1;
+      const expired = currentTime - timeFromFirstToken < totalIntervals;
+      const isExpiredTime = !!timeFromFirstToken && expired;
+      if (!isExpiredTime) {
+        clearInterval(interval);
+        dispatch(setIsLoggedIn(false));
+        dispatch(setToken(''));
+        dispatch(setNameLoggedUserById(''));
+        localStorage.removeItem('user-name');
+        navigate('/');
+      }
+    }, OneMinutes);
+
     isSignUpForm ? dispatch(apiSliceSignUp(data)) : dispatch(apiSliceSignIn(data));
     reset();
   };
