@@ -1,6 +1,12 @@
 import React from 'react';
 import { useAppDispatch } from 'app/hooks';
-import { apiSliceSignIn, apiSliceSignUp } from 'features/api/ApiSlice';
+import {
+  apiSliceSignIn,
+  apiSliceSignUp,
+  setIsLoggedIn,
+  setNameLoggedUserById,
+  setToken,
+} from 'features/api/ApiSlice';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ButtonWrapper, FormWrapper, InputWrapper, LabelWrapper } from './Form.style';
 import { apiSignIn, getTimeFromToken } from 'features/api/apiUtils';
@@ -13,7 +19,6 @@ interface IFormProps {
   onSumiteEditProfeileForm?: SubmitHandler<FormValues>;
   isGetIdUser?: boolean;
 }
-
 export interface FormValues {
   name: string;
   login: string;
@@ -40,16 +45,22 @@ const Form = (props: IFormProps) => {
     return time;
   };
   const onSubmit = async (data: FormValues) => {
-    const time = await setTimeFromToken(data);
+    const fiveMinutes = 1000 * 60 * 5;
+    const timeFromFirstToken = await setTimeFromToken(data);
     const interval = setInterval(async () => {
-      const timed = await setTimeFromToken(data);
-      const isExpiredTime = timed - time < 20;
+      const currentTime = await setTimeFromToken(data);
+      const totalIntervals = 3;
+      const expired = currentTime - timeFromFirstToken < totalIntervals;
+      const isExpiredTime = !!timeFromFirstToken && expired;
       if (!isExpiredTime) {
         clearInterval(interval);
-        console.log('stop');
+        dispatch(setIsLoggedIn(false));
+        dispatch(setToken(''));
+        dispatch(setNameLoggedUserById(''));
+        localStorage.removeItem('user-name');
         navigate('/');
       }
-    }, 3000);
+    }, fiveMinutes);
 
     isSignUpForm ? dispatch(apiSliceSignUp(data)) : dispatch(apiSliceSignIn(data));
     reset();
