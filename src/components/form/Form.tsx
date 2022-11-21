@@ -45,11 +45,11 @@ const Form = (props: IFormProps) => {
     return time;
   };
   const onSubmit = async (data: FormValues) => {
-    const fiveMinutes = 1000 * 60 * 5;
+    const OneMinutes = 1000 * 60 * 1;
     const timeFromFirstToken = await setTimeFromToken(data);
     const interval = setInterval(async () => {
       const currentTime = await setTimeFromToken(data);
-      const totalIntervals = 3;
+      const totalIntervals = 1;
       const expired = currentTime - timeFromFirstToken < totalIntervals;
       const isExpiredTime = !!timeFromFirstToken && expired;
       if (!isExpiredTime) {
@@ -60,7 +60,7 @@ const Form = (props: IFormProps) => {
         localStorage.removeItem('user-name');
         navigate('/');
       }
-    }, fiveMinutes);
+    }, OneMinutes);
 
     isSignUpForm ? dispatch(apiSliceSignUp(data)) : dispatch(apiSliceSignIn(data));
     reset();
