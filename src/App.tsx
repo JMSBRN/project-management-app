@@ -1,4 +1,5 @@
 import { useAppSelector } from 'app/hooks';
+import Loader from 'components/loader/Loader';
 import Footer from 'containers/footer/Footer';
 import Header from 'containers/header/Header';
 import ProtectedRoutes from 'containers/protected-routes/ProtectedRoutes';
@@ -19,6 +20,7 @@ function App() {
   return (
     <>
       <AppWrapper>
+        <Loader isLoader={true} />
         <GlobalStyle />
         <Header isAuth={!!nameLoggedUserById} />
         <Routes>

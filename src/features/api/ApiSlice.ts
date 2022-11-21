@@ -124,11 +124,16 @@ const apiSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(apiSliceSignIn.pending, () => {})
+      .addCase(apiSliceSignIn.pending, () => {
+        console.log('pending sign in');
+      })
       .addCase(apiSliceSignIn.fulfilled, (state) => {
         state.nameLoggedUserById && (state.isloggedIn = true);
       })
       .addCase(apiSliceSignIn.rejected, () => {})
+      .addCase(apiSliceSignUp.pending, () => {
+        console.log('pending sign up');
+      })
       .addCase(apiSliceSignUp.fulfilled, (state) => {
         const isSignUpData = Object.values(state.userSignUpData).every((item) => item);
         if (isSignUpData) {
