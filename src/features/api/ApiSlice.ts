@@ -22,6 +22,7 @@ interface IinitState {
   nameLoggedUserById: string;
   idLoggedUser: string;
   deleteStatusMessage: string;
+  isLoader: boolean;
 }
 const initialState: IinitState = {
   isloggedIn: false,
@@ -35,6 +36,7 @@ const initialState: IinitState = {
     login: '',
   },
   deleteStatusMessage: '',
+  isLoader: false,
 };
 export const apiSliceSignIn = createAsyncThunk('api/sign-in-user', (user: IUser, { dispatch }) => {
   const data = apiSignIn(user);
@@ -121,12 +123,13 @@ const apiSlice = createSlice({
     setDeleteStatusMessage: (state, action) => {
       state.deleteStatusMessage = action.payload;
     },
+    setIsLoader: (state, action) => {
+      state.isLoader = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
-      .addCase(apiSliceSignIn.pending, () => {
-        console.log('pending sign in');
-      })
+      .addCase(apiSliceSignIn.pending, () => {})
       .addCase(apiSliceSignIn.fulfilled, (state) => {
         state.nameLoggedUserById && (state.isloggedIn = true);
       })
@@ -150,6 +153,7 @@ export const {
   setNameLoggedUserById,
   setIdLoggedUser,
   setDeleteStatusMessage,
+  setIsLoader,
 } = apiSlice.actions;
 export const selectApi = (state: RootState) => state.api;
 export default apiSlice.reducer;
