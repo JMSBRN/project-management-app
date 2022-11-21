@@ -16,11 +16,11 @@ import { AppWrapper, GlobalStyle } from './main.style';
 import './main.style.ts';
 
 function App() {
-  const { nameLoggedUserById } = useAppSelector(selectApi);
+  const { nameLoggedUserById, isLoader } = useAppSelector(selectApi);
   return (
     <>
       <AppWrapper>
-        <Loader isLoader={true} />
+        <Loader isLoader={isLoader} />
         <GlobalStyle />
         <Header isAuth={!!nameLoggedUserById} />
         <Routes>
