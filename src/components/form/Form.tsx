@@ -3,6 +3,7 @@ import { useAppDispatch } from 'app/hooks';
 import {
   apiSliceSignIn,
   apiSliceSignUp,
+  setIsLoader,
   setIsLoggedIn,
   setNameLoggedUserById,
   setToken,
@@ -45,6 +46,7 @@ const Form = (props: IFormProps) => {
     return time;
   };
   const onSubmit = async (data: FormValues) => {
+    dispatch(setIsLoader(true));
     const OneMinutes = 1000 * 60 * 1;
     const timeFromFirstToken = await setTimeFromToken(data);
     const interval = setInterval(async () => {

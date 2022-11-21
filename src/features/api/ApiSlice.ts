@@ -41,6 +41,7 @@ const initialState: IinitState = {
 export const apiSliceSignIn = createAsyncThunk('api/sign-in-user', (user: IUser, { dispatch }) => {
   const data = apiSignIn(user);
   data.then((data) => {
+    data.statusCode === 403 && dispatch(setErrorApiMessage(data.message));
     if (data.token) {
       dispatch(setToken(data.token));
       dispatch(setIsLoggedIn(true));
@@ -57,6 +58,7 @@ export const apiSliceSignIn = createAsyncThunk('api/sign-in-user', (user: IUser,
         dispatch(setErrorApiMessage(''));
       }, 3000);
     }
+    dispatch(setIsLoader(false));
   });
 });
 export const apiSliceSignUp = createAsyncThunk(
@@ -73,6 +75,7 @@ export const apiSliceSignUp = createAsyncThunk(
         dispatch(setErrorApiMessage(''));
       }, 3000);
     }
+    userSignUpData && dispatch(setIsLoader(false));
   }
 );
 export const apiSliceGetIdUser = createAsyncThunk(
