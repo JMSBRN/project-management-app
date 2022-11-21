@@ -1,11 +1,11 @@
 import React from 'react';
-import { LoaderWrapper } from './Loader.style';
+import { LoaderAnimation } from './Loader.style';
 
 interface ILoaderProps {
   isLoader: boolean;
 }
 const Loader = (props: ILoaderProps) => {
-  return <LoaderWrapper isLoader={props.isLoader}>Loader</LoaderWrapper>;
+  return <LoaderAnimation isLoader={props.isLoader} />;
 };
 
 export default Loader;
