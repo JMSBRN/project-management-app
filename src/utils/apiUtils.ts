@@ -49,7 +49,7 @@ export const signUp = async (user: IUser) => {
     });
     const data = await res.json();
     if (data.statusCode === 409) {
-      return data.message;
+      return data;
     } else if (data.statusCode === 404) {
       return;
     }
