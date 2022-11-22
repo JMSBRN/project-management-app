@@ -12,6 +12,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { ButtonWrapper, FormWrapper, InputWrapper, LabelWrapper } from './Form.style';
 import { apiSignIn, getTimeFromToken } from 'features/api/apiUtils';
 import { useNavigate } from 'react-router-dom';
+import { Api } from 'features/api/apiConstants';
 
 interface IFormProps {
   label: string;
@@ -47,7 +48,6 @@ const Form = (props: IFormProps) => {
   };
   const onSubmit = async (data: FormValues) => {
     dispatch(setLoader(true));
-    const OneMinutes = 1000 * 60 * 1;
     const timeFromFirstToken = await setTimeFromToken(data);
     const interval = setInterval(async () => {
       const currentTime = await setTimeFromToken(data);
@@ -62,7 +62,7 @@ const Form = (props: IFormProps) => {
         localStorage.removeItem('user-name');
         navigate('/');
       }
-    }, OneMinutes);
+    }, Api.MILLISECONDS_IN_A_MINUTE);
 
     isSignUpForm ? dispatch(apiSliceSignUp(data)) : dispatch(apiSliceSignIn(data));
     reset();
