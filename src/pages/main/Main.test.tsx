@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import Main from './Main';
 
 describe('<Main />', () => {
-  it('should be ', () => {
+  it('should be rendering correctly ', () => {
     render(
       <MemoryRouter>
         <Main />

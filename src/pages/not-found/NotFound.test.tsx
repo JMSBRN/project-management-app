@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import NotFound from './NotFound';
 
 describe('<NotFound />', () => {
-  it('should be ', () => {
+  it('should be rendering correctly ', () => {
     render(
       <MemoryRouter>
         <NotFound />

@@ -3,8 +3,8 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import Welcome from './Welcome';
 
-describe('<Baords />', () => {
-  it('should be ', () => {
+describe('<Welcome />', () => {
+  it('should be rendering correctly ', () => {
     render(
       <MemoryRouter>
         <Welcome />

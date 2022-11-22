@@ -18,7 +18,7 @@ function App() {
   const { userName, loading } = useAppSelector(selectApi);
   return (
     <>
-      <AppWrapper>
+      <AppWrapper data-testid="app">
         {loading && <Loader />}
         <GlobalStyle />
         <Header isAuth={!!userName} />

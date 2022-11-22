@@ -6,7 +6,7 @@ import { renderWithProviders } from 'utils/testUtils';
 import Header from './Header';
 
 describe('<Header />', () => {
-  it('should be ', () => {
+  it('should be rendering correctly with props ', () => {
     renderWithProviders(
       <MemoryRouter>
         <Header isAuth={false} />

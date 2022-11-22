@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import Language from './Language';
 
 describe('<Language />', () => {
-  it('should be ', () => {
+  it('should be rendering correctly ', () => {
     render(
       <MemoryRouter>
         <Language />

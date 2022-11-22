@@ -8,7 +8,7 @@ const changeBurgerMenu = () => {
 };
 
 describe('<Burger />', () => {
-  it('should be ', () => {
+  it('should be rendering correctly with props ', () => {
     render(
       <MemoryRouter>
         <Burger burger={true} changeBurgerMenu={changeBurgerMenu} />

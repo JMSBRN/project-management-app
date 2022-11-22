@@ -3,8 +3,8 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import Logo from './Logo';
 
-describe('<Link />', () => {
-  it('should be rendered correctly', () => {
+describe('<Logo/>', () => {
+  it('should be rendering correctly with props', () => {
     render(
       <MemoryRouter>
         <Logo />

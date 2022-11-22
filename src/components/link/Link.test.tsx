@@ -6,7 +6,7 @@ import { MemoryRouter } from 'react-router-dom';
 import Link from './Link';
 
 describe('<Link />', () => {
-  it('should be ', () => {
+  it('should be rendering correctly with props ', () => {
     render(
       <Provider store={store}>
         <MemoryRouter>

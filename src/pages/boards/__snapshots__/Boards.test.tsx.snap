@@ -1,3 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Boards /> should be  1`] = `[Function]`;
+exports[`<Boards /> should be rendering correctly 1`] = `[Function]`;

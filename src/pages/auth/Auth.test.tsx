@@ -6,7 +6,7 @@ import { store } from '../../app/store';
 import { MemoryRouter } from 'react-router-dom';
 
 describe('<Auth />', () => {
-  it('should be ', () => {
+  it('should be rendering correctly with props', () => {
     render(
       <MemoryRouter>
         <Provider store={store}>

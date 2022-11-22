@@ -1,10 +1,15 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import Board from './Board';
 
-describe('<Baords />', () => {
-  it('should be ', () => {
-    const { asFragment } = render(<Board />);
-    expect(asFragment).toMatchSnapshot();
+describe('<Board />', () => {
+  it('should be rendering correctly ', () => {
+    render(
+      <MemoryRouter>
+        <Board />
+      </MemoryRouter>
+    );
+    expect(screen.getByTestId('board')).toBeInTheDocument();
   });
 });
