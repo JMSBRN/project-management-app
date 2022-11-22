@@ -36,6 +36,7 @@ const EditProfile = () => {
   };
   return (
     <EditProfileWrapper>
+      <button onClick={() => dispatch(deleteUserThunk('kuuyiuy'))}>delete user</button>
       {isModal && (
         <DeletedUserModal>
           <Title>Please decide what you prefer totd with in this case</Title>

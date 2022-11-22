@@ -16,6 +16,7 @@ import teamlead from '../../assets/img/teamlead.png';
 import telegram from '../../assets/img/telegram.png';
 import linkedIn from '../../assets/img/linkedIn.png';
 import github from '../../assets/img/github.png';
+import { deleteUserThunk } from 'features/api/thunks/deleteUserThunk';
 
 const Welcome = () => {
   return (

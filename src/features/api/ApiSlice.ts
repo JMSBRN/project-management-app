@@ -54,8 +54,8 @@ const apiSlice = createSlice({
         state.userName && (state.authorised = true);
       })
       .addCase(signUpThunk.fulfilled, (state) => {
-        const isSignUpData = Object.values(state.userSignUpData).every((item) => item);
-        if (isSignUpData) {
+        const signUpDataProvided = Object.values(state.userSignUpData).every((item) => item);
+        if (signUpDataProvided) {
           state.authorised = true;
         }
       });

@@ -6,8 +6,7 @@ import { setUserSignUpData, setErrorApiMessage, setLoader } from '../ApiSlice';
 export const signUpThunk = createAsyncThunk(
   'api/sign-up-user',
   async (user: IUser, { dispatch }) => {
-    const data = signUp(user);
-    data.then((data) => {
+    await signUp(user).then((data) => {
       if (data.name) {
         dispatch(setUserSignUpData(data.name));
       } else {

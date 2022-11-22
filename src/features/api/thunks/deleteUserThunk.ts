@@ -5,11 +5,11 @@ import { setDeleteStatusMessage } from '../ApiSlice';
 export const deleteUserThunk = createAsyncThunk(
   'api/delete-user',
   async (id: string, { dispatch }) => {
-    const res = deleteUser(id);
-    const data = await res;
-    dispatch(setDeleteStatusMessage(data));
-    setTimeout(() => {
-      dispatch(setDeleteStatusMessage(''));
-    }, 3000);
+    await deleteUser(id).then((data) => {
+      dispatch(setDeleteStatusMessage(data));
+      setTimeout(() => {
+        dispatch(setDeleteStatusMessage(''));
+      }, 3000);
+    });
   }
 );
