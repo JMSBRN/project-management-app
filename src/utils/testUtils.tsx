@@ -2,9 +2,9 @@ import React, { PropsWithChildren } from 'react';
 import { render, RenderOptions } from '@testing-library/react';
 import { AppStore, RootState, setupStore } from 'app/store';
 import type { PreloadedState } from '@reduxjs/toolkit';
-import { Provider } from 'react-redux';
-import { apiSliceIinitState } from '../features/api/ApiSlice';
-import { userSliceInitState } from 'features/user/UserSlice';
+import { Provider } from 'react-redux';;
+import { apiSliceIinitState } from 'features/api/apiInterfaces';
+import { userSliceInitState } from 'features/user/userInterfaces';
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   preloadedState?: PreloadedState<RootState>;

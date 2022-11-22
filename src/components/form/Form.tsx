@@ -4,7 +4,7 @@ import {
   apiSliceSignIn,
   apiSliceSignUp,
   setLoader,
-  setIsLoggedIn,
+  setAuthorised,
   setUserName,
   setToken,
 } from 'features/api/ApiSlice';
@@ -56,7 +56,7 @@ const Form = (props: IFormProps) => {
       const isExpiredTime = !!timeFromFirstToken && expired;
       if (!isExpiredTime) {
         clearInterval(interval);
-        dispatch(setIsLoggedIn(false));
+        dispatch(setAuthorised(false));
         dispatch(setToken(''));
         dispatch(setUserName(''));
         localStorage.removeItem('user-name');

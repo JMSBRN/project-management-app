@@ -1,3 +1,4 @@
+import { IUser } from 'features/user/userInterfaces';
 import { Api } from '../features/api/apiConstants';
 const url = Api.API_URL;
 const urlUsers = `${url}/users`;
@@ -21,12 +22,6 @@ export const getUsers = async () => {
     return;
   }
 };
-export interface IUser {
-  id?: string;
-  name?: string;
-  login: string;
-  password: string;
-}
 export const getUserById = async (id: string) => {
   try {
     const res = await fetch(`${urlUsers}/${id}`, {

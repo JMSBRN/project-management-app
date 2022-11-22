@@ -5,7 +5,7 @@ import {
   apiSliceGetIdUser,
   apiSliceSignIn,
   selectApi,
-  setIsLoggedIn,
+  setAuthorised,
   setUserName,
   setToken,
 } from 'features/api/ApiSlice';
@@ -31,7 +31,7 @@ const EditProfile = () => {
     dispatch(apiSliceGetIdUser(data));
   };
   const handleSingOut = () => {
-    dispatch(setIsLoggedIn(false));
+    dispatch(setAuthorised(false));
     dispatch(setToken(''));
     dispatch(setUserName(''));
     localStorage.removeItem('user-name');

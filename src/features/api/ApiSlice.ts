@@ -1,31 +1,17 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
+import { IUser } from 'features/user/userInterfaces';
 import {
   apiSignIn,
   apiSignUp,
   deleteUser,
   getLoggedUserByIdName,
   getParsedJwt,
-  IUser,
 } from '../../utils/apiUtils';
+import { apiSliceIinitState } from './apiInterfaces';
 
-interface IUserSignUpData {
-  id: string;
-  name: string;
-  login: string;
-}
-export interface apiSliceIinitState {
-  isloggedIn: boolean;
-  token: string;
-  userSignUpData: IUserSignUpData;
-  errorApiMessage: string;
-  userName: string;
-  idLoggedUser: string;
-  deleteStatusMessage: string;
-  loading: boolean;
-}
 const initialState: apiSliceIinitState = {
-  isloggedIn: false,
+  authorised: false,
   errorApiMessage: '',
   userName: JSON.parse(localStorage.getItem('user-name') || '""'),
   idLoggedUser: '',
@@ -44,7 +30,7 @@ export const apiSliceSignIn = createAsyncThunk('api/sign-in-user', (user: IUser,
     data.statusCode === 403 && dispatch(setErrorApiMessage(data.message));
     if (data.token) {
       dispatch(setToken(data.token));
-      dispatch(setIsLoggedIn(true));
+      dispatch(setAuthorised(true));
       const loggedUserData = getParsedJwt(data.token);
       const id = loggedUserData && loggedUserData.userId;
       const userData = getLoggedUserByIdName(id as string);
@@ -110,8 +96,8 @@ const apiSlice = createSlice({
     setUserSignUpData: (state, action) => {
       state.userSignUpData = action.payload;
     },
-    setIsLoggedIn: (state, action) => {
-      state.isloggedIn = action.payload;
+    setAuthorised: (state, action) => {
+      state.authorised = action.payload;
     },
     setErrorApiMessage: (state, action) => {
       state.errorApiMessage = action.payload;
@@ -134,7 +120,7 @@ const apiSlice = createSlice({
     builder
       .addCase(apiSliceSignIn.pending, () => {})
       .addCase(apiSliceSignIn.fulfilled, (state) => {
-        state.userName && (state.isloggedIn = true);
+        state.userName && (state.authorised = true);
       })
       .addCase(apiSliceSignIn.rejected, () => {})
       .addCase(apiSliceSignUp.pending, () => {
@@ -143,7 +129,7 @@ const apiSlice = createSlice({
       .addCase(apiSliceSignUp.fulfilled, (state) => {
         const isSignUpData = Object.values(state.userSignUpData).every((item) => item);
         if (isSignUpData) {
-          state.isloggedIn = true;
+          state.authorised = true;
         }
       });
   },
@@ -151,7 +137,7 @@ const apiSlice = createSlice({
 export const {
   setToken,
   setUserSignUpData,
-  setIsLoggedIn,
+  setAuthorised,
   setErrorApiMessage,
   setUserName,
   setIdLoggedUser,
