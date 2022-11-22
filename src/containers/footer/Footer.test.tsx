@@ -2,8 +2,9 @@ import { render } from '@testing-library/react';
 import React from 'react';
 import Footer from './Footer';
 
-describe('<Header />', () => {
+describe('<Footer />', () => {
   it('should be ', () => {
-    render(<Footer />);
+    const { asFragment } = render(<Footer />);
+    expect(asFragment).toMatchSnapshot();
   });
 });

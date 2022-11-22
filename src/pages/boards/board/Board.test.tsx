@@ -4,6 +4,7 @@ import Board from './Board';
 
 describe('<Baords />', () => {
   it('should be ', () => {
-    render(<Board />);
+    const { asFragment } = render(<Board />);
+    expect(asFragment).toMatchSnapshot();
   });
 });

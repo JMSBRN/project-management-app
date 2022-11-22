@@ -2,8 +2,9 @@ import { render } from '@testing-library/react';
 import React from 'react';
 import Boards from './Boards';
 
-describe('<Baords />', () => {
+describe('<Boards />', () => {
   it('should be ', () => {
-    render(<Boards />);
+    const { asFragment } = render(<Boards />);
+    expect(asFragment).toMatchSnapshot();
   });
 });

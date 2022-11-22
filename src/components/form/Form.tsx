@@ -10,7 +10,7 @@ import {
 } from 'features/api/ApiSlice';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ButtonWrapper, FormWrapper, InputWrapper, LabelWrapper } from './Form.style';
-import { apiSignIn, getTimeFromToken } from 'features/api/apiUtils';
+import { apiSignIn, getTimeFromToken } from 'utils/apiUtils';
 import { useNavigate } from 'react-router-dom';
 import { Api } from 'features/api/apiConstants';
 

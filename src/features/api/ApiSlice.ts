@@ -7,14 +7,14 @@ import {
   getLoggedUserByIdName,
   getParsedJwt,
   IUser,
-} from './apiUtils';
+} from '../../utils/apiUtils';
 
 interface IUserSignUpData {
   id: string;
   name: string;
   login: string;
 }
-interface IinitState {
+export interface apiSliceIinitState {
   isloggedIn: boolean;
   token: string;
   userSignUpData: IUserSignUpData;
@@ -24,7 +24,7 @@ interface IinitState {
   deleteStatusMessage: string;
   loading: boolean;
 }
-const initialState: IinitState = {
+const initialState: apiSliceIinitState = {
   isloggedIn: false,
   errorApiMessage: '',
   userName: JSON.parse(localStorage.getItem('user-name') || '""'),

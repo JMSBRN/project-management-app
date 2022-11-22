@@ -4,6 +4,7 @@ import EditProfile from './EditProfile';
 
 describe('<EditProfile />', () => {
   it('should be ', () => {
-    render(<EditProfile />);
+    const { asFragment } = render(<EditProfile />);
+    expect(asFragment).toMatchSnapshot();
   });
 });

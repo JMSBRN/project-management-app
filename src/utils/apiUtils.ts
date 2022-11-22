@@ -1,4 +1,4 @@
-import { Api } from './apiConstants';
+import { Api } from '../features/api/apiConstants';
 const url = Api.API_URL;
 const urlUsers = `${url}/users`;
 const urlSignIn = `${url}/signin`;

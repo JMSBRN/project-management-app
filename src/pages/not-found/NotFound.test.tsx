@@ -1,15 +1,16 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
-import Welcome from './Welcome';
+import NotFound from './NotFound';
 
-describe('<Baords />', () => {
+describe('<NotFound />', () => {
   it('should be ', () => {
     render(
       <MemoryRouter>
-        <Welcome />
+        <NotFound />
       </MemoryRouter>
     );
-    expect(screen.getByText(/Teem/i)).toBeInTheDocument();
+    expect(screen.getByText(/Page not Found/i)).toBeInTheDocument();
+    expect(screen.getByText(/Back/i)).toHaveAttribute('href', '/main');
   });
 });
