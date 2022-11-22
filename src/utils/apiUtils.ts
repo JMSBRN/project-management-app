@@ -37,7 +37,7 @@ export const getUserById = async (id: string) => {
     return;
   }
 };
-export const apiSignUp = async (user: IUser) => {
+export const signUp = async (user: IUser) => {
   try {
     const res = await fetch(urlSignUp, {
       method: 'POST',
@@ -59,7 +59,7 @@ export const apiSignUp = async (user: IUser) => {
     return;
   }
 };
-export const apiSignIn = async (user: IUser) => {
+export const signIn = async (user: IUser) => {
   try {
     const res = await fetch(urlSignIn, {
       method: 'POST',

@@ -1,14 +1,9 @@
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import Form, { FormValues } from 'components/form/Form';
-import {
-  apiSliceDeleteUser,
-  apiSliceGetIdUser,
-  apiSliceSignIn,
-  selectApi,
-  setAuthorised,
-  setUserName,
-  setToken,
-} from 'features/api/ApiSlice';
+import { selectApi, setAuthorised, setUserName, setToken } from 'features/api/ApiSlice';
+import { deleteUserThunk } from 'features/api/thunks/deleteUserThunk';
+import { getUserIdThunk } from 'features/api/thunks/getUserIdThunk';
+import { signInThunk } from 'features/api/thunks/signInThunk';
 import React, { useState } from 'react';
 import {
   Btn,
@@ -27,8 +22,8 @@ const EditProfile = () => {
   const [isModal, setIsModal] = useState(false);
 
   const onSubmit = (data: FormValues) => {
-    dispatch(apiSliceSignIn(data));
-    dispatch(apiSliceGetIdUser(data));
+    dispatch(signInThunk(data));
+    dispatch(getUserIdThunk(data));
   };
   const handleSingOut = () => {
     dispatch(setAuthorised(false));
@@ -37,7 +32,7 @@ const EditProfile = () => {
     localStorage.removeItem('user-name');
   };
   const handleDeleUser = () => {
-    dispatch(apiSliceDeleteUser(idLoggedUser));
+    dispatch(deleteUserThunk(idLoggedUser));
   };
   return (
     <EditProfileWrapper>

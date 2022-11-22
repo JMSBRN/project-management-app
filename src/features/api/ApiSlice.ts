@@ -1,14 +1,8 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
-import { IUser } from 'features/user/userInterfaces';
-import {
-  apiSignIn,
-  apiSignUp,
-  deleteUser,
-  getLoggedUserByIdName,
-  getParsedJwt,
-} from '../../utils/apiUtils';
 import { apiSliceIinitState } from './apiInterfaces';
+import { signInThunk } from './thunks/signInThunk';
+import { signUpThunk } from './thunks/signUpThunk';
 
 const initialState: apiSliceIinitState = {
   authorised: false,
@@ -24,68 +18,6 @@ const initialState: apiSliceIinitState = {
   deleteStatusMessage: '',
   loading: false,
 };
-export const apiSliceSignIn = createAsyncThunk('api/sign-in-user', (user: IUser, { dispatch }) => {
-  const data = apiSignIn(user);
-  data.then((data) => {
-    data.statusCode === 403 && dispatch(setErrorApiMessage(data.message));
-    if (data.token) {
-      dispatch(setToken(data.token));
-      dispatch(setAuthorised(true));
-      const loggedUserData = getParsedJwt(data.token);
-      const id = loggedUserData && loggedUserData.userId;
-      const userData = getLoggedUserByIdName(id as string);
-      userData.then((name) => {
-        dispatch(setUserName(name));
-      });
-    } else if (data.message) {
-      const message = data.message;
-      dispatch(setErrorApiMessage(message));
-      setTimeout(() => {
-        dispatch(setErrorApiMessage(''));
-      }, 3000);
-    }
-    dispatch(setLoader(false));
-  });
-});
-export const apiSliceSignUp = createAsyncThunk(
-  'api/sign-up-user',
-  async (user: IUser, { dispatch }) => {
-    const data = apiSignUp(user);
-    const userSignUpData = await data;
-    if (userSignUpData.name) {
-      dispatch(setUserSignUpData(userSignUpData));
-    } else {
-      const message = await data;
-      dispatch(setErrorApiMessage(message));
-      setTimeout(() => {
-        dispatch(setErrorApiMessage(''));
-      }, 3000);
-    }
-    userSignUpData && dispatch(setLoader(false));
-  }
-);
-export const apiSliceGetIdUser = createAsyncThunk(
-  'api/get-id-user',
-  async (user: IUser, { dispatch }) => {
-    const res = apiSignIn(user);
-    const data = await res;
-    const token = data.token;
-    const loggedUserData = getParsedJwt(token);
-    const id = loggedUserData && loggedUserData.userId;
-    dispatch(setIdLoggedUser(id));
-  }
-);
-export const apiSliceDeleteUser = createAsyncThunk(
-  'api/delete-user',
-  async (id: string, { dispatch }) => {
-    const res = deleteUser(id);
-    const data = await res;
-    dispatch(setDeleteStatusMessage(data));
-    setTimeout(() => {
-      dispatch(setDeleteStatusMessage(''));
-    }, 3000);
-  }
-);
 const apiSlice = createSlice({
   name: 'api',
   initialState,
@@ -118,15 +50,10 @@ const apiSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(apiSliceSignIn.pending, () => {})
-      .addCase(apiSliceSignIn.fulfilled, (state) => {
+      .addCase(signInThunk.fulfilled, (state) => {
         state.userName && (state.authorised = true);
       })
-      .addCase(apiSliceSignIn.rejected, () => {})
-      .addCase(apiSliceSignUp.pending, () => {
-        console.log('pending sign up');
-      })
-      .addCase(apiSliceSignUp.fulfilled, (state) => {
+      .addCase(signUpThunk.fulfilled, (state) => {
         const isSignUpData = Object.values(state.userSignUpData).every((item) => item);
         if (isSignUpData) {
           state.authorised = true;

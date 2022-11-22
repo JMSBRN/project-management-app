@@ -1,18 +1,13 @@
 import React from 'react';
 import { useAppDispatch } from 'app/hooks';
-import {
-  apiSliceSignIn,
-  apiSliceSignUp,
-  setLoader,
-  setAuthorised,
-  setUserName,
-  setToken,
-} from 'features/api/ApiSlice';
+import { setLoader, setAuthorised, setUserName, setToken } from 'features/api/ApiSlice';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ButtonWrapper, FormWrapper, InputWrapper, LabelWrapper } from './Form.style';
-import { apiSignIn, getTimeFromToken } from 'utils/apiUtils';
+import { signIn, getTimeFromToken } from 'utils/apiUtils';
 import { useNavigate } from 'react-router-dom';
 import { Api } from 'features/api/apiConstants';
+import { signInThunk } from 'features/api/thunks/signInThunk';
+import { signUpThunk } from 'features/api/thunks/signUpThunk';
 
 interface IFormProps {
   label: string;
@@ -40,7 +35,7 @@ const Form = (props: IFormProps) => {
     mode: 'onChange',
   });
   const setTimeFromToken = async (data: FormValues) => {
-    const res = await apiSignIn(data);
+    const res = await signIn(data);
     const userData = await res;
     const currentToken = await userData.token;
     const time: number = await getTimeFromToken(currentToken);
@@ -64,7 +59,7 @@ const Form = (props: IFormProps) => {
       }
     }, Api.MILLISECONDS_IN_A_MINUTE);
 
-    isSignUpForm ? dispatch(apiSliceSignUp(data)) : dispatch(apiSliceSignIn(data));
+    isSignUpForm ? dispatch(signUpThunk(data)) : dispatch(signInThunk(data));
     reset();
   };
   return (
