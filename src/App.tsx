@@ -1,5 +1,4 @@
 import { useAppSelector } from 'app/hooks';
-import Loader from 'components/loader/Loader';
 import Footer from 'containers/footer/Footer';
 import Header from 'containers/header/Header';
 import ProtectedRoutes from 'containers/protected-routes/ProtectedRoutes';
@@ -12,7 +11,7 @@ import NotFound from 'pages/not-found/NotFound';
 import Welcome from 'pages/welcome/Welcome';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { AppWrapper, GlobalStyle } from './main.style';
+import { AppWrapper, GlobalStyle, Loader } from './main.style';
 import './main.style.ts';
 
 function App() {
@@ -20,7 +19,7 @@ function App() {
   return (
     <>
       <AppWrapper>
-        <Loader isLoader={isLoader} />
+        {isLoader && <Loader />}
         <GlobalStyle />
         <Header isAuth={!!nameLoggedUserById} />
         <Routes>
