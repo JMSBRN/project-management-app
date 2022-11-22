@@ -15,29 +15,29 @@ import { AppWrapper, GlobalStyle, Loader } from './main.style';
 import './main.style.ts';
 
 function App() {
-  const { nameLoggedUserById, isLoader } = useAppSelector(selectApi);
+  const { userName, loading } = useAppSelector(selectApi);
   return (
     <>
       <AppWrapper>
-        {isLoader && <Loader />}
+        {loading && <Loader />}
         <GlobalStyle />
-        <Header isAuth={!!nameLoggedUserById} />
+        <Header isAuth={!!userName} />
         <Routes>
           <Route index element={<Welcome />} />
           <Route
             path="/auth-sign-in"
-            element={!!nameLoggedUserById ? <Main /> : <Auth isSingInForm={true} />}
+            element={!!userName ? <Main /> : <Auth isSingInForm={true} />}
           />
           <Route
             path="/auth-sign-up"
-            element={!!nameLoggedUserById ? <Main /> : <Auth isSingInForm={false} />}
+            element={!!userName ? <Main /> : <Auth isSingInForm={false} />}
           />
           <Route path="*" element={<NotFound />} />
           <Route
             element={
               <ProtectedRoutes
                 auth={{
-                  isAuthenticated: !!nameLoggedUserById,
+                  isAuthenticated: !!userName,
                 }}
               />
             }

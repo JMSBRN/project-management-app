@@ -19,15 +19,15 @@ interface IinitState {
   token: string;
   userSignUpData: IUserSignUpData;
   errorApiMessage: string;
-  nameLoggedUserById: string;
+  userName: string;
   idLoggedUser: string;
   deleteStatusMessage: string;
-  isLoader: boolean;
+  loading: boolean;
 }
 const initialState: IinitState = {
   isloggedIn: false,
   errorApiMessage: '',
-  nameLoggedUserById: JSON.parse(localStorage.getItem('user-name') || '""'),
+  userName: JSON.parse(localStorage.getItem('user-name') || '""'),
   idLoggedUser: '',
   token: '',
   userSignUpData: {
@@ -36,7 +36,7 @@ const initialState: IinitState = {
     login: '',
   },
   deleteStatusMessage: '',
-  isLoader: false,
+  loading: false,
 };
 export const apiSliceSignIn = createAsyncThunk('api/sign-in-user', (user: IUser, { dispatch }) => {
   const data = apiSignIn(user);
@@ -49,7 +49,7 @@ export const apiSliceSignIn = createAsyncThunk('api/sign-in-user', (user: IUser,
       const id = loggedUserData && loggedUserData.userId;
       const userData = getLoggedUserByIdName(id as string);
       userData.then((name) => {
-        dispatch(setNameLoggedUserById(name));
+        dispatch(setUserName(name));
       });
     } else if (data.message) {
       const message = data.message;
@@ -58,7 +58,7 @@ export const apiSliceSignIn = createAsyncThunk('api/sign-in-user', (user: IUser,
         dispatch(setErrorApiMessage(''));
       }, 3000);
     }
-    dispatch(setIsLoader(false));
+    dispatch(setLoader(false));
   });
 });
 export const apiSliceSignUp = createAsyncThunk(
@@ -75,7 +75,7 @@ export const apiSliceSignUp = createAsyncThunk(
         dispatch(setErrorApiMessage(''));
       }, 3000);
     }
-    userSignUpData && dispatch(setIsLoader(false));
+    userSignUpData && dispatch(setLoader(false));
   }
 );
 export const apiSliceGetIdUser = createAsyncThunk(
@@ -119,22 +119,22 @@ const apiSlice = createSlice({
     setIdLoggedUser: (state, action) => {
       state.idLoggedUser = action.payload;
     },
-    setNameLoggedUserById: (state, action) => {
-      state.nameLoggedUserById = action.payload;
-      localStorage.setItem('user-name', JSON.stringify(state.nameLoggedUserById));
+    setUserName: (state, action) => {
+      state.userName = action.payload;
+      localStorage.setItem('user-name', JSON.stringify(state.userName));
     },
     setDeleteStatusMessage: (state, action) => {
       state.deleteStatusMessage = action.payload;
     },
-    setIsLoader: (state, action) => {
-      state.isLoader = action.payload;
+    setLoader: (state, action) => {
+      state.loading = action.payload;
     },
   },
   extraReducers(builder) {
     builder
       .addCase(apiSliceSignIn.pending, () => {})
       .addCase(apiSliceSignIn.fulfilled, (state) => {
-        state.nameLoggedUserById && (state.isloggedIn = true);
+        state.userName && (state.isloggedIn = true);
       })
       .addCase(apiSliceSignIn.rejected, () => {})
       .addCase(apiSliceSignUp.pending, () => {
@@ -153,10 +153,10 @@ export const {
   setUserSignUpData,
   setIsLoggedIn,
   setErrorApiMessage,
-  setNameLoggedUserById,
+  setUserName,
   setIdLoggedUser,
   setDeleteStatusMessage,
-  setIsLoader,
+  setLoader,
 } = apiSlice.actions;
 export const selectApi = (state: RootState) => state.api;
 export default apiSlice.reducer;

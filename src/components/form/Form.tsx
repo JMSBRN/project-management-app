@@ -3,9 +3,9 @@ import { useAppDispatch } from 'app/hooks';
 import {
   apiSliceSignIn,
   apiSliceSignUp,
-  setIsLoader,
+  setLoader,
   setIsLoggedIn,
-  setNameLoggedUserById,
+  setUserName,
   setToken,
 } from 'features/api/ApiSlice';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -46,7 +46,7 @@ const Form = (props: IFormProps) => {
     return time;
   };
   const onSubmit = async (data: FormValues) => {
-    dispatch(setIsLoader(true));
+    dispatch(setLoader(true));
     const OneMinutes = 1000 * 60 * 1;
     const timeFromFirstToken = await setTimeFromToken(data);
     const interval = setInterval(async () => {
@@ -58,7 +58,7 @@ const Form = (props: IFormProps) => {
         clearInterval(interval);
         dispatch(setIsLoggedIn(false));
         dispatch(setToken(''));
-        dispatch(setNameLoggedUserById(''));
+        dispatch(setUserName(''));
         localStorage.removeItem('user-name');
         navigate('/');
       }
