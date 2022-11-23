@@ -99,7 +99,7 @@ const Boards = () => {
             setBoards={setBoards}
           />
         )}
-        {isDelete && <ModalDelete setisDelete={setisDelete} setDeleteBoard={setDeleteBoard} />}
+        {isDelete && <ModalDelete setisDelete={setisDelete} setDelete={setDeleteBoard} />}
       </BardsWrapper>
     </Wrapper>
   );

@@ -1,19 +1,12 @@
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import Form, { FormValues } from 'components/form/Form';
+import ModalDelete from 'components/modalDelete/ModalDelete';
 import { selectApi, setSignOut } from 'features/api/ApiSlice';
 import { deleteUserThunk } from 'features/api/thunks/deleteUserThunk';
 import { getUserIdThunk } from 'features/api/thunks/getUserIdThunk';
 import { signInThunk } from 'features/api/thunks/signInThunk';
 import React, { useState } from 'react';
-import {
-  Btn,
-  BtnWrapper,
-  CloseBtn,
-  DeletedUserModal,
-  EditProfileWrapper,
-  ErrorMessage,
-  Title,
-} from './EditProfile.style';
+import { EditProfileWrapper, ErrorMessage } from './EditProfile.style';
 
 const EditProfile = () => {
   const dispatch = useAppDispatch();
@@ -27,19 +20,11 @@ const EditProfile = () => {
   };
   const handleDeleUser = () => {
     dispatch(deleteUserThunk(loggedUserId));
+    dispatch(setSignOut());
   };
   return (
     <EditProfileWrapper>
-      {isModal && (
-        <DeletedUserModal>
-          <Title>Please decide what you prefer totd with in this case</Title>
-          <BtnWrapper>
-            <CloseBtn onClick={() => setIsModal(false)}>close</CloseBtn>
-            <Btn onClick={() => dispatch(setSignOut())}>sign-out</Btn>
-            <Btn onClick={() => handleDeleUser()}>delete from base</Btn>
-          </BtnWrapper>
-        </DeletedUserModal>
-      )}
+      {isModal && <ModalDelete setDelete={handleDeleUser} setisDelete={setIsModal} />}
       <ErrorMessage>
         {errorApiMessage}
         {deleteStatusMessage === 'No Content'
