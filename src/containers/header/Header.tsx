@@ -34,7 +34,7 @@ const Header = (props: IProps) => {
         <Logo />
         <Name>{userName}</Name>
         <LinksNavWrapper scroll={scroll} isAuth={props.isAuth} burger={burger}>
-          {boards ? (
+          {boards || userName ? (
             <>
               <Language />
               <Link to="/edit-profile" text="edit profile" />
