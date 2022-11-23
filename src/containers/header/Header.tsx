@@ -3,10 +3,10 @@ import Burger from 'components/burger/Burger';
 import Language from 'components/Language/Language';
 import Link from 'components/link/Link';
 import Logo from 'components/logo/Logo';
-import { selectApi, setSignOut } from 'features/api/ApiSlice';
+import { selectApi, setBoards, setSignOut } from 'features/api/ApiSlice';
 import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { LinksNavWrapper, HeadersWrapper } from './Header.style';
+import { LinksNavWrapper, HeadersWrapper, Name } from './Header.style';
 
 interface IProps {
   isAuth: boolean;
@@ -14,7 +14,7 @@ interface IProps {
 
 const Header = (props: IProps) => {
   const dispatch = useAppDispatch();
-  const { userName } = useAppSelector(selectApi);
+  const { userName, boards } = useAppSelector(selectApi);
   const [burger, setBurger] = useState(false);
   const [scroll, setScroll] = useState(0);
 
@@ -32,9 +32,9 @@ const Header = (props: IProps) => {
     <>
       <HeadersWrapper scroll={scroll}>
         <Logo />
-        <div className="">{userName}</div>
+        <Name>{userName}</Name>
         <LinksNavWrapper scroll={scroll} isAuth={props.isAuth} burger={burger}>
-          {props.isAuth ? (
+          {boards ? (
             <>
               <Language />
               <Link to="/edit-profile" text="edit profile" />
@@ -43,6 +43,10 @@ const Header = (props: IProps) => {
                 <Link to="/" text="sign out" />
               </div>
             </>
+          ) : props.isAuth ? (
+            <div onClick={() => dispatch(setBoards(true))}>
+              <Link text={'go to boards'} to={'/boards'} />
+            </div>
           ) : (
             <>
               <Language />

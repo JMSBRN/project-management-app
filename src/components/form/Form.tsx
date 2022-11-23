@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppDispatch } from 'app/hooks';
-import { setLoader } from 'features/api/ApiSlice';
+import { setAuthorised, setLoader } from 'features/api/ApiSlice';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ButtonWrapper, FormWrapper, InputWrapper, LabelWrapper } from './Form.style';
 import { signInThunk } from 'features/api/thunks/signInThunk';
@@ -11,7 +11,7 @@ interface IFormProps {
   label: string;
   isEditProfileForm?: boolean;
   onClickDeletUserBtn?: () => void;
-  onSumiteEditProfeileForm?: SubmitHandler<FormValues>;
+  onSubmiteEditProfeileForm?: SubmitHandler<FormValues>;
   isGetIdUser?: boolean;
 }
 export interface FormValues {
@@ -38,7 +38,7 @@ const Form = (props: IFormProps) => {
   };
   return (
     <FormWrapper
-      onSubmit={handleSubmit(props.isEditProfileForm ? props.onSumiteEditProfeileForm! : onSubmit)}
+      onSubmit={handleSubmit(props.isEditProfileForm ? props.onSubmiteEditProfeileForm! : onSubmit)}
     >
       {props.label}
       {isSignUpForm && (

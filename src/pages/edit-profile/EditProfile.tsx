@@ -6,10 +6,12 @@ import { deleteUserThunk } from 'features/api/thunks/deleteUserThunk';
 import { getUserIdThunk } from 'features/api/thunks/getUserIdThunk';
 import { signInThunk } from 'features/api/thunks/signInThunk';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { EditProfileWrapper, ErrorMessage } from './EditProfile.style';
 
 const EditProfile = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { errorApiMessage, deleteStatusMessage } = useAppSelector(selectApi);
   const { loggedUserId } = useAppSelector(selectApi);
   const [isModal, setIsModal] = useState(false);
@@ -21,6 +23,7 @@ const EditProfile = () => {
   const handleDeleUser = () => {
     dispatch(deleteUserThunk(loggedUserId));
     dispatch(setSignOut());
+    navigate('/');
   };
   return (
     <EditProfileWrapper>
@@ -33,7 +36,7 @@ const EditProfile = () => {
       </ErrorMessage>
       <Form
         onClickDeletUserBtn={() => setIsModal(true)}
-        onSumiteEditProfeileForm={onSubmit}
+        onSubmiteEditProfeileForm={onSubmit}
         isGetIdUser={!!loggedUserId}
         label={'edit profile form'}
         isEditProfileForm={true}
