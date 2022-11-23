@@ -9,7 +9,7 @@ export interface apiSliceIinitState {
   userSignUpData: IUserSignUpData;
   errorApiMessage: string;
   userName: string;
-  idLoggedUser: string;
+  loggedUserId: string;
   deleteStatusMessage: string;
   loading: boolean;
 }

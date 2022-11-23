@@ -3,7 +3,7 @@ import Burger from 'components/burger/Burger';
 import Language from 'components/Language/Language';
 import Link from 'components/link/Link';
 import Logo from 'components/logo/Logo';
-import { selectApi, setAuthorised, setUserName, setToken } from 'features/api/ApiSlice';
+import { selectApi, setSignOut } from 'features/api/ApiSlice';
 import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { LinksNavWrapper, HeadersWrapper } from './Header.style';
@@ -26,10 +26,7 @@ const Header = (props: IProps) => {
     burger ? setBurger(false) : setBurger(true);
   };
   const handleSingOut = () => {
-    dispatch(setAuthorised(false));
-    dispatch(setToken(''));
-    dispatch(setUserName(''));
-    localStorage.removeItem('user-name');
+    dispatch(setSignOut());
   };
   return (
     <>

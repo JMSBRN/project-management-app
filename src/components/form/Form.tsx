@@ -1,13 +1,11 @@
 import React from 'react';
 import { useAppDispatch } from 'app/hooks';
-import { setLoader, setAuthorised, setUserName, setToken } from 'features/api/ApiSlice';
+import { setLoader } from 'features/api/ApiSlice';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ButtonWrapper, FormWrapper, InputWrapper, LabelWrapper } from './Form.style';
-import { signIn, getTimeFromToken } from 'utils/apiUtils';
-import { useNavigate } from 'react-router-dom';
-import { Api } from 'features/api/apiConstants';
 import { signInThunk } from 'features/api/thunks/signInThunk';
 import { signUpThunk } from 'features/api/thunks/signUpThunk';
+import { refreshTokenThunk } from 'features/api/thunks/refreshTokenThunk';
 
 interface IFormProps {
   label: string;
@@ -21,9 +19,7 @@ export interface FormValues {
   login: string;
   password: string;
 }
-
 const Form = (props: IFormProps) => {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const isSignUpForm = props.label === 'sign up Form';
   const {
@@ -34,31 +30,9 @@ const Form = (props: IFormProps) => {
   } = useForm<FormValues>({
     mode: 'onChange',
   });
-  const setTimeFromToken = async (data: FormValues) => {
-    const res = await signIn(data);
-    const userData = await res;
-    const currentToken = await userData.token;
-    const time: number = await getTimeFromToken(currentToken);
-    return time;
-  };
   const onSubmit = async (data: FormValues) => {
     dispatch(setLoader(true));
-    const timeFromFirstToken = await setTimeFromToken(data);
-    const interval = setInterval(async () => {
-      const currentTime = await setTimeFromToken(data);
-      const totalIntervals = 1;
-      const expired = currentTime - timeFromFirstToken < totalIntervals;
-      const isExpiredTime = !!timeFromFirstToken && expired;
-      if (!isExpiredTime) {
-        clearInterval(interval);
-        dispatch(setAuthorised(false));
-        dispatch(setToken(''));
-        dispatch(setUserName(''));
-        localStorage.removeItem('user-name');
-        navigate('/');
-      }
-    }, Api.MILLISECONDS_IN_A_MINUTE);
-
+    dispatch(refreshTokenThunk(data));
     isSignUpForm ? dispatch(signUpThunk(data)) : dispatch(signInThunk(data));
     reset();
   };

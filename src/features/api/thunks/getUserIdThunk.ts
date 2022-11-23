@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { IUser } from 'features/user/userInterfaces';
 import { signIn, getParsedJwt } from 'utils/apiUtils';
-import { setIdLoggedUser } from '../ApiSlice';
+import { setLoggedUserId } from '../ApiSlice';
 
 export const getUserIdThunk = createAsyncThunk(
   'api/get-id-user',
@@ -10,7 +10,7 @@ export const getUserIdThunk = createAsyncThunk(
       if (data.token) {
         const loggedUserData = getParsedJwt(data.token);
         const id = loggedUserData && loggedUserData.userId;
-        dispatch(setIdLoggedUser(id));
+        dispatch(setLoggedUserId(id));
       }
     });
   }

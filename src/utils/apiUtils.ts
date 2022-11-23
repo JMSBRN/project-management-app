@@ -1,3 +1,4 @@
+import { FormValues } from 'components/form/Form';
 import { IUser } from 'features/user/userInterfaces';
 import { Api } from '../features/api/apiConstants';
 const url = Api.API_URL;
@@ -101,14 +102,22 @@ export const getParsedJwt = <T extends object = { [k: string]: string | number }
     return undefined;
   }
 };
-export const getLoggedUserByIdName = async (id: string) => {
-  const user = getUserById(id);
-  const userName = await user;
-  const name = await userName.name;
+export const getUserName = async (id: string) => {
+  let name = '';
+  await getUserById(id).then((user) => {
+    name = user.name;
+  });
   return name;
 };
 export const getTimeFromToken = async (token: string) => {
   const parsedJwt = getParsedJwt(token);
   const timeFromToken = parsedJwt?.iat as number;
   return timeFromToken;
+};
+export const setTimeFromToken = async (data: FormValues) => {
+  let time = 0;
+  await signIn(data).then(async (data) => {
+    time = await getTimeFromToken(data.token);
+  });
+  return time;
 };

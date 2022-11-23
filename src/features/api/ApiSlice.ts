@@ -8,7 +8,7 @@ const initialState: apiSliceIinitState = {
   authorised: false,
   errorApiMessage: '',
   userName: JSON.parse(localStorage.getItem('user-name') || '""'),
-  idLoggedUser: '',
+  loggedUserId: '',
   token: '',
   userSignUpData: {
     id: '',
@@ -34,8 +34,8 @@ const apiSlice = createSlice({
     setErrorApiMessage: (state, action) => {
       state.errorApiMessage = action.payload;
     },
-    setIdLoggedUser: (state, action) => {
-      state.idLoggedUser = action.payload;
+    setLoggedUserId: (state, action) => {
+      state.loggedUserId = action.payload;
     },
     setUserName: (state, action) => {
       state.userName = action.payload;
@@ -46,6 +46,12 @@ const apiSlice = createSlice({
     },
     setLoader: (state, action) => {
       state.loading = action.payload;
+    },
+    setSignOut: (state) => {
+      state.authorised = false;
+      state.token = '';
+      state.userName = '';
+      localStorage.removeItem('user-name');
     },
   },
   extraReducers(builder) {
@@ -67,9 +73,10 @@ export const {
   setAuthorised,
   setErrorApiMessage,
   setUserName,
-  setIdLoggedUser,
+  setLoggedUserId,
   setDeleteStatusMessage,
   setLoader,
+  setSignOut,
 } = apiSlice.actions;
 export const selectApi = (state: RootState) => state.api;
 export default apiSlice.reducer;
