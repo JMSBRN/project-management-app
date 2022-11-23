@@ -3,13 +3,15 @@ import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { store } from './app/store';
 import App from './App';
+import { MemoryRouter } from 'react-router-dom';
 
-test('renders learn react link', () => {
+test('<App /> should be rendered correctly', () => {
   render(
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <MemoryRouter>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </MemoryRouter>
   );
-
-  expect(screen.getByText(/app/i)).toBeInTheDocument();
+  expect(screen.getByTestId('app')).toBeInTheDocument();
 });

@@ -102,7 +102,7 @@ const Board = () => {
   const [columns, setColumns] = useState<IColumns>(columnsFromBackend);
   return (
     <DragDropContext onDragEnd={(result) => onDragEnd(result, columns, setColumns)}>
-      <Container>
+      <Container data-testid="board">
         <TaskColumnStyles>
           {Object.entries(columns).map(([columnId, column]) => {
             return (

@@ -1,9 +1,15 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import Welcome from './Welcome';
 
-describe('<Baords />', () => {
-  it('should be ', () => {
-    render(<Welcome />);
+describe('<Welcome />', () => {
+  it('should be rendering correctly ', () => {
+    render(
+      <MemoryRouter>
+        <Welcome />
+      </MemoryRouter>
+    );
+    expect(screen.getByText(/Teem/i)).toBeInTheDocument();
   });
 });
