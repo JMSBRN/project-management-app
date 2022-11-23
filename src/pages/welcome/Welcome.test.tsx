@@ -1,9 +1,9 @@
-import { render } from "@testing-library/react";
-import React from "react";
-import Welcome from "./Welcome";
+import { render } from '@testing-library/react';
+import React from 'react';
+import Welcome from './Welcome';
 
-describe("<Baords />", () => {
-  it("should be ", () => {
+describe('<Baords />', () => {
+  it('should be ', () => {
     render(<Welcome />);
   });
 });
