@@ -4,6 +4,7 @@ import Header from 'containers/header/Header';
 import ProtectedRoutes from 'containers/protected-routes/ProtectedRoutes';
 import { selectApi } from 'features/api/ApiSlice';
 import Auth from 'pages/auth/Auth';
+import Board from 'pages/boards/board/Board';
 import Boards from 'pages/boards/Boards';
 import EditProfile from 'pages/edit-profile/EditProfile';
 import Main from 'pages/main/Main';
@@ -45,6 +46,7 @@ function App() {
             <Route path="/main" element={<Main />} />
             <Route path="/boards" element={<Boards />} />
             <Route path="/edit-profile" element={<EditProfile />} />
+            <Route path="/board" element={<Board />} />
           </Route>
         </Routes>
         <Footer />

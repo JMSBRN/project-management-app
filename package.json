@@ -16,14 +16,13 @@
     "lint-staged": "^12.4.1",
     "prettier": "^2.6.2",
     "react": "^18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.39.4",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
-    "styled-components": "^5.3.6",
-    "uuid": "^9.0.0",
-    "react-beautiful-dnd": "^13.1.1"
+    "styled-components": "^5.3.6"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -52,7 +51,6 @@
   },
   "devDependencies": {
     "@types/react-beautiful-dnd": "^13.1.2",
-    "@types/uuid": "^8.3.4",
     "@types/styled-components": "^5.1.26",
     "@typescript-eslint/eslint-plugin": "^5.22.0",
     "@typescript-eslint/parser": "^5.22.0",
