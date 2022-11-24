@@ -15,7 +15,6 @@ import editColumn from '../../../assets/img/edit.png';
 import deleteColumn from '../../../assets/img/delete.png';
 import ModalDelete from 'components/modalDelete/ModalDelete';
 import ColumnForm from 'components/columnForm/ColumnForm';
-import TaskCard from './taskCard/TaskCard ';
 
 export interface IData {
   id: string;
@@ -78,13 +77,10 @@ const onDragEnd = (
 ) => {
   if (!result.destination) return;
   const { source, destination } = result;
-  console.log(source, 'sours');
-  console.log(destination, 'destination');
   if (source.index !== destination.index) {
     const temp1 = columns[source.index];
     columns[source.index] = columns[destination.index];
     columns[destination.index] = temp1;
-    console.log(columns);
     return setColumns(columns);
   }
 };
@@ -97,13 +93,12 @@ const Board = () => {
   const [ColumnId, setColumnId] = useState<null | number>(null);
 
   useEffect(() => {
-    console.log(columns);
     const deleteColumn = (id: number) => {
       if (DeleteColumn) {
-        const newBoards = columns.filter((n, index) => {
+        const newColumns = columns.filter((n, index) => {
           return index !== id;
         });
-        setColumns(newBoards);
+        setColumns(newColumns);
       }
     };
     if (DeleteColumn) {
@@ -179,7 +174,7 @@ const Board = () => {
           )}
         </TaskColumnStyles>
       </Container>
-      {isDelete && <ModalDelete setisDelete={setisDelete} setDeleteBoard={setDeleteColumn} />}
+      {isDelete && <ModalDelete setisDelete={setisDelete} setDelete={setDeleteColumn} />}
     </DragDropContext>
   );
 };

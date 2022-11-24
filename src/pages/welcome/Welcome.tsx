@@ -16,7 +16,6 @@ import teamlead from '../../assets/img/teamlead.png';
 import telegram from '../../assets/img/telegram.png';
 import linkedIn from '../../assets/img/linkedIn.png';
 import github from '../../assets/img/github.png';
-import { deleteUserThunk } from 'features/api/thunks/deleteUserThunk';
 
 const Welcome = () => {
   return (
@@ -31,7 +30,7 @@ const Welcome = () => {
         </Description>
       </DescriptionWrapper>
       <ImageWelcome img={development} />
-      <h2>Teem</h2>
+      <h2>Team</h2>
       <DescriptionWrapper>
         <ReversWrapper>
           <Description>
