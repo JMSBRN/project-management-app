@@ -15,6 +15,8 @@ import deleteBoard from '../../assets/img/delete.png';
 import ModalDelete from 'components/modalDelete/ModalDelete';
 import BoardForm from 'components/boardForm/BoardForm';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from 'app/hooks';
+import { setBoardsBtns } from 'features/api/ApiSlice';
 
 export interface IBoard {
   title: string;
@@ -22,6 +24,10 @@ export interface IBoard {
 }
 
 const Boards = () => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(setBoardsBtns(true));
+  }, [dispatch]);
   const navigate = useNavigate();
   const [boards, setBoards] = useState<IBoard[]>([
     { title: 'task', text: 'description 1' },

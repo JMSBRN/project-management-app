@@ -22,6 +22,7 @@ interface FormValues {
 }
 
 const ColumnForm = (props: IProps) => {
+  const { columnId, columns, setColumns, setchangeColumn } = props;
   const {
     register,
     handleSubmit,
@@ -30,13 +31,13 @@ const ColumnForm = (props: IProps) => {
   const onSubmit = (data: FormValues) => {
     const items: never[] = [];
     const column = { ...data, items };
-    props.columns.splice(props.columnId!, 1, column);
-    props.setchangeColumn(false);
+    columns.splice(columnId!, 1, column);
+    setchangeColumn(false);
   };
   return (
     <ColumnFormWrapper>
       <FormWrapper onSubmit={handleSubmit(onSubmit)}>
-        <Close onClick={() => props.setchangeColumn(false)} />
+        <Close onClick={() => setchangeColumn(false)} />
         <LabelWrapper>
           Title
           <InputWrapper

@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
 import { apiSliceIinitState } from './apiInterfaces';
-import { signInThunk } from './thunks/signInThunk';
 import { signUpThunk } from './thunks/signUpThunk';
 
 const initialState: apiSliceIinitState = {
@@ -17,6 +16,8 @@ const initialState: apiSliceIinitState = {
   },
   deleteStatusMessage: '',
   loading: false,
+  boardsBtns: false,
+  registered: false,
 };
 const apiSlice = createSlice({
   name: 'api',
@@ -52,19 +53,24 @@ const apiSlice = createSlice({
       state.token = '';
       state.userName = '';
       localStorage.removeItem('user-name');
+      state.loggedUserId = '';
+      state.boardsBtns = false;
+      state.registered = false;
+    },
+    setBoardsBtns: (state, action) => {
+      state.boardsBtns = action.payload;
+    },
+    setRegistered: (state, action) => {
+      state.registered = action.payload;
     },
   },
   extraReducers(builder) {
-    builder
-      .addCase(signInThunk.fulfilled, (state) => {
-        state.userName && (state.authorised = true);
-      })
-      .addCase(signUpThunk.fulfilled, (state) => {
-        const signUpDataProvided = Object.values(state.userSignUpData).every((item) => item);
-        if (signUpDataProvided) {
-          state.authorised = true;
-        }
-      });
+    builder.addCase(signUpThunk.fulfilled, (state) => {
+      const signUpDataProvided = Object.values(state.userSignUpData).every((item) => item);
+      if (signUpDataProvided) {
+        state.authorised = true;
+      }
+    });
   },
 });
 export const {
@@ -77,6 +83,8 @@ export const {
   setDeleteStatusMessage,
   setLoader,
   setSignOut,
+  setBoardsBtns,
+  setRegistered,
 } = apiSlice.actions;
 export const selectApi = (state: RootState) => state.api;
 export default apiSlice.reducer;

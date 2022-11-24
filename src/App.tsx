@@ -12,27 +12,29 @@ import NotFound from 'pages/not-found/NotFound';
 import Welcome from 'pages/welcome/Welcome';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { AppWrapper, GlobalStyle, Loader } from './main.style';
+import { isOnline } from 'utils/apiUtils';
+import { AppWrapper, ErrorInternetDisconnected, GlobalStyle, Loader } from './main.style';
 import './main.style.ts';
 
 function App() {
+  const online = isOnline();
   const { userName, loading } = useAppSelector(selectApi);
   return (
     <>
       <AppWrapper data-testid="app">
         {loading && <Loader />}
+        {!online && (
+          <ErrorInternetDisconnected>No internet... Please check this..</ErrorInternetDisconnected>
+        )}
         <GlobalStyle />
         <Header isAuth={!!userName} />
         <Routes>
           <Route index element={<Welcome />} />
           <Route
             path="/auth-sign-in"
-            element={!!userName ? <Main /> : <Auth isSingInForm={true} />}
+            element={!!userName ? <Welcome /> : <Auth isSingInForm={true} />}
           />
-          <Route
-            path="/auth-sign-up"
-            element={!!userName ? <Main /> : <Auth isSingInForm={false} />}
-          />
+          <Route path="/auth-sign-up" element={<Auth isSingInForm={false} />} />
           <Route path="*" element={<NotFound />} />
           <Route
             element={

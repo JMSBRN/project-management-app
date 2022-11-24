@@ -7,13 +7,8 @@ interface IProps {
 }
 
 const Burger = (props: IProps) => {
-  return (
-    <BurgerWrapper
-      data-testid="burger"
-      burger={props.burger}
-      onClick={() => props.changeBurgerMenu()}
-    />
-  );
+  const { burger, changeBurgerMenu } = props;
+  return <BurgerWrapper data-testid="burger" burger={burger} onClick={() => changeBurgerMenu()} />;
 };
 
 export default Burger;
