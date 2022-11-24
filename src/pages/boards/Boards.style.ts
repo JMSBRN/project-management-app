@@ -74,7 +74,7 @@ export const Flex = styled.div`
 `;
 
 export const NewBoardWrapper = styled.div`
-  width: 250px;
+  width: 300px;
   height: 120px;
   display: flex;
   justify-content: center;

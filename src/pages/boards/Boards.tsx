@@ -30,15 +30,15 @@ const Boards = () => {
   }, [dispatch]);
   const navigate = useNavigate();
   const [boards, setBoards] = useState<IBoard[]>([
-    { title: 'task', text: 'dsadfas' },
+    { title: 'task', text: 'description 1' },
     {
       title: 'task',
-      text: 'dsadfssss',
+      text: 'description 2',
     },
-    { title: 'task', text: 'dsadfasdadfawfaw' },
-    { title: 'tasaSAsk', text: 'dsadfassaSAsdadfawfaw' },
-    { title: 'tasaSAsk', text: 'dsadfassaSAsdadfawfaw' },
-    { title: 'tasaSAsk', text: 'dsadfassaSAsdadfawfaw' },
+    { title: 'task', text: 'description 3' },
+    { title: 'task 3', text: 'description 4' },
+    { title: 'task 4', text: 'description 5' },
+    { title: 'task 5', text: 'description 6' },
   ]);
   const [changeBoard, setchangeBoard] = useState(false);
   const [isDelete, setisDelete] = useState(false);

@@ -13,14 +13,13 @@ describe('<Form />', () => {
             title: 'dfsadfas',
             items: [
               {
-                id: '0',
+                id: '1',
                 Task: '1 задача',
                 message: 'Зделать что то много чего',
               },
             ],
           },
         ]}
-        setColumns={jest.fn()}
       />
     );
   });

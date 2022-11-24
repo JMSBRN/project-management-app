@@ -11,13 +11,18 @@ interface IProps {
   index: number;
 }
 
-const TaskCard = (props: IProps) => {
+const Task = (props: IProps) => {
   const { index, item } = props;
   const { Task, id, message } = item;
   return (
     <Draggable key={id} draggableId={id} index={index}>
       {(provided) => (
-        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+        <div
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          id={id}
+        >
           <TaskInformation>
             <p>{Task}</p>
             <div className="secondary-details">{message}</div>
@@ -28,4 +33,4 @@ const TaskCard = (props: IProps) => {
   );
 };
 
-export default TaskCard;
+export default Task;
