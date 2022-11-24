@@ -21,7 +21,7 @@ export const Column = styled.div`
 
 export const TaskList = styled.div`
   width: 250px;
-  height: 120px;
+  height: 60px;
   position: relative;
   background: white;
   border-radius: 10px;
@@ -37,6 +37,12 @@ export const IconsWrapper = styled.div`
 export const Title = styled.div`
   margin-left: 20px;
   margin-top: 10px;
+`;
+
+export const Tasks = styled.div`
+  background: white;
+  border-radius: 10px;
+  padding: 5px;
 `;
 
 export const NewColumnWrapper = styled.div`

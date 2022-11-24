@@ -12,7 +12,6 @@ import {
 
 interface IProps {
   setchangeColumn: (arg0: boolean) => void;
-  setColumns: (arg0: IColumns[]) => void;
   columnId: number | null;
   columns: IColumns[];
 }
@@ -29,9 +28,9 @@ const ColumnForm = (props: IProps) => {
     formState: { errors },
   } = useForm<FormValues>();
   const onSubmit = (data: FormValues) => {
-    const column = props.columns;
-    column.splice(props.columnId!, 1, data);
-    props.setColumns(column);
+    const items: never[] = [];
+    const column = { ...data, items };
+    props.columns.splice(props.columnId!, 1, column);
     props.setchangeColumn(false);
   };
   return (

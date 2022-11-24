@@ -7,6 +7,7 @@ import {
   NewColumnWrapper,
   TaskColumnStyles,
   TaskList,
+  Tasks,
   Title,
 } from './Board.style';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
@@ -15,6 +16,7 @@ import editColumn from '../../../assets/img/edit.png';
 import deleteColumn from '../../../assets/img/delete.png';
 import ModalDelete from 'components/modalDelete/ModalDelete';
 import ColumnForm from 'components/columnForm/ColumnForm';
+import Task from './taskCard/TaskCard ';
 
 export interface IData {
   id: string;
@@ -24,27 +26,27 @@ export interface IData {
 
 export const data = [
   {
-    id: '0',
+    id: getRandomID(),
     Task: '1 задача',
     message: 'Зделать что то много чего',
   },
   {
-    id: '1',
+    id: getRandomID(),
     Task: '2 задача',
     message: 'ещё задачи',
   },
   {
-    id: '2',
+    id: getRandomID(),
     Task: '3 задача',
     message: 'больше задач больше',
   },
   {
-    id: '3',
+    id: getRandomID(),
     Task: '4 задача',
     message: 'Огромные дела огромных дел',
   },
   {
-    id: '4',
+    id: getRandomID(),
     Task: '5 задача',
     message: 'дела деловых дел',
   },
@@ -70,18 +72,36 @@ export const columnsData = [
   },
 ];
 
-const onDragEnd = (
-  result: DropResult,
-  columns: IColumns[],
-  setColumns: React.Dispatch<React.SetStateAction<IColumns[]>>
-) => {
+function getRandomID() {
+  return (Math.random() + 1).toString(36).substring(7);
+}
+
+const onDragEnd = (result: DropResult, columns: IColumns[]) => {
   if (!result.destination) return;
-  const { source, destination } = result;
-  if (source.index !== destination.index) {
-    const temp1 = columns[source.index];
-    columns[source.index] = columns[destination.index];
-    columns[destination.index] = temp1;
-    return setColumns(columns);
+  const { source, destination, type } = result;
+
+  if (type === 'columns') {
+    if (source.index !== destination.index) {
+      const [removed] = columns.splice(source.index, 1);
+      columns.splice(destination.index, 0, removed);
+    }
+  } else if (type === 'task') {
+    if (source.droppableId !== destination.droppableId) {
+      const sourceColumn = columns[Number(source.droppableId)];
+      const destColumn = columns[Number(source.droppableId)];
+      const sourceItems = [...sourceColumn.items];
+      const destItems = [...destColumn.items];
+      const [removed] = sourceItems.splice(source.index, 1);
+      destItems.splice(destination.index, 0, removed);
+      columns[Number(source.droppableId)].items = sourceItems;
+      columns[Number(destination.droppableId)].items.splice(destination.index, 0, removed);
+    } else {
+      const column = columns[Number(source.droppableId)];
+      const copiedItems = [...column.items];
+      const [removed] = copiedItems.splice(source.index, 1);
+      copiedItems.splice(destination.index, 0, removed);
+      columns[Number(source.droppableId)].items = copiedItems;
+    }
   }
 };
 
@@ -109,10 +129,10 @@ const Board = () => {
   }, [DeleteColumn, columns, ColumnId]);
 
   return (
-    <DragDropContext onDragEnd={(result) => onDragEnd(result, columns, setColumns)}>
+    <DragDropContext onDragEnd={(result) => onDragEnd(result, columns)}>
       <Container data-testid="board">
         <TaskColumnStyles>
-          <Droppable direction="horizontal" droppableId={'droppable'}>
+          <Droppable droppableId={'all-columns'} direction="horizontal" type="columns">
             {(provided) => (
               <>
                 <Column ref={provided.innerRef} {...provided.droppableProps}>
@@ -128,6 +148,7 @@ const Board = () => {
                             ref={provided.innerRef}
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
+                            id={columnId.toString()}
                           >
                             <Title>{column.title}</Title>
                             <IconsWrapper>
@@ -146,6 +167,16 @@ const Board = () => {
                                 }}
                               />
                             </IconsWrapper>
+                            <Droppable key={columnId} droppableId={columnId.toString()} type="task">
+                              {(provided) => (
+                                <Tasks ref={provided.innerRef} {...provided.droppableProps}>
+                                  {column.items.map((item, index) => (
+                                    <Task key={index} item={item} index={index} />
+                                  ))}
+                                  {provided.placeholder}
+                                </Tasks>
+                              )}
+                            </Droppable>
                           </TaskList>
                         )}
                       </Draggable>
@@ -165,12 +196,7 @@ const Board = () => {
             )}
           </Droppable>
           {changeColumn && (
-            <ColumnForm
-              setchangeColumn={setchangeColumn}
-              columnId={ColumnId}
-              columns={columns}
-              setColumns={setColumns}
-            />
+            <ColumnForm setchangeColumn={setchangeColumn} columnId={ColumnId} columns={columns} />
           )}
         </TaskColumnStyles>
       </Container>
