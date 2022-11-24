@@ -17,6 +17,7 @@ const initialState: apiSliceIinitState = {
   deleteStatusMessage: '',
   loading: false,
   boards: false,
+  registered: false,
 };
 const apiSlice = createSlice({
   name: 'api',
@@ -54,9 +55,13 @@ const apiSlice = createSlice({
       localStorage.removeItem('user-name');
       state.loggedUserId = '';
       state.boards = false;
+      state.registered = false;
     },
     setBoards: (state, action) => {
       state.boards = action.payload;
+    },
+    setRegistered: (state, action) => {
+      state.registered = action.payload;
     },
   },
   extraReducers(builder) {
@@ -79,6 +84,7 @@ export const {
   setLoader,
   setSignOut,
   setBoards,
+  setRegistered,
 } = apiSlice.actions;
 export const selectApi = (state: RootState) => state.api;
 export default apiSlice.reducer;

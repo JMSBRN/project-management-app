@@ -13,4 +13,5 @@ export interface apiSliceIinitState {
   deleteStatusMessage: string;
   loading: boolean;
   boards: boolean;
+  registered: boolean;
 }

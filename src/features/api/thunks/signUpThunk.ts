@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { IUser } from 'features/user/userInterfaces';
 import { signUp } from 'utils/apiUtils';
-import { setUserSignUpData, setErrorApiMessage, setLoader } from '../ApiSlice';
+import { setUserSignUpData, setErrorApiMessage, setLoader, setRegistered } from '../ApiSlice';
 
 export const signUpThunk = createAsyncThunk(
   'api/sign-up-user',
@@ -9,6 +9,7 @@ export const signUpThunk = createAsyncThunk(
     await signUp(user).then((data) => {
       if (data.name) {
         dispatch(setUserSignUpData(data.name));
+        dispatch(setRegistered(true));
       } else {
         dispatch(setErrorApiMessage(data.message));
         setTimeout(() => {
