@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import {
-  BardsWrapper,
+  Board,
+  BoardsWrapper,
   BoardWrapper,
   Description,
-  Flex,
   Icons,
   NewBoard,
   NewBoardWrapper,
@@ -14,6 +14,7 @@ import editBoard from '../../assets/img/edit.png';
 import deleteBoard from '../../assets/img/delete.png';
 import ModalDelete from 'components/modalDelete/ModalDelete';
 import BoardForm from 'components/boardForm/BoardForm';
+import { useNavigate } from 'react-router-dom';
 
 export interface IBoard {
   title: string;
@@ -21,6 +22,7 @@ export interface IBoard {
 }
 
 const Boards = () => {
+  const navigate = useNavigate();
   const [boards, setBoards] = useState<IBoard[]>([
     { title: 'task', text: 'dsadfas' },
     {
@@ -55,34 +57,33 @@ const Boards = () => {
 
   return (
     <Wrapper>
-      <BardsWrapper>
+      <BoardsWrapper>
         {boards.map((item, index) => {
           return (
             <BoardWrapper key={index}>
-              <Flex>
+              <Board onClick={() => navigate('/board')}>
                 <Title>{item.title}</Title>
-                <div>
-                  <Icons
-                    img={editBoard}
-                    onClick={() => {
-                      setchangeBoard(true);
-                      setBoardId(index);
-                    }}
-                  />
-                  <Icons
-                    img={deleteBoard}
-                    onClick={() => {
-                      setisDelete(true);
-                      setBoardId(index);
-                    }}
-                  />
-                </div>
-              </Flex>
-              <Description>{item.text}</Description>
+                <Description>{item.text}</Description>
+              </Board>
+              <div>
+                <Icons
+                  img={editBoard}
+                  onClick={() => {
+                    setchangeBoard(true);
+                    setBoardId(index);
+                  }}
+                />
+                <Icons
+                  img={deleteBoard}
+                  onClick={() => {
+                    setisDelete(true);
+                    setBoardId(index);
+                  }}
+                />
+              </div>
             </BoardWrapper>
           );
         })}
-        {/* setBoards([...boards, { title: '', text: '' }]) */}
         <NewBoardWrapper
           onClick={() => {
             setchangeBoard(true);
@@ -100,7 +101,7 @@ const Boards = () => {
           />
         )}
         {isDelete && <ModalDelete setisDelete={setisDelete} setDelete={setDeleteBoard} />}
-      </BardsWrapper>
+      </BoardsWrapper>
     </Wrapper>
   );
 };

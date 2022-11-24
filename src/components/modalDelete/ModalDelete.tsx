@@ -1,6 +1,5 @@
 import { Flex } from 'pages/boards/Boards.style';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Button, DeleteForm, DeleteWrapper, Img } from './ModalDelete.style';
 
 interface ModalDelete {
@@ -9,7 +8,6 @@ interface ModalDelete {
 }
 
 const ModalDelete = (props: ModalDelete) => {
-  const navigate = useNavigate();
   return (
     <DeleteWrapper>
       <DeleteForm>
@@ -20,7 +18,6 @@ const ModalDelete = (props: ModalDelete) => {
             onClick={() => {
               props.setDelete(true);
               props.setisDelete(false);
-              navigate(-1);
             }}
           >
             Ok
@@ -28,7 +25,6 @@ const ModalDelete = (props: ModalDelete) => {
           <Button
             onClick={() => {
               props.setisDelete(false);
-              navigate(-1);
             }}
           >
             Cansel
