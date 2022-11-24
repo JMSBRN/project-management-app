@@ -1,11 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
-import { IUser } from 'features/api/apiUtils';
+import { userSliceInitState } from './userInterfaces';
 
-interface IInitState {
-  user: IUser;
-}
-const initialState: IInitState = {
+const initialState: userSliceInitState = {
   user: {
     login: '',
     password: '',

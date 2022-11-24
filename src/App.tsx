@@ -12,32 +12,33 @@ import NotFound from 'pages/not-found/NotFound';
 import Welcome from 'pages/welcome/Welcome';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { AppWrapper, GlobalStyle } from './main.style';
+import { AppWrapper, GlobalStyle, Loader } from './main.style';
 import './main.style.ts';
 
 function App() {
-  const { nameLoggedUserById } = useAppSelector(selectApi);
+  const { userName, loading } = useAppSelector(selectApi);
   return (
     <>
-      <AppWrapper>
+      <AppWrapper data-testid="app">
+        {loading && <Loader />}
         <GlobalStyle />
-        <Header isAuth={!!nameLoggedUserById} />
+        <Header isAuth={!!userName} />
         <Routes>
           <Route index element={<Welcome />} />
           <Route
             path="/auth-sign-in"
-            element={!!nameLoggedUserById ? <Main /> : <Auth isSingInForm={true} />}
+            element={!!userName ? <Main /> : <Auth isSingInForm={true} />}
           />
           <Route
             path="/auth-sign-up"
-            element={!!nameLoggedUserById ? <Main /> : <Auth isSingInForm={false} />}
+            element={!!userName ? <Main /> : <Auth isSingInForm={false} />}
           />
           <Route path="*" element={<NotFound />} />
           <Route
             element={
               <ProtectedRoutes
                 auth={{
-                  isAuthenticated: !!nameLoggedUserById,
+                  isAuthenticated: !!userName,
                 }}
               />
             }

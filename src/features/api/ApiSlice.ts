@@ -1,33 +1,14 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
-import {
-  apiSignIn,
-  apiSignUp,
-  deleteUser,
-  getLoggedUserByIdName,
-  getParsedJwt,
-  IUser,
-} from './apiUtils';
+import { apiSliceIinitState } from './apiInterfaces';
+import { signInThunk } from './thunks/signInThunk';
+import { signUpThunk } from './thunks/signUpThunk';
 
-interface IUserSignUpData {
-  id: string;
-  name: string;
-  login: string;
-}
-interface IinitState {
-  isloggedIn: boolean;
-  token: string;
-  userSignUpData: IUserSignUpData;
-  errorApiMessage: string;
-  nameLoggedUserById: string;
-  idLoggedUser: string;
-  deleteStatusMessage: string;
-}
-const initialState: IinitState = {
-  isloggedIn: false,
+const initialState: apiSliceIinitState = {
+  authorised: false,
   errorApiMessage: '',
-  nameLoggedUserById: JSON.parse(localStorage.getItem('user-name') || '""'),
-  idLoggedUser: '',
+  userName: JSON.parse(localStorage.getItem('user-name') || '""'),
+  loggedUserId: '',
   token: '',
   userSignUpData: {
     id: '',
@@ -35,66 +16,8 @@ const initialState: IinitState = {
     login: '',
   },
   deleteStatusMessage: '',
+  loading: false,
 };
-export const apiSliceSignIn = createAsyncThunk('api/sign-in-user', (user: IUser, { dispatch }) => {
-  const data = apiSignIn(user);
-  data.then((data) => {
-    if (data.token) {
-      dispatch(setToken(data.token));
-      dispatch(setIsLoggedIn(true));
-      const loggedUserData = getParsedJwt(data.token);
-      const id = loggedUserData && loggedUserData.userId;
-      const userData = getLoggedUserByIdName(id as string);
-      userData.then((name) => {
-        dispatch(setNameLoggedUserById(name));
-      });
-    } else if (data.message) {
-      const message = data.message;
-      dispatch(setErrorApiMessage(message));
-      setTimeout(() => {
-        dispatch(setErrorApiMessage(''));
-      }, 3000);
-    }
-  });
-});
-export const apiSliceSignUp = createAsyncThunk(
-  'api/sign-up-user',
-  async (user: IUser, { dispatch }) => {
-    const data = apiSignUp(user);
-    const userSignUpData = await data;
-    if (userSignUpData.name) {
-      dispatch(setUserSignUpData(userSignUpData));
-    } else {
-      const message = await data;
-      dispatch(setErrorApiMessage(message));
-      setTimeout(() => {
-        dispatch(setErrorApiMessage(''));
-      }, 3000);
-    }
-  }
-);
-export const apiSliceGetIdUser = createAsyncThunk(
-  'api/get-id-user',
-  async (user: IUser, { dispatch }) => {
-    const res = apiSignIn(user);
-    const data = await res;
-    const token = data.token;
-    const loggedUserData = getParsedJwt(token);
-    const id = loggedUserData && loggedUserData.userId;
-    dispatch(setIdLoggedUser(id));
-  }
-);
-export const apiSliceDeleteUser = createAsyncThunk(
-  'api/delete-user',
-  async (id: string, { dispatch }) => {
-    const res = deleteUser(id);
-    const data = await res;
-    dispatch(setDeleteStatusMessage(data));
-    setTimeout(() => {
-      dispatch(setDeleteStatusMessage(''));
-    }, 3000);
-  }
-);
 const apiSlice = createSlice({
   name: 'api',
   initialState,
@@ -105,34 +28,41 @@ const apiSlice = createSlice({
     setUserSignUpData: (state, action) => {
       state.userSignUpData = action.payload;
     },
-    setIsLoggedIn: (state, action) => {
-      state.isloggedIn = action.payload;
+    setAuthorised: (state, action) => {
+      state.authorised = action.payload;
     },
     setErrorApiMessage: (state, action) => {
       state.errorApiMessage = action.payload;
     },
-    setIdLoggedUser: (state, action) => {
-      state.idLoggedUser = action.payload;
+    setLoggedUserId: (state, action) => {
+      state.loggedUserId = action.payload;
     },
-    setNameLoggedUserById: (state, action) => {
-      state.nameLoggedUserById = action.payload;
-      localStorage.setItem('user-name', JSON.stringify(state.nameLoggedUserById));
+    setUserName: (state, action) => {
+      state.userName = action.payload;
+      localStorage.setItem('user-name', JSON.stringify(state.userName));
     },
     setDeleteStatusMessage: (state, action) => {
       state.deleteStatusMessage = action.payload;
     },
+    setLoader: (state, action) => {
+      state.loading = action.payload;
+    },
+    setSignOut: (state) => {
+      state.authorised = false;
+      state.token = '';
+      state.userName = '';
+      localStorage.removeItem('user-name');
+    },
   },
   extraReducers(builder) {
     builder
-      .addCase(apiSliceSignIn.pending, () => {})
-      .addCase(apiSliceSignIn.fulfilled, (state) => {
-        state.nameLoggedUserById && (state.isloggedIn = true);
+      .addCase(signInThunk.fulfilled, (state) => {
+        state.userName && (state.authorised = true);
       })
-      .addCase(apiSliceSignIn.rejected, () => {})
-      .addCase(apiSliceSignUp.fulfilled, (state) => {
-        const isSignUpData = Object.values(state.userSignUpData).every((item) => item);
-        if (isSignUpData) {
-          state.isloggedIn = true;
+      .addCase(signUpThunk.fulfilled, (state) => {
+        const signUpDataProvided = Object.values(state.userSignUpData).every((item) => item);
+        if (signUpDataProvided) {
+          state.authorised = true;
         }
       });
   },
@@ -140,11 +70,13 @@ const apiSlice = createSlice({
 export const {
   setToken,
   setUserSignUpData,
-  setIsLoggedIn,
+  setAuthorised,
   setErrorApiMessage,
-  setNameLoggedUserById,
-  setIdLoggedUser,
+  setUserName,
+  setLoggedUserId,
   setDeleteStatusMessage,
+  setLoader,
+  setSignOut,
 } = apiSlice.actions;
 export const selectApi = (state: RootState) => state.api;
 export default apiSlice.reducer;

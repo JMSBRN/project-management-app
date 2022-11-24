@@ -1,14 +1,19 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import Burger from './Burger';
 
 const changeBurgerMenu = () => {
   return true;
 };
 
-describe('<Link />', () => {
-  it('should be ', () => {
-    render(<Burger burger={true} changeBurgerMenu={changeBurgerMenu} />);
+describe('<Burger />', () => {
+  it('should be rendering correctly with props ', () => {
+    render(
+      <MemoryRouter>
+        <Burger burger={true} changeBurgerMenu={changeBurgerMenu} />
+      </MemoryRouter>
+    );
+    expect(screen.getByTestId('burger')).toBeInTheDocument();
   });
-  expect(screen.getByText(/test/i)).toBeInTheDocument();
 });

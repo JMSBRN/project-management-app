@@ -4,7 +4,7 @@ import { LogoWrapper } from './Logo.style';
 
 const Logo = () => {
   return (
-    <Link to={'/'}>
+    <Link data-testid="logo" to={'/'}>
       <LogoWrapper />
     </Link>
   );

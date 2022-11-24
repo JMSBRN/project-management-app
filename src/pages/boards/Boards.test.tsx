@@ -1,9 +1,10 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import React from 'react';
 import Boards from './Boards';
 
-describe('<Baords />', () => {
-  it('should be ', () => {
-    render(<Boards />);
+describe('<Boards />', () => {
+  it('should be rendering correctly', () => {
+    const { asFragment } = render(<Boards />);
+    expect(asFragment).toMatchSnapshot();
   });
 });

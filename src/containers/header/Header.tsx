@@ -3,7 +3,7 @@ import Burger from 'components/burger/Burger';
 import Language from 'components/Language/Language';
 import Link from 'components/link/Link';
 import Logo from 'components/logo/Logo';
-import { selectApi, setIsLoggedIn, setNameLoggedUserById, setToken } from 'features/api/ApiSlice';
+import { selectApi, setSignOut } from 'features/api/ApiSlice';
 import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { LinksNavWrapper, HeadersWrapper } from './Header.style';
@@ -14,7 +14,7 @@ interface IProps {
 
 const Header = (props: IProps) => {
   const dispatch = useAppDispatch();
-  const { nameLoggedUserById } = useAppSelector(selectApi);
+  const { userName } = useAppSelector(selectApi);
   const [burger, setBurger] = useState(false);
   const [scroll, setScroll] = useState(0);
 
@@ -26,16 +26,13 @@ const Header = (props: IProps) => {
     burger ? setBurger(false) : setBurger(true);
   };
   const handleSingOut = () => {
-    dispatch(setIsLoggedIn(false));
-    dispatch(setToken(''));
-    dispatch(setNameLoggedUserById(''));
-    localStorage.removeItem('user-name');
+    dispatch(setSignOut());
   };
   return (
     <>
       <HeadersWrapper scroll={scroll}>
         <Logo />
-        <div className="">{nameLoggedUserById}</div>
+        <div className="">{userName}</div>
         <LinksNavWrapper scroll={scroll} isAuth={props.isAuth} burger={burger}>
           {props.isAuth ? (
             <>

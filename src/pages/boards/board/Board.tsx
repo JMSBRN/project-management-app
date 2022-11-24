@@ -115,7 +115,7 @@ const Board = () => {
 
   return (
     <DragDropContext onDragEnd={(result) => onDragEnd(result, columns, setColumns)}>
-      <Container>
+      <Container data-testid="board">
         <TaskColumnStyles>
           <Droppable direction="horizontal" droppableId={'droppable'}>
             {(provided) => (
