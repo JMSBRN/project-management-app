@@ -24,24 +24,25 @@ interface FormValues {
 }
 
 const BoardForm = (props: IProps) => {
+  const { BoardId, boards, setBoards, setchangeBoard } = props;
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>();
   const onSubmit = (data: FormValues) => {
-    if (props.BoardId !== null && props.BoardId > props.boards.length) {
-      data.id = props.BoardId;
+    if (BoardId !== null && BoardId > boards.length) {
+      data.id = BoardId;
     }
-    const board = props.boards;
-    board.splice(props.BoardId!, 1, data);
-    props.setBoards(board);
-    props.setchangeBoard(false);
+    const board = boards;
+    board.splice(BoardId!, 1, data);
+    setBoards(board);
+    setchangeBoard(false);
   };
   return (
     <BoardFormWrapper>
       <FormWrapper onSubmit={handleSubmit(onSubmit)}>
-        <Close onClick={() => props.setchangeBoard(false)} />
+        <Close onClick={() => setchangeBoard(false)} />
         <LabelWrapper>
           Title
           <InputWrapper

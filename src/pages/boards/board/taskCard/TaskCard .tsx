@@ -12,13 +12,15 @@ interface IProps {
 }
 
 const TaskCard = (props: IProps) => {
+  const { index, item } = props;
+  const { Task, id, message } = item;
   return (
-    <Draggable key={props.item.id} draggableId={props.item.id} index={props.index}>
+    <Draggable key={id} draggableId={id} index={index}>
       {(provided) => (
         <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
           <TaskInformation>
-            <p>{props.item.Task}</p>
-            <div className="secondary-details">{props.item.message}</div>
+            <p>{Task}</p>
+            <div className="secondary-details">{message}</div>
           </TaskInformation>
         </div>
       )}

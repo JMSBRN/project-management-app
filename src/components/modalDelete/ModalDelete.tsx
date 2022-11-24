@@ -8,6 +8,7 @@ interface ModalDelete {
 }
 
 const ModalDelete = (props: ModalDelete) => {
+  const { setDelete, setisDelete } = props;
   return (
     <DeleteWrapper>
       <DeleteForm>
@@ -16,15 +17,15 @@ const ModalDelete = (props: ModalDelete) => {
         <Flex>
           <Button
             onClick={() => {
-              props.setDelete(true);
-              props.setisDelete(false);
+              setDelete(true);
+              setisDelete(false);
             }}
           >
             Ok
           </Button>
           <Button
             onClick={() => {
-              props.setisDelete(false);
+              setisDelete(false);
             }}
           >
             Cansel
