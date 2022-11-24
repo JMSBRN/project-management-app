@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppDispatch } from 'app/hooks';
-import { setAuthorised, setLoader } from 'features/api/ApiSlice';
+import { setLoader } from 'features/api/ApiSlice';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ButtonWrapper, FormWrapper, InputWrapper, LabelWrapper } from './Form.style';
 import { signInThunk } from 'features/api/thunks/signInThunk';
@@ -20,8 +20,10 @@ export interface FormValues {
   password: string;
 }
 const Form = (props: IFormProps) => {
+  const { label, isEditProfileForm, isGetIdUser, onClickDeletUserBtn, onSubmiteEditProfeileForm } =
+    props;
   const dispatch = useAppDispatch();
-  const isSignUpForm = props.label === 'sign up Form';
+  const isSignUpForm = label === 'sign up Form';
   const {
     register,
     handleSubmit,
@@ -37,10 +39,8 @@ const Form = (props: IFormProps) => {
     reset();
   };
   return (
-    <FormWrapper
-      onSubmit={handleSubmit(props.isEditProfileForm ? props.onSubmiteEditProfeileForm! : onSubmit)}
-    >
-      {props.label}
+    <FormWrapper onSubmit={handleSubmit(isEditProfileForm ? onSubmiteEditProfeileForm! : onSubmit)}>
+      {label}
       {isSignUpForm && (
         <LabelWrapper>
           name
@@ -89,20 +89,20 @@ const Form = (props: IFormProps) => {
         />
         <div>{errors?.password && errors.password.message}</div>
       </LabelWrapper>
-      {!props.isEditProfileForm && (
+      {!isEditProfileForm && (
         <ButtonWrapper type="submit" disabled={!isValid} isValid={isValid}>
           Submit
         </ButtonWrapper>
       )}
-      {props.isEditProfileForm && (
+      {isEditProfileForm && (
         <>
-          <ButtonWrapper type="submit" disabled={props.isGetIdUser} isValid={isValid}>
+          <ButtonWrapper type="submit" disabled={isGetIdUser} isValid={isValid}>
             Submit
           </ButtonWrapper>
           <br />
           <ButtonWrapper
-            onClick={props.onClickDeletUserBtn}
-            disabled={!props.isGetIdUser}
+            onClick={onClickDeletUserBtn}
+            disabled={!isGetIdUser}
             type="button"
             isValid={isValid}
           >

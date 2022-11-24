@@ -6,7 +6,8 @@ interface ILinkProps {
   to: string;
 }
 const Link = (props: ILinkProps) => {
-  return <LinkWrapper to={props.to}>{props.text}</LinkWrapper>;
+  const { text, to } = props;
+  return <LinkWrapper to={to}>{text}</LinkWrapper>;
 };
 
 export default Link;

@@ -13,6 +13,7 @@ interface IProps {
 }
 
 const Header = (props: IProps) => {
+  const { isAuth } = props;
   const dispatch = useAppDispatch();
   const { userName, boardsBtns } = useAppSelector(selectApi);
   const [burger, setBurger] = useState(false);
@@ -33,7 +34,7 @@ const Header = (props: IProps) => {
       <HeadersWrapper scroll={scroll}>
         <Logo />
         <Name>{userName}</Name>
-        <LinksNavWrapper scroll={scroll} isAuth={props.isAuth} burger={burger}>
+        <LinksNavWrapper scroll={scroll} isAuth={isAuth} burger={burger}>
           {boardsBtns ? (
             <>
               <Language />
@@ -43,7 +44,7 @@ const Header = (props: IProps) => {
                 <Link to="/" text="sign out" />
               </div>
             </>
-          ) : props.isAuth ? (
+          ) : isAuth ? (
             <div onClick={() => dispatch(setBoardsBtns(true))}>
               <Link text={'go to boards'} to={'/boards'} />
             </div>

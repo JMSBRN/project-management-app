@@ -9,6 +9,7 @@ interface IAuthProps {
   isSingInForm: boolean;
 }
 const Auth = (props: IAuthProps) => {
+  const { isSingInForm } = props;
   const dispatch = useAppDispatch();
   const { errorApiMessage, registered } = useAppSelector(selectApi);
   return (
@@ -24,7 +25,7 @@ const Auth = (props: IAuthProps) => {
           </div>
         </RegisterMessage>
       )}
-      {props.isSingInForm ? <Form label="sign in Form" /> : <Form label="sign up Form" />}
+      {isSingInForm ? <Form label="sign in Form" /> : <Form label="sign up Form" />}
     </AuthtWrapper>
   );
 };
