@@ -6,6 +6,7 @@ import { setErrorApiMessage, setToken, setAuthorised, setUserName, setLoader } f
 export const signInThunk = createAsyncThunk(
   'api/sign-in-user',
   async (user: IUser, { dispatch }) => {
+    delete user.name;
     await signIn(user).then(async (data) => {
       dispatch(setErrorApiMessage(data.message));
       if (data.token) {

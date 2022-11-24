@@ -27,12 +27,9 @@ function App() {
           <Route index element={<Welcome />} />
           <Route
             path="/auth-sign-in"
-            element={!!userName ? <Main /> : <Auth isSingInForm={true} />}
+            element={!!userName ? <Welcome /> : <Auth isSingInForm={true} />}
           />
-          <Route
-            path="/auth-sign-up"
-            element={!!userName ? <Main /> : <Auth isSingInForm={false} />}
-          />
+          <Route path="/auth-sign-up" element={<Auth isSingInForm={false} />} />
           <Route path="*" element={<NotFound />} />
           <Route
             element={

@@ -21,7 +21,9 @@ export const HeadersWrapper = styled.div<IHeaderWrapper>`
   padding: 5px 0 5px 0;
   z-index: 1;
 `;
-
+export const Name = styled.div`
+  color: green;
+`;
 export const LinksNavWrapper = styled.div<ILinksNav>`
   width: ${(props) => (props.isAuth ? '560px' : '360px')};
   display: flex;

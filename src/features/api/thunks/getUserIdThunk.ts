@@ -6,11 +6,11 @@ import { setLoggedUserId } from '../ApiSlice';
 export const getUserIdThunk = createAsyncThunk(
   'api/get-id-user',
   async (user: IUser, { dispatch }) => {
+    delete user.name;
     await signIn(user).then((data) => {
       if (data.token) {
         const loggedUserData = getParsedJwt(data.token);
-        const id = loggedUserData && loggedUserData.userId;
-        dispatch(setLoggedUserId(id));
+        loggedUserData && dispatch(setLoggedUserId(loggedUserData.userId as string));
       }
     });
   }
