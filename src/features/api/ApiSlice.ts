@@ -16,7 +16,7 @@ const initialState: apiSliceIinitState = {
   },
   deleteStatusMessage: '',
   loading: false,
-  boards: false,
+  boardsBtns: false,
   registered: false,
 };
 const apiSlice = createSlice({
@@ -54,11 +54,11 @@ const apiSlice = createSlice({
       state.userName = '';
       localStorage.removeItem('user-name');
       state.loggedUserId = '';
-      state.boards = false;
+      state.boardsBtns = false;
       state.registered = false;
     },
-    setBoards: (state, action) => {
-      state.boards = action.payload;
+    setBoardsBtns: (state, action) => {
+      state.boardsBtns = action.payload;
     },
     setRegistered: (state, action) => {
       state.registered = action.payload;
@@ -83,7 +83,7 @@ export const {
   setDeleteStatusMessage,
   setLoader,
   setSignOut,
-  setBoards,
+  setBoardsBtns,
   setRegistered,
 } = apiSlice.actions;
 export const selectApi = (state: RootState) => state.api;
