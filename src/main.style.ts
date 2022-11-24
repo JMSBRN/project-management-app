@@ -75,3 +75,16 @@ export const Loader = styled.div`
     }
   }
 `;
+export const ErrorInternetDisconnected = styled.div`
+  position: absolute;
+  top: 70px;
+  width: 100%;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  background-color: red;
+  color: white;
+  z-index: 20;
+`;

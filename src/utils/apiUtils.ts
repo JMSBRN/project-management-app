@@ -121,3 +121,6 @@ export const setTimeFromToken = async (data: FormValues) => {
   });
   return time;
 };
+export const isOnline = () => {
+  return window.navigator.onLine;
+};
