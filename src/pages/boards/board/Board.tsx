@@ -5,6 +5,8 @@ import {
   IconsWrapper,
   NewColumn,
   NewColumnWrapper,
+  NewTask,
+  NewTaskWrapper,
   TaskColumnStyles,
   TaskList,
   Tasks,
@@ -13,10 +15,11 @@ import {
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import { Icons } from '../Boards.style';
 import editColumn from '../../../assets/img/edit.png';
-import deleteColumn from '../../../assets/img/delete.png';
+import deleteColumnImg from '../../../assets/img/delete.png';
 import ModalDelete from 'components/modalDelete/ModalDelete';
 import ColumnForm from 'components/columnForm/ColumnForm';
-import Task from './taskCard/TaskCard ';
+import Task from './task/Task ';
+import TaskForm from 'components/taskForm/TaskForm';
 
 export interface IData {
   id: string;
@@ -72,7 +75,7 @@ export const columnsData = [
   },
 ];
 
-function getRandomID() {
+export function getRandomID() {
   return (Math.random() + 1).toString(36).substring(7);
 }
 
@@ -108,25 +111,37 @@ const onDragEnd = (result: DropResult, columns: IColumns[]) => {
 const Board = () => {
   const [columns, setColumns] = useState<IColumns[]>(columnsData);
   const [changeColumn, setchangeColumn] = useState(false);
+  const [changeTask, setChangeTask] = useState(false);
+  const [createNewTask, setCreateNewTask] = useState(false);
   const [isDelete, setisDelete] = useState(false);
-  const [DeleteColumn, setDeleteColumn] = useState(false);
+  const [deleteItem, setDeleteItem] = useState('');
+  const [deleteTasks, setDeleteTasks] = useState(false);
+  const [tasksIdArr, setTasksIdArr] = useState([0, 0]);
   const [ColumnId, setColumnId] = useState<null | number>(null);
+
+  const deleteTask = (arr: IColumns[]) => {
+    setColumns(arr);
+  };
 
   useEffect(() => {
     const deleteColumn = (id: number) => {
-      if (DeleteColumn) {
-        const newColumns = columns.filter((n, index) => {
-          return index !== id;
-        });
-        setColumns(newColumns);
-      }
+      const newColumns = columns.filter((n, index) => {
+        return index !== id;
+      });
+      setColumns(newColumns);
     };
-    if (DeleteColumn) {
+    if (deleteItem === 'column') {
       deleteColumn(ColumnId!);
       setColumnId(null);
-      setDeleteColumn(false);
+      setDeleteItem('');
     }
-  }, [DeleteColumn, columns, ColumnId]);
+    if (deleteItem === 'task') {
+      columns[tasksIdArr[0]].items.splice(tasksIdArr[1], 1);
+      deleteTask(columns);
+      setDeleteItem('');
+      setDeleteTasks(false);
+    }
+  }, [tasksIdArr, deleteItem, columns, ColumnId]);
 
   return (
     <DragDropContext onDragEnd={(result) => onDragEnd(result, columns)}>
@@ -160,7 +175,7 @@ const Board = () => {
                                 }}
                               />
                               <Icons
-                                img={deleteColumn}
+                                img={deleteColumnImg}
                                 onClick={() => {
                                   setisDelete(true);
                                   setColumnId(columnId);
@@ -171,8 +186,33 @@ const Board = () => {
                               {(provided) => (
                                 <Tasks ref={provided.innerRef} {...provided.droppableProps}>
                                   {column.items.map((item, index) => (
-                                    <Task key={index} item={item} index={index} />
+                                    <Task
+                                      setChangeTask={setChangeTask}
+                                      setTasksIdArr={setTasksIdArr}
+                                      setDeleteTasks={setDeleteTasks}
+                                      setisDelete={setisDelete}
+                                      deleteTask={deleteTask}
+                                      columnId={columnId}
+                                      columns={columns}
+                                      key={index}
+                                      item={item}
+                                      index={index}
+                                    />
                                   ))}
+                                  <NewTaskWrapper
+                                    onClick={() => {
+                                      setChangeTask(true);
+                                      setTasksIdArr([
+                                        tasksIdArr[0],
+                                        columns[columnId].items.length + 1,
+                                      ]);
+                                      setColumnId(columnId);
+                                      setCreateNewTask(true);
+                                    }}
+                                  >
+                                    <NewTask />
+                                    <div>New task</div>
+                                  </NewTaskWrapper>
                                   {provided.placeholder}
                                 </Tasks>
                               )}
@@ -198,9 +238,26 @@ const Board = () => {
           {changeColumn && (
             <ColumnForm setchangeColumn={setchangeColumn} columnId={ColumnId} columns={columns} />
           )}
+          {changeTask && (
+            <TaskForm
+              setCreateNewTask={setCreateNewTask}
+              ColumnId={ColumnId}
+              createNewTask={createNewTask}
+              setColumns={setColumns}
+              setChangeTask={setChangeTask}
+              tasksIdArr={tasksIdArr}
+              columns={columns}
+            />
+          )}
         </TaskColumnStyles>
       </Container>
-      {isDelete && <ModalDelete setisDelete={setisDelete} setDelete={setDeleteColumn} />}
+      {isDelete && (
+        <ModalDelete
+          deleteTasks={deleteTasks}
+          setDeleteItem={setDeleteItem}
+          setisDelete={setisDelete}
+        />
+      )}
     </DragDropContext>
   );
 };
