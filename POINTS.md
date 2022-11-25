@@ -20,7 +20,7 @@
   ✔️ Button for column creation is displayed **1 point**\
   ✔️ If a board contains at least one column - a button for task creation is displayed/become enabled as well **1 point** \
   ✔️ A modal windows with forms is displayed for column and task creations **3 point**\
-  ❌ A vertical scrollbar is displayed in the column when overflowing with the number of column tasks **2 point**\
+  ✔️ A vertical scrollbar is displayed in the column when overflowing with the number of column tasks **2 point**\
   ✔️ The page itself on the current route doesn't have a vertical scrollbar **1 point**\s
   ✔️ With the help of drag-n-drop, we can swap columns. **3 point**\
   ✔️ With the help of drag-n-drop, we can change the order of tasks within a column. **3 point**\
@@ -36,8 +36,8 @@
   ✔️ Sticky header **2 point** \
   ❌ Extra scope same complexity as Global search **2 points**
  # Penalties
-  ❌ React default favicon - **1 points**\
+  ✔️ React default favicon - **1 points**\
   ❌ The presence of errors and warnings in the console - **2 point** for each \
   ❌ The presence in the console of the results of the console.log execution - - **2 point** for each \
-  ❌ @ts-ignore or any usage (search through github repo) - - **1 point** for each \
-  ❌ Making commits after the deadline - - **20 point**
+  ✔️ @ts-ignore or any usage (search through github repo) - - **1 point** for each \
+  ✔️ Making commits after the deadline - - **20 point**

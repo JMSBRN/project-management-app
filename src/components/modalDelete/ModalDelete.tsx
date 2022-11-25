@@ -10,7 +10,7 @@ interface ModalDelete {
 }
 
 const ModalDelete = (props: ModalDelete) => {
-  const { setisDelete, setDeleteItem, deleteTasks } = props;
+  const { setisDelete, setDeleteItem, deleteTasks, setDelete } = props;
   return (
     <DeleteWrapper>
       <DeleteForm>
@@ -19,7 +19,11 @@ const ModalDelete = (props: ModalDelete) => {
         <Flex>
           <Button
             onClick={() => {
-              deleteTasks ? setDeleteItem!('task') : setDeleteItem!('column');
+              if (setDelete) {
+                setDelete(true);
+              } else {
+                deleteTasks ? setDeleteItem!('task') : setDeleteItem!('column');
+              }
               setisDelete(false);
             }}
           >
