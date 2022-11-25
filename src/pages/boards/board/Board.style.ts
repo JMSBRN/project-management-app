@@ -20,7 +20,7 @@ export const Column = styled.div`
 `;
 
 export const TaskList = styled.div`
-  width: 300px;
+  width: 310px;
   height: 60px;
   position: relative;
   background: white;
@@ -41,14 +41,29 @@ export const Title = styled.div`
 `;
 
 export const Tasks = styled.div`
+  max-height: 400px;
+  overflow-y: auto;
   background: white;
   border-radius: 10px;
   padding: 5px;
+  ::-webkit-scrollbar {
+    width: 10px;
+    background-color: #f9f9fd;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #43c6ac;
+  }
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    background-color: #f9f9fd;
+  }
 `;
 
 export const NewColumnWrapper = styled.div`
   width: 250px;
-  height: 120px;
+  height: 82px;
   display: flex;
   justify-content: center;
   align-items: center;

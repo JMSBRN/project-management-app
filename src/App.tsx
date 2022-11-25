@@ -7,7 +7,6 @@ import Auth from 'pages/auth/Auth';
 import Board from 'pages/boards/board/Board';
 import Boards from 'pages/boards/Boards';
 import EditProfile from 'pages/edit-profile/EditProfile';
-import Main from 'pages/main/Main';
 import NotFound from 'pages/not-found/NotFound';
 import Welcome from 'pages/welcome/Welcome';
 import React from 'react';
@@ -45,7 +44,6 @@ function App() {
               />
             }
           >
-            <Route path="/main" element={<Main />} />
             <Route path="/boards" element={<Boards />} />
             <Route path="/edit-profile" element={<EditProfile />} />
             <Route path="/board" element={<Board />} />

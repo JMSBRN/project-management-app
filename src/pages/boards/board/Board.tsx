@@ -182,7 +182,12 @@ const Board = () => {
                                 }}
                               />
                             </IconsWrapper>
-                            <Droppable key={columnId} droppableId={columnId.toString()} type="task">
+                            <Droppable
+                              key={columnId}
+                              droppableId={columnId.toString()}
+                              type="task"
+                              ignoreContainerClipping
+                            >
                               {(provided) => (
                                 <Tasks ref={provided.innerRef} {...provided.droppableProps}>
                                   {column.items.map((item, index) => (
