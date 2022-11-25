@@ -1,7 +1,7 @@
   # Welcome route - max 7 points..
   ✔️ The welcome page should contain general information about the developer, project, and course.**1 point** \
   ✔️ In the upper right corner there are 2 buttons: Sign In and Sign Up. **1 point** \
-  ❌ If login token is valid and unexpired, change buttons Sign In and Sign Up on "Go to Main Page" button.**2 points** \
+  ✔️ If login token is valid and unexpired, change buttons Sign In and Sign Up on "Go to Main Page" button.**2 points** \
   ✔️ When the token expires - the user should be redirected to the "Welcome page" automatically.**2 points** \
   ✔️ Pressing the Sign In / Sign up button redirects a user to the route with the Sign In / Sign up form.**1 point**
 
@@ -9,7 +9,7 @@
   ✔️ Buttons for Sign In / Sign Up / Sign Out are everywhere where they should be **2 point** \
   ✔️ Form fields should be implemented according to the backend API. Validation should be implemented. **4 point** \
   ✔️ Upon successful login, the user should be redirected to "Main route" **1 point** \
-  ✔️ If user already logged in and he try to reach this routes - he should be redirected to Main route. **1 point**
+  ❌ If user already logged in and he try to reach this routes - he should be redirected to Main route. **1 point**
 # Main route - max 8 points.
   ✔️ Board creation functionality **2 points** \
   ✔️ Displays all created boards as a list/grid **1 point** \
@@ -17,18 +17,18 @@
   ✔️ When trying to delete the board, we should receive a confirmation modal. The confirmation modal must be a generic component (one for the entire application). **1 point** \
   ✔️ The user profile editing functionality is implemented. **3 points**
 # Board route - max 26 points.
-  ❌ Button for column creation is displayed **1 point**\
-  ❌ If a board contains at least one column - a button for task creation is displayed/become enabled as well **1 point** \
-  ❌ A modal windows with forms is displayed for column and task creations **3 point**\
+  ✔️ Button for column creation is displayed **1 point**\
+  ✔️ If a board contains at least one column - a button for task creation is displayed/become enabled as well **1 point** \
+  ✔️ A modal windows with forms is displayed for column and task creations **3 point**\
   ❌ A vertical scrollbar is displayed in the column when overflowing with the number of column tasks **2 point**\
-  ❌ The page itself on the current route doesn't have a vertical scrollbar **1 point**\s
-  ❌ With the help of drag-n-drop, we can swap columns. **3 point**\
+  ✔️ The page itself on the current route doesn't have a vertical scrollbar **1 point**\s
+  ✔️ With the help of drag-n-drop, we can swap columns. **3 point**\
   ✔️ With the help of drag-n-drop, we can change the order of tasks within a column. **3 point**\
   ✔️ With the help of drag-n-drop, we can change the task belonging to the column. **5 point**\
-  ❌ The functionality of viewing and editing of the task has been implemented. **3 point**\
-  ❌ The task must have a delete task button. On click: confirmation modal -> delete. **1 point** \
-  ❌ At the top of the column should be Title. When you click on it, it should become an input, with Submit and Cancel buttons near it. After entering text in the input and clicking Submit - the Title of the column should change. **2 points** \
-  ❌ The column should have a delete button. By clicking -> confirmation modal -> when approving -> deleting. **1 point**
+  ✔️ The functionality of viewing and editing of the task has been implemented. **3 point**\
+  ✔️ The task must have a delete task button. On click: confirmation modal -> delete. **1 point** \
+  ✔️ At the top of the column should be Title. When you click on it, it should become an input, with Submit and Cancel buttons near it. After entering text in the input and clicking Submit - the Title of the column should change. **2 points** \
+  ✔️ The column should have a delete button. By clicking -> confirmation modal -> when approving -> deleting. **1 point**
  # General requirements - max 11 points
   ✔️ Backend error handling - (Not found, unhandled rejection, etc) should be performed in a user-friendly way (toast, pop-up or anything else you implement). **4 points**\
   ❌ Localization **1 point**\
@@ -41,5 +41,3 @@
   ❌ The presence in the console of the results of the console.log execution - - **2 point** for each \
   ❌ @ts-ignore or any usage (search through github repo) - - **1 point** for each \
   ❌ Making commits after the deadline - - **20 point**
-
-    for replace uncheck emoji: ✔️ 
