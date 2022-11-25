@@ -3,12 +3,14 @@ import React from 'react';
 import { Button, DeleteForm, DeleteWrapper, Img } from './ModalDelete.style';
 
 interface ModalDelete {
+  setDeleteItem?: React.Dispatch<React.SetStateAction<string>>;
   setisDelete: (arg0: boolean) => void;
-  setDelete: (arg0: boolean) => void;
+  setDelete?: (arg0: boolean) => void;
+  deleteTasks?: boolean;
 }
 
 const ModalDelete = (props: ModalDelete) => {
-  const { setDelete, setisDelete } = props;
+  const { setisDelete, setDeleteItem, deleteTasks } = props;
   return (
     <DeleteWrapper>
       <DeleteForm>
@@ -17,7 +19,7 @@ const ModalDelete = (props: ModalDelete) => {
         <Flex>
           <Button
             onClick={() => {
-              setDelete(true);
+              deleteTasks ? setDeleteItem!('task') : setDeleteItem!('column');
               setisDelete(false);
             }}
           >

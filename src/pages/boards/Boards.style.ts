@@ -45,7 +45,7 @@ export const Title = styled.div`
 
 export const Description = styled.div`
   width: 250px;
-  height: 50px;
+  height: 45px;
   overflow-y: hidden;
   word-wrap: break-word;
 `;
@@ -59,7 +59,7 @@ export const Icons = styled.div<IIcons>`
   height: 20px;
   background: url(${(props) => props.img}) no-repeat;
   background-size: 100%;
-  margin: 4px;
+  margin: 2px;
   cursor: pointer;
   :hover {
     width: 24px;

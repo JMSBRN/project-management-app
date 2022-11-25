@@ -22,7 +22,7 @@ interface FormValues {
 }
 
 const ColumnForm = (props: IProps) => {
-  const { columnId, columns, setColumns, setchangeColumn } = props;
+  const { columnId, columns, setchangeColumn } = props;
   const {
     register,
     handleSubmit,
