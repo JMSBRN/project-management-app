@@ -8,7 +8,7 @@ export const signUpThunk = createAsyncThunk(
   async (user: IUser, { dispatch }) => {
     await signUp(user).then((data) => {
       if (data.name) {
-        dispatch(setUserSignUpData(data.name));
+        dispatch(setUserSignUpData(data));
         dispatch(setRegistered(true));
       } else {
         dispatch(setErrorApiMessage(data.message));

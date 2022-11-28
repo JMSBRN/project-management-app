@@ -15,7 +15,7 @@ interface IFormProps {
   isGetIdUser?: boolean;
 }
 export interface FormValues {
-  name: string;
+  name?: string;
   login: string;
   password: string;
 }
@@ -34,7 +34,9 @@ const Form = (props: IFormProps) => {
   });
   const onSubmit = async (data: FormValues) => {
     dispatch(setLoader(true));
-    dispatch(refreshTokenThunk(data));
+    setTimeout(() => {
+      dispatch(refreshTokenThunk(data));
+    }, 1000);
     isSignUpForm ? dispatch(signUpThunk(data)) : dispatch(signInThunk(data));
     reset();
   };

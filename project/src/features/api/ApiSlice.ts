@@ -40,7 +40,7 @@ const apiSlice = createSlice({
     },
     setUserName: (state, action) => {
       state.userName = action.payload;
-      localStorage.setItem('user-name', JSON.stringify(state.userName));
+      localStorage.setItem('user-name', JSON.stringify(state.userName ? state.userName : ''));
     },
     setDeleteStatusMessage: (state, action) => {
       state.deleteStatusMessage = action.payload;

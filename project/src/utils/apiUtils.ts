@@ -1,16 +1,16 @@
 import { FormValues } from 'components/form/Form';
 import { IUser } from 'features/user/userInterfaces';
 import { Api } from '../features/api/apiConstants';
-const url = Api.API_URL;
+const url = Api.API_URL_MONGO;
 const urlUsers = `${url}/users`;
-const urlSignIn = `${url}/signin`;
-const urlSignUp = `${url}/signup`;
+const urlSignIn = `${url}/auth/signin`;
+const urlSignUp = `${url}/auth/signup`;
 
 export const getUsers = async () => {
   try {
     const res = await fetch(urlUsers, {
       headers: {
-        Authorization: `Bearer ${Api.TOKEN}`,
+        Authorization: `Bearer ${Api.TOKEN_SERVER_MONGO}`,
       },
     });
     const data = await res.json();
@@ -28,7 +28,7 @@ export const getUserById = async (id: string) => {
     const res = await fetch(`${urlUsers}/${id}`, {
       headers: {
         Accept: 'application/json',
-        Authorization: `Bearer ${Api.TOKEN}`,
+        Authorization: `Bearer ${Api.TOKEN_SERVER_MONGO}`,
       },
     });
     const data = await res.json();
@@ -61,6 +61,11 @@ export const signUp = async (user: IUser) => {
   }
 };
 export const signIn = async (user: IUser) => {
+  const { login, password } = user;
+  const userWithoutName = {
+    login: login,
+    password: password,
+  };
   try {
     const res = await fetch(urlSignIn, {
       method: 'POST',
@@ -68,7 +73,7 @@ export const signIn = async (user: IUser) => {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(user),
+      body: JSON.stringify(userWithoutName),
     });
     const data = await res.json();
     if (data.statusCode === 403) {
@@ -85,7 +90,7 @@ export const deleteUser = async (id: string) => {
       method: 'DELETE',
       headers: {
         Accept: '*/*',
-        Authorization: `Bearer ${Api.TOKEN}`,
+        Authorization: `Bearer ${Api.TOKEN_SERVER_MONGO}`,
       },
     });
     return res.statusText;

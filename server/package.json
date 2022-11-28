@@ -7,10 +7,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/src/index.js",
-    "dev": "ts-node-dev --respawn src/index.ts",
-    "build": "tsc",
-    "test": "test"
+    "server:start": "node dist/src/index.js",
+    "server:dev": "ts-node-dev --respawn src/index.ts",
+    "server:build": "tsc",
+    "server:test": "test"
   },
   "author": "Andrew Troitskiy",
   "license": "ISC",
