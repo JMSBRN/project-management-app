@@ -1,7 +1,7 @@
 import { FormValues } from 'components/form/Form';
 import { IUser } from 'features/user/userInterfaces';
 import { Api } from '../features/api/apiConstants';
-const url = Api.API_URL_MONGO;
+const url = Api.API_URL_MONGO_RENDER;
 const urlUsers = `${url}/users`;
 const urlSignIn = `${url}/auth/signin`;
 const urlSignUp = `${url}/auth/signup`;
