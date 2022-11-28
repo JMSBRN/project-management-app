@@ -76,7 +76,7 @@ export const signIn = async (user: IUser) => {
       body: JSON.stringify(userWithoutName),
     });
     const data = await res.json();
-    if (data.statusCode === 403) {
+    if (data.statusCode === 401 || 403) {
       return data;
     }
     return data;
