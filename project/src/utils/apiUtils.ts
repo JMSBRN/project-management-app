@@ -1,12 +1,11 @@
 import { FormValues } from 'components/form/Form';
 import { IUser } from 'features/user/userInterfaces';
-import { Api } from '../features/api/apiConstants';
-const url = Api.API_LOCAL_URL;
+
+const url = process.env.REACT_APP_API_LOCAL_URL;
 const urlUsers = `${url}/users`;
 const urlSignIn = `${url}/auth/signin`;
 const urlSignUp = `${url}/auth/signup`;
-const token = `Bearer ${Api.TOKEN_SERVER_MONGO}`;
-
+const token = `Bearer ${process.env.REACT_APP_TOKEN_SERVER_MONGO}`;
 export const getUsers = async () => {
   try {
     const res = await fetch(urlUsers, {
