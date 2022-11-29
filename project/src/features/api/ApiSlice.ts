@@ -25,12 +25,12 @@ const apiSlice = createSlice({
   reducers: {
     setToken: (state, action) => {
       state.token = action.payload;
+      state.authorised = !!action.payload;
     },
     setUserSignUpData: (state, action) => {
       state.userSignUpData = action.payload;
-    },
-    setAuthorised: (state, action) => {
-      state.authorised = action.payload;
+      const { name } = action.payload;
+      state.registered = !!name;
     },
     setErrorApiMessage: (state, action) => {
       state.errorApiMessage = action.payload;
@@ -40,7 +40,7 @@ const apiSlice = createSlice({
     },
     setUserName: (state, action) => {
       state.userName = action.payload;
-      localStorage.setItem('user-name', JSON.stringify(state.userName ? state.userName : ''));
+      localStorage.setItem('user-name', JSON.stringify(state.userName || ''));
     },
     setDeleteStatusMessage: (state, action) => {
       state.deleteStatusMessage = action.payload;
@@ -76,7 +76,6 @@ const apiSlice = createSlice({
 export const {
   setToken,
   setUserSignUpData,
-  setAuthorised,
   setErrorApiMessage,
   setUserName,
   setLoggedUserId,

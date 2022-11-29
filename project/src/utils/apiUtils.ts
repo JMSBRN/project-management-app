@@ -1,20 +1,22 @@
 import { FormValues } from 'components/form/Form';
 import { IUser } from 'features/user/userInterfaces';
 import { Api } from '../features/api/apiConstants';
-const url = Api.API_URL_MONGO_RENDER;
+const url = Api.API_LOCAL_URL;
 const urlUsers = `${url}/users`;
 const urlSignIn = `${url}/auth/signin`;
 const urlSignUp = `${url}/auth/signup`;
+const token = `Bearer ${Api.TOKEN_SERVER_MONGO}`;
 
 export const getUsers = async () => {
   try {
     const res = await fetch(urlUsers, {
       headers: {
-        Authorization: `Bearer ${Api.TOKEN_SERVER_MONGO}`,
+        Authorization: token,
       },
     });
     const data = await res.json();
-    if (res.status !== 200) {
+    const { status } = data;
+    if (status !== 200) {
       return;
     }
     return data;
@@ -28,7 +30,7 @@ export const getUserById = async (id: string) => {
     const res = await fetch(`${urlUsers}/${id}`, {
       headers: {
         Accept: 'application/json',
-        Authorization: `Bearer ${Api.TOKEN_SERVER_MONGO}`,
+        Authorization: token,
       },
     });
     const data = await res.json();
@@ -49,9 +51,10 @@ export const signUp = async (user: IUser) => {
       body: JSON.stringify(user),
     });
     const data = await res.json();
-    if (data.statusCode === 409) {
+    const { statusCode } = data;
+    if (statusCode === 409) {
       return data;
-    } else if (data.statusCode === 404) {
+    } else if (statusCode === 404) {
       return;
     }
     return data;
@@ -76,7 +79,8 @@ export const signIn = async (user: IUser) => {
       body: JSON.stringify(userWithoutName),
     });
     const data = await res.json();
-    if (data.statusCode === 401 || 403) {
+    const { statusCode } = data;
+    if (statusCode) {
       return data;
     }
     return data;
@@ -90,7 +94,7 @@ export const deleteUser = async (id: string) => {
       method: 'DELETE',
       headers: {
         Accept: '*/*',
-        Authorization: `Bearer ${Api.TOKEN_SERVER_MONGO}`,
+        Authorization: token,
       },
     });
     return res.statusText;

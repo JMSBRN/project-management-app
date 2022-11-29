@@ -34,9 +34,7 @@ const Form = (props: IFormProps) => {
   });
   const onSubmit = async (data: FormValues) => {
     dispatch(setLoader(true));
-    setTimeout(() => {
-      dispatch(refreshTokenThunk(data));
-    }, 1000);
+    dispatch(refreshTokenThunk(data));
     isSignUpForm ? dispatch(signUpThunk(data)) : dispatch(signInThunk(data));
     reset();
   };
