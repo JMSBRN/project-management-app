@@ -16,13 +16,12 @@ import { AppWrapper, ErrorInternetDisconnected, GlobalStyle, Loader } from './ma
 import './main.style.ts';
 
 function App() {
-  const online = isOnline();
   const { userName, loading } = useAppSelector(selectApi);
   return (
     <>
       <AppWrapper data-testid="app">
         {loading && <Loader />}
-        {!online && (
+        {!isOnline() && (
           <ErrorInternetDisconnected>No internet... Please check this..</ErrorInternetDisconnected>
         )}
         <GlobalStyle />

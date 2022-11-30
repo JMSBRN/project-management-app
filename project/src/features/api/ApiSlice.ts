@@ -66,8 +66,7 @@ const apiSlice = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(signUpThunk.fulfilled, (state) => {
-      const signUpDataProvided = Object.values(state.userSignUpData).every((item) => item);
-      if (signUpDataProvided) {
+      if (Object.values(state.userSignUpData).every((item) => item)) {
         state.authorised = true;
       }
     });
