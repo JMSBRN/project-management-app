@@ -14,16 +14,19 @@ import { Route, Routes } from 'react-router-dom';
 import { isOnline } from 'utils/apiUtils';
 import { AppWrapper, ErrorInternetDisconnected, GlobalStyle, Loader } from './main.style';
 import './main.style.ts';
+import './localization/i18n';
+import { useTranslation } from 'react-i18next';
 
 function App() {
   const online = isOnline();
   const { userName, loading } = useAppSelector(selectApi);
+  const { t } = useTranslation();
   return (
     <>
       <AppWrapper data-testid="app">
         {loading && <Loader />}
         {!online && (
-          <ErrorInternetDisconnected>No internet... Please check this..</ErrorInternetDisconnected>
+          <ErrorInternetDisconnected>{t('no-internet-connect-msg')}</ErrorInternetDisconnected>
         )}
         <GlobalStyle />
         <Header isAuth={!!userName} />
