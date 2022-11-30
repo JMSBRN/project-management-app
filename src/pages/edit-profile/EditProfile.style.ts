@@ -7,9 +7,23 @@ export const EditProfileWrapper = styled.div`
   align-items: center;
   justify-content: center;
 `;
-export const ErrorMessage = styled.div`
+export const ErrorMessageWrapper = styled.div`
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  top: 300px;
-  height: 20px;
-  color: red;
+  backdrop-filter: blur(5px);
+`;
+
+export const ErrorMessage = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background: red;
+  font-size: 25px;
+  color: white;
+  border-radius: 20px;
+  padding: 70px;
 `;

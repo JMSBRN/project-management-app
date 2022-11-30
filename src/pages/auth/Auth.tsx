@@ -1,6 +1,12 @@
 import React from 'react';
 import Form from 'components/form/Form';
-import { AuthtWrapper, ErrorMessage, RegisterMessage, RegisterMessageWrapper } from './Auth.style';
+import {
+  AuthtWrapper,
+  ErrorMessage,
+  RegisterMessage,
+  RegisterMessageText,
+  RegisterMessageWrapper,
+} from './Auth.style';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { selectApi, setRegistered } from 'features/api/ApiSlice';
 import Link from 'components/link/Link';
@@ -22,9 +28,7 @@ const Auth = (props: IAuthProps) => {
       {registered && (
         <RegisterMessageWrapper>
           <RegisterMessage>
-            Registration Successful! <br /> Try Sign in please
-            <br />
-            <br />
+            <RegisterMessageText>Registration Successful! Try Sign in please</RegisterMessageText>
             <div onClick={() => dispatch(setRegistered(false))}>
               <Link text="go to Sign in" to="/auth-sign-in" />
             </div>
