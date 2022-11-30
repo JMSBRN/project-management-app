@@ -2,7 +2,7 @@ import React, { PropsWithChildren } from 'react';
 import { render, RenderOptions } from '@testing-library/react';
 import { AppStore, RootState, setupStore } from 'app/store';
 import type { PreloadedState } from '@reduxjs/toolkit';
-import { Provider } from 'react-redux';;
+import { Provider } from 'react-redux';
 import { apiSliceIinitState } from 'features/api/apiInterfaces';
 import { userSliceInitState } from 'features/user/userInterfaces';
 import { boardsSliceInitState } from 'features/boards/boardsInterfaces';

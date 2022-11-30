@@ -15,7 +15,7 @@ import deleteBoard from '../../assets/img/delete.png';
 import ModalDelete from 'components/modalDelete/ModalDelete';
 import BoardForm from 'components/boardForm/BoardForm';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useBoardsSelector } from 'app/hooks';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { setBoardsBtns } from 'features/api/ApiSlice';
 import { boardsSelect, newBoards } from 'features/boards/BoardsSlice';
 
@@ -42,7 +42,7 @@ export function getRandomID() {
 
 const Boards = () => {
   const dispatch = useAppDispatch();
-  const { boards } = useBoardsSelector(boardsSelect);
+  const { boards } = useAppSelector(boardsSelect);
   const navigate = useNavigate();
   const [changeBoard, setchangeBoard] = useState(false);
   const [isDelete, setisDelete] = useState(false);
