@@ -20,69 +20,12 @@ import ModalDelete from 'components/modalDelete/ModalDelete';
 import ColumnForm from 'components/columnForm/ColumnForm';
 import Task from './task/Task ';
 import TaskForm from 'components/taskForm/TaskForm';
-
-export interface IData {
-  id: string;
-  Task: string;
-  message: string;
-}
-
-export const data = [
-  {
-    id: getRandomID(),
-    Task: '1 задача',
-    message: 'Зделать что то много чего',
-  },
-  {
-    id: getRandomID(),
-    Task: '2 задача',
-    message: 'ещё задачи',
-  },
-  {
-    id: getRandomID(),
-    Task: '3 задача',
-    message: 'больше задач больше',
-  },
-  {
-    id: getRandomID(),
-    Task: '4 задача',
-    message: 'Огромные дела огромных дел',
-  },
-  {
-    id: getRandomID(),
-    Task: '5 задача',
-    message: 'дела деловых дел',
-  },
-];
-
-export interface IColumns {
-  title: string;
-  items: IData[] | [];
-}
-
-export const columnsData = [
-  {
-    title: 'To-do',
-    items: data,
-  },
-  {
-    title: 'In Progress',
-    items: [],
-  },
-  {
-    title: 'Done',
-    items: [],
-  },
-];
-
-export function getRandomID() {
-  return (Math.random() + 1).toString(36).substring(7);
-}
+import { IColumns } from '../Boards';
+import { useLocation } from 'react-router-dom';
 
 const onDragEnd = (result: DropResult, columns: IColumns[]) => {
   if (!result.destination) return;
   const { source, destination, type } = result;
-
   if (type === 'columns') {
     if (source.index !== destination.index) {
       const [removed] = columns.splice(source.index, 1);
@@ -109,6 +52,9 @@ const onDragEnd = (result: DropResult, columns: IColumns[]) => {
 };
 
 const Board = () => {
+  const location = useLocation();
+  const boardId: number = location.state.index;
+  const columnsData = location.state.boards[boardId].columns;
   const [columns, setColumns] = useState<IColumns[]>(columnsData);
   const [changeColumn, setchangeColumn] = useState(false);
   const [changeTask, setChangeTask] = useState(false);

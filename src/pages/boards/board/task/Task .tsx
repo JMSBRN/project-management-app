@@ -4,7 +4,7 @@ import { Draggable } from 'react-beautiful-dnd';
 import { IconsWrapperTask, Message, TaskInformation, Title } from './Task.style';
 import editTask from '../../../../assets/img/edit.png';
 import deleteTaskImg from '../../../../assets/img/delete.png';
-import { IColumns } from '../Board';
+import { IColumns } from 'pages/boards/Boards';
 
 interface IProps {
   setChangeTask: React.Dispatch<React.SetStateAction<boolean>>;

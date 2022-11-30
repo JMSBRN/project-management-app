@@ -1,11 +1,13 @@
 import { configureStore, ThunkAction, Action, PreloadedState } from '@reduxjs/toolkit';
 import userReducer from '../features/user/UserSlice';
 import apiReducer from '../features/api/ApiSlice';
+import boardsReduser from '../features/boards/BoardsSlice';
 import rootReducer from '../app/reducers';
 export const store = configureStore({
   reducer: {
     user: userReducer,
     api: apiReducer,
+    boards: boardsReduser,
   },
 });
 
