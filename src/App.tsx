@@ -33,7 +33,10 @@ function App() {
             path="/auth-sign-in"
             element={!!userName ? <Welcome /> : <Auth isSingInForm={true} />}
           />
-          <Route path="/auth-sign-up" element={<Auth isSingInForm={false} />} />
+          <Route
+            path="/auth-sign-up"
+            element={!!userName ? <Welcome /> : <Auth isSingInForm={false} />}
+          />
           <Route path="*" element={<NotFound />} />
           <Route
             element={
