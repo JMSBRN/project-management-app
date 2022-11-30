@@ -7,7 +7,7 @@ import { getUserIdThunk } from 'features/api/thunks/getUserIdThunk';
 import { signInThunk } from 'features/api/thunks/signInThunk';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { EditProfileWrapper, ErrorMessage } from './EditProfile.style';
+import { EditProfileWrapper, ErrorMessage, ErrorMessageWrapper } from './EditProfile.style';
 
 const EditProfile = () => {
   const dispatch = useAppDispatch();
@@ -28,12 +28,16 @@ const EditProfile = () => {
   return (
     <EditProfileWrapper>
       {isModal && <ModalDelete setDelete={handleDeleUser} setisDelete={setIsModal} />}
-      <ErrorMessage>
-        {errorApiMessage}
-        {deleteStatusMessage === 'No Content'
-          ? ' User deleted '
-          : deleteStatusMessage === 'Not Found' && 'User not found'}
-      </ErrorMessage>
+      {errorApiMessage && (
+        <ErrorMessageWrapper>
+          <ErrorMessage>
+            {errorApiMessage}
+            {deleteStatusMessage === 'No Content'
+              ? ' User deleted '
+              : deleteStatusMessage === 'Not Found' && 'User not found'}
+          </ErrorMessage>
+        </ErrorMessageWrapper>
+      )}
       <Form
         onClickDeletUserBtn={() => setIsModal(true)}
         onSubmiteEditProfeileForm={onSubmit}
