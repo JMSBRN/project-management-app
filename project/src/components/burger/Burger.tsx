@@ -3,12 +3,14 @@ import { BurgerWrapper } from './Burger.style';
 
 interface IProps {
   changeBurgerMenu(): void;
-  burger: boolean;
+  trigger: boolean;
 }
 
 const Burger = (props: IProps) => {
-  const { burger, changeBurgerMenu } = props;
-  return <BurgerWrapper data-testid="burger" burger={burger} onClick={() => changeBurgerMenu()} />;
+  const { trigger, changeBurgerMenu } = props;
+  return (
+    <BurgerWrapper data-testid="burger" trigger={trigger} onClick={() => changeBurgerMenu()} />
+  );
 };
 
 export default Burger;

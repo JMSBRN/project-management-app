@@ -1,14 +1,7 @@
 import { IColumns, IData } from 'pages/boards/board/Board';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import {
-  ButtonWrapper,
-  Close,
-  ColumnFormWrapper,
-  FormWrapper,
-  InputWrapper,
-  LabelWrapper,
-} from './ColumnForm.style';
+import { Button, Close, ColumnFormWrapper, Form, Input, Label } from './ColumnForm.style';
 
 interface IProps {
   setchangeColumn: (arg0: boolean) => void;
@@ -36,20 +29,20 @@ const ColumnForm = (props: IProps) => {
   };
   return (
     <ColumnFormWrapper>
-      <FormWrapper onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <Close onClick={() => setchangeColumn(false)} />
-        <LabelWrapper>
+        <Label>
           Title
-          <InputWrapper
+          <Input
             type="text"
             {...register('title', {
               required: 'enter title',
             })}
           />
           <div>{errors?.title && errors.title.message}</div>
-        </LabelWrapper>
-        <ButtonWrapper type="submit">Submit</ButtonWrapper>
-      </FormWrapper>
+        </Label>
+        <Button type="submit">Submit</Button>
+      </Form>
     </ColumnFormWrapper>
   );
 };

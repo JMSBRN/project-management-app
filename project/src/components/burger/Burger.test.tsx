@@ -11,7 +11,7 @@ describe('<Burger />', () => {
   it('should be rendering correctly with props ', () => {
     render(
       <MemoryRouter>
-        <Burger burger={true} changeBurgerMenu={changeBurgerMenu} />
+        <Burger trigger={true} changeBurgerMenu={changeBurgerMenu} />
       </MemoryRouter>
     );
     expect(screen.getByTestId('burger')).toBeInTheDocument();

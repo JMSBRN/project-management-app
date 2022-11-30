@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import burger from '../../assets/img/burger.png';
+import burgerPng from '../../assets/img/burger.png';
 
 interface IProps {
-  burger: boolean;
+  trigger: boolean;
 }
 
 export const BurgerWrapper = styled.div<IProps>`
@@ -11,14 +11,14 @@ export const BurgerWrapper = styled.div<IProps>`
   display: none;
   position: absolute;
   right: 1%;
-  background-image: url(${burger});
+  background-image: url(${burgerPng});
   background-size: 100%;
   cursor: pointer;
   :active {
     background-color: red;
   }
   @media (max-width: 650px) {
-    transform: ${(props) => (props.burger ? 'rotate(90deg)' : 'rotate(0);')};
+    transform: ${(props) => (props.trigger ? 'rotate(90deg)' : 'rotate(0);')};
     transition: 0.7s;
     display: block;
     z-index: 1;

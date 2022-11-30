@@ -1,14 +1,7 @@
 import { IBoard } from 'pages/boards/Boards';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import {
-  BoardFormWrapper,
-  ButtonWrapper,
-  Close,
-  FormWrapper,
-  InputWrapper,
-  LabelWrapper,
-} from './BoardForm.style';
+import { BoardFormWrapper, Button, Close, Form, Input, Label } from './BoardForm.style';
 
 interface IProps {
   setchangeBoard: (arg0: boolean) => void;
@@ -41,30 +34,30 @@ const BoardForm = (props: IProps) => {
   };
   return (
     <BoardFormWrapper>
-      <FormWrapper onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <Close onClick={() => setchangeBoard(false)} />
-        <LabelWrapper>
+        <Label>
           Title
-          <InputWrapper
+          <Input
             type="text"
             {...register('title', {
               required: 'enter title',
             })}
           />
           <div>{errors?.title && errors.title.message}</div>
-        </LabelWrapper>
-        <LabelWrapper>
+        </Label>
+        <Label>
           Description
-          <InputWrapper
+          <Input
             type="text"
             {...register('text', {
               required: 'enter description',
             })}
           />
           <div>{errors?.text && errors.text.message}</div>
-        </LabelWrapper>
-        <ButtonWrapper type="submit">Submit</ButtonWrapper>
-      </FormWrapper>
+        </Label>
+        <Button type="submit">Submit</Button>
+      </Form>
     </BoardFormWrapper>
   );
 };

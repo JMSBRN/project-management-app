@@ -56,7 +56,7 @@ const Header = (props: IProps) => {
             </>
           )}
         </LinksNavWrapper>
-        <Burger burger={burger} changeBurgerMenu={changeBurgerMenu} />
+        <Burger trigger={burger} changeBurgerMenu={changeBurgerMenu} />
       </HeadersWrapper>
       <Outlet />
     </>

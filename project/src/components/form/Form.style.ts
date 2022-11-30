@@ -12,7 +12,7 @@ export const FormWrapper = styled.form`
   border: 1px solid white;
 `;
 
-export const InputWrapper = styled.input`
+export const Input = styled.input`
   width: 250px;
   display: block;
   margin: 0 auto;
@@ -20,7 +20,7 @@ export const InputWrapper = styled.input`
   border-radius: 7px;
 `;
 
-export const LabelWrapper = styled.div`
+export const Label = styled.div`
   div {
     width: 250px;
     height: 38px;
@@ -34,7 +34,7 @@ interface ISubmit {
   isValid: boolean;
 }
 
-export const ButtonWrapper = styled.button<ISubmit>`
+export const Button = styled.button<ISubmit>`
   border-radius: 7px;
   color: black;
   border: 1px solid black;

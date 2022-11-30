@@ -2,7 +2,7 @@ import React from 'react';
 import { useAppDispatch } from 'app/hooks';
 import { setLoader } from 'features/api/ApiSlice';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { ButtonWrapper, FormWrapper, InputWrapper, LabelWrapper } from './Form.style';
+import { Button, FormWrapper, Input, Label } from './Form.style';
 import { signInThunk } from 'features/api/thunks/signInThunk';
 import { signUpThunk } from 'features/api/thunks/signUpThunk';
 import { refreshTokenThunk } from 'features/api/thunks/refreshTokenThunk';
@@ -42,9 +42,9 @@ const Form = (props: IFormProps) => {
     <FormWrapper onSubmit={handleSubmit(isEditProfileForm ? onSubmiteEditProfeileForm! : onSubmit)}>
       {label}
       {isSignUpForm && (
-        <LabelWrapper>
+        <Label>
           name
-          <InputWrapper
+          <Input
             type="text"
             {...register('name', {
               required: 'Enter your name',
@@ -59,11 +59,11 @@ const Form = (props: IFormProps) => {
             })}
           />
           <div>{errors?.name && errors.name.message}</div>
-        </LabelWrapper>
+        </Label>
       )}
-      <LabelWrapper>
+      <Label>
         login
-        <InputWrapper
+        <Input
           type="text"
           {...register('login', {
             required: 'Enter your login',
@@ -74,10 +74,10 @@ const Form = (props: IFormProps) => {
           })}
         />
         <div>{errors?.login && errors.login.message}</div>
-      </LabelWrapper>
-      <LabelWrapper>
+      </Label>
+      <Label>
         password
-        <InputWrapper
+        <Input
           type="password"
           {...register('password', {
             required: 'Enter your password',
@@ -88,26 +88,26 @@ const Form = (props: IFormProps) => {
           })}
         />
         <div>{errors?.password && errors.password.message}</div>
-      </LabelWrapper>
+      </Label>
       {!isEditProfileForm && (
-        <ButtonWrapper type="submit" disabled={!isValid} isValid={isValid}>
+        <Button type="submit" disabled={!isValid} isValid={isValid}>
           Submit
-        </ButtonWrapper>
+        </Button>
       )}
       {isEditProfileForm && (
         <>
-          <ButtonWrapper type="submit" disabled={isGetIdUser} isValid={isValid}>
+          <Button type="submit" disabled={isGetIdUser} isValid={isValid}>
             Submit
-          </ButtonWrapper>
+          </Button>
           <br />
-          <ButtonWrapper
+          <Button
             onClick={onClickDeletUserBtn}
             disabled={!isGetIdUser}
             type="button"
             isValid={isValid}
           >
             Delete User
-          </ButtonWrapper>
+          </Button>
         </>
       )}
     </FormWrapper>

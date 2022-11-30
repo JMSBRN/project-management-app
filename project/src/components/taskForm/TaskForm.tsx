@@ -1,14 +1,7 @@
-import { getRandomID, IColumns, IData } from 'pages/boards/board/Board';
+import { getRandomID, IColumns } from 'pages/boards/board/Board';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import {
-  BoardFormWrapper,
-  ButtonWrapper,
-  Close,
-  FormWrapper,
-  InputWrapper,
-  LabelWrapper,
-} from './TaskForm.style';
+import { BoardFormWrapper, Button, Close, FormWrapper, Input, Label } from './TaskForm.style';
 
 interface IProps {
   tasksIdArr: number[];
@@ -65,9 +58,9 @@ const TaskForm = (props: IProps) => {
     <BoardFormWrapper>
       <FormWrapper onSubmit={handleSubmit(onSubmit)}>
         <Close onClick={() => setChangeTask(false)} />
-        <LabelWrapper>
+        <Label>
           Title
-          <InputWrapper
+          <Input
             type="text"
             {...register('title', {
               required: 'enter title',
@@ -78,10 +71,10 @@ const TaskForm = (props: IProps) => {
             })}
           />
           <div>{errors?.title && errors.title.message}</div>
-        </LabelWrapper>
-        <LabelWrapper>
+        </Label>
+        <Label>
           Description
-          <InputWrapper
+          <Input
             type="text"
             {...register('text', {
               required: 'enter description',
@@ -92,8 +85,8 @@ const TaskForm = (props: IProps) => {
             })}
           />
           <div>{errors?.text && errors.text.message}</div>
-        </LabelWrapper>
-        <ButtonWrapper type="submit">Submit</ButtonWrapper>
+        </Label>
+        <Button type="submit">Submit</Button>
       </FormWrapper>
     </BoardFormWrapper>
   );
