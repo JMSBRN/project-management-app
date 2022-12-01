@@ -30,12 +30,19 @@ export const RegisterMessageWrapper = styled.div`
 `;
 
 export const RegisterMessage = styled.div`
+  height: 200px;
   display: flex;
   align-items: center;
   flex-direction: column;
   background: white;
-  color: #43c6ac;
-  font-size: 25px;
   border-radius: 20px;
   padding: 50px;
+`;
+
+export const RegisterMessageText = styled.p`
+  width: 350px;
+  flex-wrap: wrap;
+  color: #43c6ac;
+  font-size: 25px;
+  margin-bottom: 20px;
 `;
