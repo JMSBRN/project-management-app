@@ -10,7 +10,7 @@ export const signInThunk = createAsyncThunk(
       dispatch(setErrorApiMessage(message));
       if (token) {
         dispatch(setToken(token));
-        dispatch(setUserName(await getUserName(getParsedJwt(token)?.id as string)));
+        dispatch(setUserName(await getUserName(getParsedJwt(token)?.id as string, token)));
       } else if (message) {
         dispatch(setErrorApiMessage(message as string));
         setTimeout(() => {

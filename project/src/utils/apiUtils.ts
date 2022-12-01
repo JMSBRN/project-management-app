@@ -15,11 +15,11 @@ const urlUsers = `${url}/users`;
 const urlSignIn = `${url}/auth/signin`;
 const urlSignUp = `${url}/auth/signup`;
 const token = `Bearer ${REACT_APP_TOKEN_SERVER_MONGO}`;
-export const getUsers = async () => {
+export const getUsers = async (token: string) => {
   try {
     const res = await fetch(urlUsers, {
       headers: {
-        Authorization: token,
+        Authorization: `Bearer ${token}`,
       },
     });
     const data = await res.json();
@@ -33,12 +33,12 @@ export const getUsers = async () => {
     return;
   }
 };
-export const getUserById = async (id: string) => {
+export const getUserById = async (id: string, token: string) => {
   try {
     const res = await fetch(`${urlUsers}/${id}`, {
       headers: {
         Accept: 'application/json',
-        Authorization: token,
+        Authorization: `Bearer ${token}`,
       },
     });
     const data = await res.json();
@@ -73,10 +73,6 @@ export const signUp = async (user: IUser) => {
 };
 export const signIn = async (user: IUser) => {
   const { login, password } = user;
-  const userWithoutName = {
-    login: login,
-    password: password,
-  };
   try {
     const res = await fetch(urlSignIn, {
       method: 'POST',
@@ -84,7 +80,7 @@ export const signIn = async (user: IUser) => {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(userWithoutName),
+      body: JSON.stringify({ login, password }),
     });
     const data = await res.json();
     const { statusCode } = data;
@@ -102,7 +98,7 @@ export const deleteUser = async (id: string) => {
       method: 'DELETE',
       headers: {
         Accept: '*/*',
-        Authorization: token,
+        Authorization: `Bearer ${token}`,
       },
     });
     return res.statusText;
@@ -119,22 +115,19 @@ export const getParsedJwt = <T extends object = { [k: string]: string | number }
     return undefined;
   }
 };
-export const getUserName = async (id: string) => {
+export const getUserName = async (id: string, token: string) => {
   let name = '';
-  await getUserById(id).then((user) => {
+  await getUserById(id, token).then((user) => {
     name = user.name;
   });
   return name;
 };
 export const getTimeFromToken = async (token: string) => {
-  const parsedJwt = getParsedJwt(token);
-  const timeFromToken = parsedJwt?.iat as number;
-  return timeFromToken;
+  return getParsedJwt(token)?.iat as number;
 };
 export const setTimeFromToken = async (data: FormValues) => {
-  let time = 0;
-  await signIn(data).then(async (data) => {
-    time = await getTimeFromToken(data.token);
+  const time = await signIn(data).then(async ({ token }) => {
+    return await getTimeFromToken(token);
   });
   return time;
 };
