@@ -3,17 +3,17 @@ import React from 'react';
 import { Button, DeleteForm, Delete, Img } from './ModalDelete.style';
 
 interface ModalDelete {
-  setDeleteItem?: React.Dispatch<React.SetStateAction<string>>;
   setisDelete: (arg: boolean) => void;
   setDelete?: (arg: boolean) => void;
   deleteTasks?: boolean;
   deleteBoards?: (arg: number) => void;
   boardId?: number | null;
-  setBoardId?: React.Dispatch<React.SetStateAction<number | null>>;
+  delColumn?: () => void;
+  deleteTask?: () => void;
 }
 
 const ModalDelete = (props: ModalDelete) => {
-  const { setBoardId, setisDelete, setDeleteItem, deleteTasks, deleteBoards, boardId, setDelete } =
+  const { setisDelete, deleteTask, deleteTasks, deleteBoards, boardId, setDelete, delColumn } =
     props;
   return (
     <Delete>
@@ -23,13 +23,13 @@ const ModalDelete = (props: ModalDelete) => {
         <Flex>
           <Button
             onClick={() => {
-              if (setBoardId) {
+              if (boardId) {
                 deleteBoards!(boardId!);
-                setBoardId!(null);
+                setisDelete(false);
               } else if (setDelete) {
                 setDelete!(true);
               } else {
-                deleteTasks ? setDeleteItem!('task') : setDeleteItem!('column');
+                deleteTasks ? deleteTask!() : delColumn!();
               }
               setisDelete(false);
             }}

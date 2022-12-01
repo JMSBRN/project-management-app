@@ -14,7 +14,6 @@ describe('<Form />', () => {
             items: [],
           },
         ]}
-        setColumns={jest.fn()}
         createNewTask={false}
         ColumnId={null}
         setCreateNewTask={jest.fn()}

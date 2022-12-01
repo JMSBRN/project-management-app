@@ -1,12 +1,14 @@
 import React from 'react';
 import { getRandomID, IColumns } from 'pages/boards/Boards';
-import { useForm } from 'react-hook-form';
 import { BoardForm, Button, Close, Form, Input, Label } from './TaskForm.style';
+import { useAppDispatch } from 'app/hooks';
+import { useForm } from 'react-hook-form';
+import { addColumns } from 'features/boards/BoardsSlice';
+import clone from 'clone';
 
 interface IProps {
   tasksIdArr: number[];
   setChangeTask: (arg0: boolean) => void;
-  setColumns: React.Dispatch<React.SetStateAction<IColumns[]>>;
   columns: IColumns[];
   createNewTask: boolean;
   ColumnId: number | null;
@@ -20,15 +22,8 @@ interface FormValues {
 }
 
 const TaskForm = (props: IProps) => {
-  const {
-    columns,
-    setColumns,
-    setChangeTask,
-    tasksIdArr,
-    createNewTask,
-    ColumnId,
-    setCreateNewTask,
-  } = props;
+  const dispatch = useAppDispatch();
+  const { columns, setChangeTask, tasksIdArr, createNewTask, ColumnId, setCreateNewTask } = props;
   const {
     register,
     handleSubmit,
@@ -38,20 +33,23 @@ const TaskForm = (props: IProps) => {
   });
   const onSubmit = (data: FormValues) => {
     if (createNewTask) {
-      columns[ColumnId!].items = [
-        ...columns[ColumnId!].items,
+      const newColumns = clone(columns);
+      newColumns[ColumnId!].items = [
+        ...newColumns[ColumnId!].items,
         {
           id: getRandomID(),
           Task: data.title,
           message: data.text,
         },
       ];
+      dispatch(addColumns({ newColumns }));
       setCreateNewTask(false);
     } else {
-      columns[tasksIdArr[0]].items[tasksIdArr[1]].Task = data.title;
-      columns[tasksIdArr[0]].items[tasksIdArr[1]].message = data.text;
+      const newColumns = clone(columns);
+      newColumns[tasksIdArr[0]].items[tasksIdArr[1]].Task = data.title;
+      newColumns[tasksIdArr[0]].items[tasksIdArr[1]].message = data.text;
+      dispatch(addColumns({ newColumns }));
     }
-    setColumns(columns);
     setChangeTask(false);
   };
   return (
