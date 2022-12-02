@@ -10,7 +10,7 @@ export const signUpThunk = createAsyncThunk(
       if (name) {
         dispatch(setUserSignUpData({ id, login, name }));
       } else {
-        dispatch(setErrorApiMessage({ message }));
+        dispatch(setErrorApiMessage(message));
         setTimeout(() => {
           dispatch(setErrorApiMessage(''));
         }, 3000);
