@@ -6,12 +6,7 @@ import { boardsSliceInitState, IChangeBoard, IChangeColumn, INewColumn } from '.
 
 const initialState: boardsSliceInitState = {
   boardId: JSON.parse(localStorage.getItem('boardId')!) || 0,
-  boards: JSON.parse(localStorage.getItem('boards')!) || [
-    {
-      title: '1 task',
-      text: 'description 1',
-    },
-  ],
+  boards: JSON.parse(localStorage.getItem('boards')!) || [],
 };
 
 const boardsSlice = createSlice({

@@ -23,7 +23,7 @@ const ModalDelete = (props: ModalDelete) => {
         <Flex>
           <Button
             onClick={() => {
-              if (boardId) {
+              if (boardId || boardId === 0) {
                 deleteBoards!(boardId!);
                 setisDelete(false);
               } else if (setDelete) {
