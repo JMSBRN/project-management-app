@@ -16,25 +16,25 @@ import teamlead from '../../assets/img/teamlead.png';
 import telegram from '../../assets/img/telegram.png';
 import linkedIn from '../../assets/img/linkedIn.png';
 import github from '../../assets/img/github.png';
+import { useTranslation } from 'react-i18next';
 
 const Welcome = () => {
+  const { t } = useTranslation();
   return (
     <WelcomeWrapper>
       <DescriptionWrapper>
         <ImageWelcome img={taskImg} />
         <Description>
-          <h1>Task manager</h1>
-          This is a task management application for any work needs. Accelerate teamwork with the
-          ability to create and manage boards for any task. Simplify complex projects by breaking
-          them down into levels of subtasks. Visualize your tasks and easily change their order.
+          <h1>{t(`main.welcome.task-manager`)}</h1>
+          {t(`main.welcome.task-description`)}
         </Description>
       </DescriptionWrapper>
       <ImageWelcome img={development} />
-      <h2>Team</h2>
+      <h2>{t(`main.welcome.team.team-title`)}</h2>
       <DescriptionWrapper>
         <ReversWrapper>
           <Description>
-            <h3>Aleksandr Zakhavai</h3>
+            <h3>{t(`main.welcome.team.team-member-1`)}</h3>
             <ul>
               <li>Teamlead</li>
               <li>Backend</li>
@@ -55,7 +55,7 @@ const Welcome = () => {
       <DescriptionWrapper>
         <ImageAvatar img={front} />
         <Description>
-          <h3>Alexey Shishkov</h3>
+          <h3>{t(`main.welcome.team.team-member-2`)}</h3>
           <ul>
             <li>Frontend</li>
             <li>Design</li>

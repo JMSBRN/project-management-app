@@ -6,6 +6,7 @@ import { Button, FormWrapper, Input, Label } from './Form.style';
 import { signInThunk } from 'features/api/thunks/signInThunk';
 import { signUpThunk } from 'features/api/thunks/signUpThunk';
 import { refreshTokenThunk } from 'features/api/thunks/refreshTokenThunk';
+import { useTranslation } from 'react-i18next';
 
 interface IFormProps {
   label: string;
@@ -23,7 +24,8 @@ const Form = (props: IFormProps) => {
   const { label, isEditProfileForm, isGetIdUser, onClickDeletUserBtn, onSubmiteEditProfeileForm } =
     props;
   const dispatch = useAppDispatch();
-  const isSignUpForm = label === 'sign up Form';
+  const { t } = useTranslation();
+  const isSignUpForm = label === `${t('main.auth.sign-up')}`;
   const {
     register,
     handleSubmit,
@@ -43,18 +45,18 @@ const Form = (props: IFormProps) => {
       {label}
       {isSignUpForm && (
         <Label>
-          name
+          {t('main.auth.name-')}
           <Input
             type="text"
             {...register('name', {
-              required: 'Enter your name',
+              required: `${t('main.auth.name-input-required')}`,
               minLength: {
                 value: 2,
-                message: 'name must be more than one letter A-z',
+                message: `${t('main.auth.name-input-msg-length')}`,
               },
               pattern: {
                 value: /^[A-Z][-a-zA-Z]+$/,
-                message: 'name must be more than one letter',
+                message: `${t('main.auth.name-input-msg-pattern')}`,
               },
             })}
           />
@@ -62,28 +64,28 @@ const Form = (props: IFormProps) => {
         </Label>
       )}
       <Label>
-        login
+        {t('main.auth.login-')}
         <Input
           type="text"
           {...register('login', {
-            required: 'Enter your login',
+            required: `${t('main.auth.login-input-required')}`,
             minLength: {
               value: 2,
-              message: 'Login must be more than one letter A-z',
+              message: `${t('main.auth.login-input-msg-length')}`,
             },
           })}
         />
         <div>{errors?.login && errors.login.message}</div>
       </Label>
       <Label>
-        password
+        {t('main.auth.password-')}
         <Input
           type="password"
           {...register('password', {
-            required: 'Enter your password',
+            required: `${t('main.auth.password-input-required')}`,
             minLength: {
               value: 7,
-              message: 'Password cannot be shorter than 5 characters',
+              message: `${t('main.auth.password-input-msg-length')}`,
             },
           })}
         />
@@ -91,13 +93,13 @@ const Form = (props: IFormProps) => {
       </Label>
       {!isEditProfileForm && (
         <Button type="submit" disabled={!isValid} isValid={isValid}>
-          Submit
+          {t('main.auth.submit-btn')}
         </Button>
       )}
       {isEditProfileForm && (
         <>
           <Button type="submit" disabled={isGetIdUser} isValid={isValid}>
-            Submit
+            {t('main.auth.submit-btn')}
           </Button>
           <br />
           <Button
@@ -106,7 +108,7 @@ const Form = (props: IFormProps) => {
             type="button"
             isValid={isValid}
           >
-            Delete User
+            {t('main.auth.delete-user-btn')}
           </Button>
         </>
       )}

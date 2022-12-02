@@ -4,6 +4,7 @@ import { IBoard, IColumns } from 'pages/boards/Boards';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { BoardFormWrapper, Button, Close, Form, Input, Label } from './BoardForm.style';
+import { useTranslation } from 'react-i18next';
 
 interface IProps {
   setchangeBoard: (arg0: boolean) => void;
@@ -36,31 +37,32 @@ const BoardForm = (props: IProps) => {
     }
     setchangeBoard(false);
   };
+  const { t } = useTranslation();
   return (
     <BoardFormWrapper>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Close onClick={() => setchangeBoard(false)} />
         <Label>
-          Title
+          {t('main.boardForm.title')}
           <Input
             type="text"
             {...register('title', {
-              required: 'enter title',
+              required: `${t('main.boardForm.title-input-required')}}`,
             })}
           />
           <div>{errors?.title && errors.title.message}</div>
         </Label>
         <Label>
-          Description
+          {t('main.boardForm.description')}
           <Input
             type="text"
             {...register('text', {
-              required: 'enter description',
+              required: `${t('main.boardForm.description-input-required')}}`,
             })}
           />
           <div>{errors?.text && errors.text.message}</div>
         </Label>
-        <Button type="submit">Submit</Button>
+        <Button type="submit">{t('main.boardForm.submit-btn')}</Button>
       </Form>
     </BoardFormWrapper>
   );

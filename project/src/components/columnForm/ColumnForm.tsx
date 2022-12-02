@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { Button, Close, Column, Form, Input, Label } from './ColumnForm.style';
 import { useAppDispatch } from 'app/hooks';
 import { addColumns } from 'features/boards/BoardsSlice';
+import { useTranslation } from 'react-i18next';
 
 interface IProps {
   setchangeColumn: (arg0: boolean) => void;
@@ -40,21 +41,22 @@ const ColumnForm = (props: IProps) => {
     }
     setchangeColumn(false);
   };
+  const { t } = useTranslation();
   return (
     <Column>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Close onClick={() => setchangeColumn(false)} />
         <Label>
-          Title
+          {t('main.columnForm.title')}
           <Input
             type="text"
             {...register('title', {
-              required: 'enter title',
+              required: `${t('main.columnForm.title-input-required')}}`,
             })}
           />
           <div>{errors?.title && errors.title.message}</div>
         </Label>
-        <Button type="submit">Submit</Button>
+        <Button type="submit">{t('main.columnForm.submit-btn')}</Button>
       </Form>
     </Column>
   );

@@ -7,6 +7,7 @@ import { selectApi, setBoardsBtns, setSignOut } from 'features/api/ApiSlice';
 import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { LinksNavWrapper, HeadersWrapper, Name } from './Header.style';
+import { useTranslation } from 'react-i18next';
 
 interface IProps {
   isAuth: boolean;
@@ -18,6 +19,7 @@ const Header = (props: IProps) => {
   const { userName, boardsBtns } = useAppSelector(selectApi);
   const [burger, setBurger] = useState(false);
   const [scroll, setScroll] = useState(0);
+  const { t } = useTranslation();
 
   useEffect(() => {
     window.addEventListener('scroll', () => setScroll(window.scrollY));
@@ -38,21 +40,21 @@ const Header = (props: IProps) => {
           {boardsBtns ? (
             <>
               <Language />
-              <Link to="/edit-profile" text="edit profile" />
-              <Link to="/boards" text="new board" />
+              <Link to="/edit-profile" text={t(`header.edit-profile`)} />
+              <Link to="/boards" text={t(`header.new-board`)} />
               <div onClick={() => handleSingOut()}>
-                <Link to="/" text="sign out" />
+                <Link to="/" text={t(`header.sign-out`)} />
               </div>
             </>
           ) : isAuth ? (
             <div onClick={() => dispatch(setBoardsBtns(true))}>
-              <Link text={'go to boards'} to={'/boards'} />
+              <Link to={'/boards'} text={t(`header.go-to-boards`)} />
             </div>
           ) : (
             <>
               <Language />
-              <Link to={'/auth-sign-in'} text=" sign in" />
-              <Link to={'/auth-sign-up'} text=" sign up" />
+              <Link to={'/auth-sign-in'} text={t(`header.sign-in`)} />
+              <Link to={'/auth-sign-up'} text={t(`header.sign-up`)} />
             </>
           )}
         </LinksNavWrapper>

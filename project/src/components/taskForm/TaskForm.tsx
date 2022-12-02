@@ -5,6 +5,7 @@ import { useAppDispatch } from 'app/hooks';
 import { useForm } from 'react-hook-form';
 import { addColumns } from 'features/boards/BoardsSlice';
 import clone from 'clone';
+import { useTranslation } from 'react-i18next';
 
 interface IProps {
   tasksIdArr: number[];
@@ -52,39 +53,41 @@ const TaskForm = (props: IProps) => {
     }
     setChangeTask(false);
   };
+  const { t } = useTranslation();
+
   return (
     <BoardForm>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Close onClick={() => setChangeTask(false)} />
         <Label>
-          Title
+          {t('main.taskForm.title')}
           <Input
             type="text"
             {...register('title', {
-              required: 'enter title',
+              required: `${t('main.taskForm.title-input-required')}}`,
               maxLength: {
                 value: 30,
-                message: 'title cannot be more than 30 words',
+                message: `${t('main.taskForm.title-input-msg-length')}}`,
               },
             })}
           />
           <div>{errors?.title && errors.title.message}</div>
         </Label>
         <Label>
-          Description
+          {t('main.taskForm.description')}
           <Input
             type="text"
             {...register('text', {
-              required: 'enter description',
+              required: `${t('main.taskForm.description-input-required')}}`,
               maxLength: {
                 value: 182,
-                message: 'description cannot be more than 182 words',
+                message: `${t('main.taskForm.description-input-msg-length')}}`,
               },
             })}
           />
           <div>{errors?.text && errors.text.message}</div>
         </Label>
-        <Button type="submit">Submit</Button>
+        <Button type="submit">{t('main.taskForm.submit-btn')}</Button>
       </Form>
     </BoardForm>
   );
