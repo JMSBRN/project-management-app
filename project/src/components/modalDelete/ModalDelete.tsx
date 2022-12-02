@@ -1,28 +1,35 @@
 import { Flex } from 'pages/boards/Boards.style';
 import React from 'react';
-import { Button, DeleteForm, DeleteWrapper, Img } from './ModalDelete.style';
+import { Button, DeleteForm, Delete, Img } from './ModalDelete.style';
 
 interface ModalDelete {
-  setDeleteItem?: React.Dispatch<React.SetStateAction<string>>;
-  setisDelete: (arg0: boolean) => void;
-  setDelete?: (arg0: boolean) => void;
+  setisDelete: (arg: boolean) => void;
+  setDelete?: (arg: boolean) => void;
   deleteTasks?: boolean;
+  deleteBoards?: (arg: number) => void;
+  boardId?: number | null;
+  delColumn?: () => void;
+  deleteTask?: () => void;
 }
 
 const ModalDelete = (props: ModalDelete) => {
-  const { setisDelete, setDeleteItem, deleteTasks, setDelete } = props;
+  const { setisDelete, deleteTask, deleteTasks, deleteBoards, boardId, setDelete, delColumn } =
+    props;
   return (
-    <DeleteWrapper>
+    <Delete>
       <DeleteForm>
         <Img />
         <div>Delete?</div>
         <Flex>
           <Button
             onClick={() => {
-              if (setDelete) {
-                setDelete(true);
+              if (boardId || boardId === 0) {
+                deleteBoards!(boardId!);
+                setisDelete(false);
+              } else if (setDelete) {
+                setDelete!(true);
               } else {
-                deleteTasks ? setDeleteItem!('task') : setDeleteItem!('column');
+                deleteTasks ? deleteTask!() : delColumn!();
               }
               setisDelete(false);
             }}
@@ -38,7 +45,7 @@ const ModalDelete = (props: ModalDelete) => {
           </Button>
         </Flex>
       </DeleteForm>
-    </DeleteWrapper>
+    </Delete>
   );
 };
 

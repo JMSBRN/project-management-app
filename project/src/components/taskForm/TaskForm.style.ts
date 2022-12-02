@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import close from '../../assets/img/close.png';
 
-export const BoardFormWrapper = styled.div`
+export const BoardForm = styled.div`
   width: 100%;
   min-height: 90vh;
   display: flex;
@@ -11,7 +11,7 @@ export const BoardFormWrapper = styled.div`
   backdrop-filter: blur(5px);
 `;
 
-export const FormWrapper = styled.form`
+export const Form = styled.form`
   width: 300px;
   height: 280px;
   display: flex;

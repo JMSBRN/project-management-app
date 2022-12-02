@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import close from '../../assets/img/close.png';
 
-export const ColumnFormWrapper = styled.div`
+export const Column = styled.div`
   width: 100%;
   min-height: 90vh;
   display: flex;

@@ -4,14 +4,13 @@ import { Draggable } from 'react-beautiful-dnd';
 import { IconsWrapperTask, Message, TaskInformation, Title } from './Task.style';
 import editTask from '../../../../assets/img/edit.png';
 import deleteTaskImg from '../../../../assets/img/delete.png';
-import { IColumns } from '../Board';
+import { IColumns } from 'pages/boards/Boards';
 
 interface IProps {
   setChangeTask: React.Dispatch<React.SetStateAction<boolean>>;
   setTasksIdArr: React.Dispatch<React.SetStateAction<number[]>>;
   setDeleteTasks: React.Dispatch<React.SetStateAction<boolean>>;
   setisDelete: React.Dispatch<React.SetStateAction<boolean>>;
-  deleteTask: (arr: IColumns[]) => void;
   columnId: number;
   columns: IColumns[];
   item: {
@@ -49,8 +48,8 @@ const Task = (props: IProps) => {
               <Icons
                 img={deleteTaskImg}
                 onClick={() => {
-                  setisDelete(true);
                   setDeleteTasks(true);
+                  setisDelete(true);
                   setTasksIdArr([columnId, index]);
                 }}
               />

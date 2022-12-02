@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import img from '../../assets/img/question.png';
 
-export const DeleteWrapper = styled.div`
+export const Delete = styled.div`
   width: 100%;
   height: 90vh;
   display: flex;

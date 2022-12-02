@@ -15,7 +15,8 @@
     "strict": true,
     "skipLibCheck": true,
     "baseUrl": "./src",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "suppressImplicitAnyIndexErrors": true,
   },
   "include": ["./src/**/*", "styled.d.ts"]
 }

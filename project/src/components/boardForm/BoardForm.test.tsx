@@ -7,9 +7,25 @@ describe('<Form />', () => {
     render(
       <BoardForm
         setchangeBoard={jest.fn()}
-        BoardId={1}
-        boards={[{ title: 'dfsadfas', text: 'fsdfsd' }]}
-        setBoards={jest.fn()}
+        boardId={1}
+        boards={[
+          {
+            title: 'task',
+            text: 'description',
+            columns: [
+              {
+                title: 'To-do',
+                items: [
+                  {
+                    id: '1',
+                    Task: '1 tsak',
+                    message: 'task',
+                  },
+                ],
+              },
+            ],
+          },
+        ]}
       />
     );
   });
