@@ -25,7 +25,7 @@ function App() {
       <AppWrapper data-testid="app">
         {loading && <Loader />}
         {!isOnline() && (
-          <ErrorInternetDisconnected>No internet... Please check this..</ErrorInternetDisconnected>
+          <ErrorInternetDisconnected>{t('no-internet-connect-msg')}</ErrorInternetDisconnected>
         )}
         <GlobalStyle />
         <Header isAuth={!!userName} />
