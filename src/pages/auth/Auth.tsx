@@ -10,6 +10,7 @@ import {
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { selectApi, setRegistered } from 'features/api/ApiSlice';
 import Link from 'components/link/Link';
+import { useTranslation } from 'react-i18next';
 
 interface IAuthProps {
   isSingInForm: boolean;
@@ -18,6 +19,7 @@ const Auth = (props: IAuthProps) => {
   const { isSingInForm } = props;
   const dispatch = useAppDispatch();
   const { errorApiMessage, registered } = useAppSelector(selectApi);
+  const { t } = useTranslation();
   return (
     <AuthtWrapper>
       {errorApiMessage && (
@@ -28,14 +30,18 @@ const Auth = (props: IAuthProps) => {
       {registered && (
         <RegisterMessageWrapper>
           <RegisterMessage>
-            <RegisterMessageText>Registration Successful! Try Sign in please</RegisterMessageText>
+            <RegisterMessageText>{t('main.auth.registration-success-msg')}</RegisterMessageText>
             <div onClick={() => dispatch(setRegistered(false))}>
-              <Link text="go to Sign in" to="/auth-sign-in" />
+              <Link text={t('main.auth.go-to-Sign-in-btn')} to="/auth-sign-in" />
             </div>
           </RegisterMessage>
         </RegisterMessageWrapper>
       )}
-      {isSingInForm ? <Form label="sign in Form" /> : <Form label="sign up Form" />}
+      {isSingInForm ? (
+        <Form label={t('main.auth.sign-in')} />
+      ) : (
+        <Form label={t('main.auth.sign-up')} />
+      )}
     </AuthtWrapper>
   );
 };

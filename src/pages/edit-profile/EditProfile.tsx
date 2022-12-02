@@ -8,6 +8,7 @@ import { signInThunk } from 'features/api/thunks/signInThunk';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EditProfileWrapper, ErrorMessage, ErrorMessageWrapper } from './EditProfile.style';
+import { useTranslation } from 'react-i18next';
 
 const EditProfile = () => {
   const dispatch = useAppDispatch();
@@ -15,6 +16,7 @@ const EditProfile = () => {
   const { errorApiMessage, deleteStatusMessage } = useAppSelector(selectApi);
   const { loggedUserId } = useAppSelector(selectApi);
   const [isModal, setIsModal] = useState(false);
+  const { t } = useTranslation();
 
   const onSubmit = (data: FormValues) => {
     dispatch(signInThunk(data));
@@ -42,7 +44,7 @@ const EditProfile = () => {
         onClickDeletUserBtn={() => setIsModal(true)}
         onSubmiteEditProfeileForm={onSubmit}
         isGetIdUser={!!loggedUserId}
-        label={'edit profile form'}
+        label={t('main.auth.edit-profile')}
         isEditProfileForm={true}
       />
     </EditProfileWrapper>

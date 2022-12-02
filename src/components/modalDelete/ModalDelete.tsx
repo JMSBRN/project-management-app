@@ -1,6 +1,7 @@
 import { Flex } from 'pages/boards/Boards.style';
 import React from 'react';
 import { Button, DeleteForm, Delete, Img } from './ModalDelete.style';
+import { useTranslation } from 'react-i18next';
 
 interface ModalDelete {
   setisDelete: (arg: boolean) => void;
@@ -15,11 +16,13 @@ interface ModalDelete {
 const ModalDelete = (props: ModalDelete) => {
   const { setisDelete, deleteTask, deleteTasks, deleteBoards, boardId, setDelete, delColumn } =
     props;
+  const { t } = useTranslation();
+
   return (
     <Delete>
       <DeleteForm>
         <Img />
-        <div>Delete?</div>
+        <div>{t('main.taskForm.delete')}</div>
         <Flex>
           <Button
             onClick={() => {
@@ -41,7 +44,7 @@ const ModalDelete = (props: ModalDelete) => {
               setisDelete(false);
             }}
           >
-            Cansel
+            {t('main.taskForm.cansel')}
           </Button>
         </Flex>
       </DeleteForm>
