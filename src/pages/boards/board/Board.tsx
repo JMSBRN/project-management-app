@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Column,
   Container,
@@ -13,6 +13,7 @@ import {
   Title,
 } from './Board.style';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
+import clone from 'clone';
 import { Icons } from '../Boards.style';
 import editColumn from '../../../assets/img/edit.png';
 import deleteColumnImg from '../../../assets/img/delete.png';
@@ -20,128 +21,69 @@ import ModalDelete from 'components/modalDelete/ModalDelete';
 import ColumnForm from 'components/columnForm/ColumnForm';
 import Task from './task/Task ';
 import TaskForm from 'components/taskForm/TaskForm';
-
-export interface IData {
-  id: string;
-  Task: string;
-  message: string;
-}
-
-export const data = [
-  {
-    id: getRandomID(),
-    Task: '1 задача',
-    message: 'Зделать что то много чего',
-  },
-  {
-    id: getRandomID(),
-    Task: '2 задача',
-    message: 'ещё задачи',
-  },
-  {
-    id: getRandomID(),
-    Task: '3 задача',
-    message: 'больше задач больше',
-  },
-  {
-    id: getRandomID(),
-    Task: '4 задача',
-    message: 'Огромные дела огромных дел',
-  },
-  {
-    id: getRandomID(),
-    Task: '5 задача',
-    message: 'дела деловых дел',
-  },
-];
-
-export interface IColumns {
-  title: string;
-  items: IData[] | [];
-}
-
-export const columnsData = [
-  {
-    title: 'To-do',
-    items: data,
-  },
-  {
-    title: 'In Progress',
-    items: [],
-  },
-  {
-    title: 'Done',
-    items: [],
-  },
-];
-
-export function getRandomID() {
-  return (Math.random() + 1).toString(36).substring(7);
-}
-
-const onDragEnd = (result: DropResult, columns: IColumns[]) => {
-  if (!result.destination) return;
-  const { source, destination, type } = result;
-
-  if (type === 'columns') {
-    if (source.index !== destination.index) {
-      const [removed] = columns.splice(source.index, 1);
-      columns.splice(destination.index, 0, removed);
-    }
-  } else if (type === 'task') {
-    if (source.droppableId !== destination.droppableId) {
-      const sourceColumn = columns[Number(source.droppableId)];
-      const destColumn = columns[Number(source.droppableId)];
-      const sourceItems = [...sourceColumn.items];
-      const destItems = [...destColumn.items];
-      const [removed] = sourceItems.splice(source.index, 1);
-      destItems.splice(destination.index, 0, removed);
-      columns[Number(source.droppableId)].items = sourceItems;
-      columns[Number(destination.droppableId)].items.splice(destination.index, 0, removed);
-    } else {
-      const column = columns[Number(source.droppableId)];
-      const copiedItems = [...column.items];
-      const [removed] = copiedItems.splice(source.index, 1);
-      copiedItems.splice(destination.index, 0, removed);
-      columns[Number(source.droppableId)].items = copiedItems;
-    }
-  }
-};
+import { IColumns } from '../Boards';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { addColumns, boardsSelect, deleteColumns } from 'features/boards/BoardsSlice';
+window['__react-beautiful-dnd-disable-dev-warnings'] = true;
 
 const Board = () => {
-  const [columns, setColumns] = useState<IColumns[]>(columnsData);
+  const dispatch = useAppDispatch();
+  const { boards, boardId } = useAppSelector(boardsSelect);
+  const columns = boards[boardId!].columns;
   const [changeColumn, setchangeColumn] = useState(false);
   const [changeTask, setChangeTask] = useState(false);
   const [createNewTask, setCreateNewTask] = useState(false);
   const [isDelete, setisDelete] = useState(false);
-  const [deleteItem, setDeleteItem] = useState('');
   const [deleteTasks, setDeleteTasks] = useState(false);
   const [tasksIdArr, setTasksIdArr] = useState([0, 0]);
   const [ColumnId, setColumnId] = useState<null | number>(null);
 
-  const deleteTask = (arr: IColumns[]) => {
-    setColumns(arr);
+  const onDragEnd = (result: DropResult, columns: IColumns[]) => {
+    if (!result.destination) return;
+    const { source, destination, type } = result;
+    if (type === 'columns') {
+      if (source.index !== destination.index) {
+        const newColumns = [...columns];
+        const [removed] = newColumns.splice(source.index, 1);
+        newColumns.splice(destination.index, 0, removed);
+        dispatch(addColumns({ newColumns }));
+      }
+    } else if (type === 'task') {
+      if (source.droppableId !== destination.droppableId) {
+        const newColumns = clone(columns);
+        const sourceColumn = newColumns[Number(source.droppableId)];
+        const sourceItems = [...sourceColumn.items];
+        const [removed] = sourceItems.splice(source.index, 1);
+        newColumns[Number(source.droppableId)].items = sourceItems;
+        newColumns[Number(destination.droppableId)].items.splice(destination.index, 0, removed);
+        dispatch(addColumns({ newColumns }));
+      } else {
+        const newColumns = clone(columns);
+        const column = newColumns[Number(source.droppableId)];
+        const copiedItems = [...column.items];
+        const [removed] = copiedItems.splice(source.index, 1);
+        copiedItems.splice(destination.index, 0, removed);
+        newColumns[Number(source.droppableId)].items = copiedItems;
+        dispatch(addColumns({ newColumns }));
+      }
+    }
   };
 
-  useEffect(() => {
-    const deleteColumn = (id: number) => {
-      const newColumns = columns.filter((n, index) => {
-        return index !== id;
-      });
-      setColumns(newColumns);
-    };
-    if (deleteItem === 'column') {
-      deleteColumn(ColumnId!);
-      setColumnId(null);
-      setDeleteItem('');
-    }
-    if (deleteItem === 'task') {
-      columns[tasksIdArr[0]].items.splice(tasksIdArr[1], 1);
-      deleteTask(columns);
-      setDeleteItem('');
-      setDeleteTasks(false);
-    }
-  }, [tasksIdArr, deleteItem, columns, ColumnId]);
+  const delColumn = () => {
+    const delColumn = [...columns].filter((n, index) => {
+      return index != ColumnId;
+    });
+    dispatch(deleteColumns({ delColumn }));
+    setColumnId(null);
+  };
+
+  const deleteTask = () => {
+    const newColumns = clone(columns);
+    newColumns[tasksIdArr[0]].items.splice(tasksIdArr[1], 1);
+    console.log(newColumns);
+    setDeleteTasks(false);
+    dispatch(addColumns({ newColumns }));
+  };
 
   return (
     <DragDropContext onDragEnd={(result) => onDragEnd(result, columns)}>
@@ -196,7 +138,6 @@ const Board = () => {
                                       setTasksIdArr={setTasksIdArr}
                                       setDeleteTasks={setDeleteTasks}
                                       setisDelete={setisDelete}
-                                      deleteTask={deleteTask}
                                       columnId={columnId}
                                       columns={columns}
                                       key={index}
@@ -248,7 +189,6 @@ const Board = () => {
               setCreateNewTask={setCreateNewTask}
               ColumnId={ColumnId}
               createNewTask={createNewTask}
-              setColumns={setColumns}
               setChangeTask={setChangeTask}
               tasksIdArr={tasksIdArr}
               columns={columns}
@@ -258,8 +198,9 @@ const Board = () => {
       </Container>
       {isDelete && (
         <ModalDelete
+          deleteTask={deleteTask}
+          delColumn={delColumn}
           deleteTasks={deleteTasks}
-          setDeleteItem={setDeleteItem}
           setisDelete={setisDelete}
         />
       )}

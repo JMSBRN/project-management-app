@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import close from '../../assets/img/close.png';
 
-export const ColumnFormWrapper = styled.div`
+export const Column = styled.div`
   width: 100%;
   min-height: 90vh;
   display: flex;
@@ -11,7 +11,7 @@ export const ColumnFormWrapper = styled.div`
   backdrop-filter: blur(5px);
 `;
 
-export const FormWrapper = styled.form`
+export const Form = styled.form`
   width: 300px;
   height: 250px;
   display: flex;
@@ -42,7 +42,7 @@ export const Close = styled.div`
   }
 `;
 
-export const InputWrapper = styled.input`
+export const Input = styled.input`
   width: 250px;
   display: block;
   margin: 0 auto;
@@ -50,7 +50,7 @@ export const InputWrapper = styled.input`
   border-radius: 7px;
 `;
 
-export const LabelWrapper = styled.div`
+export const Label = styled.div`
   div {
     width: 250px;
     height: 20px;
@@ -60,7 +60,7 @@ export const LabelWrapper = styled.div`
   }
 `;
 
-export const ButtonWrapper = styled.button`
+export const Button = styled.button`
   border-radius: 7px;
   color: black;
   border: 1px solid black;

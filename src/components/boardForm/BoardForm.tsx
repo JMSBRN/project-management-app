@@ -1,70 +1,67 @@
-import { IBoard } from 'pages/boards/Boards';
+import { useAppDispatch } from 'app/hooks';
+import { addBoard, changeBoard } from 'features/boards/BoardsSlice';
+import { IBoard, IColumns } from 'pages/boards/Boards';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import {
-  BoardFormWrapper,
-  ButtonWrapper,
-  Close,
-  FormWrapper,
-  InputWrapper,
-  LabelWrapper,
-} from './BoardForm.style';
+import { BoardFormWrapper, Button, Close, Form, Input, Label } from './BoardForm.style';
 
 interface IProps {
   setchangeBoard: (arg0: boolean) => void;
-  setBoards: (arg0: IBoard[]) => void;
-  BoardId: number | null;
+  boardId: number | null;
   boards: IBoard[];
 }
 
-interface FormValues {
+export interface FormValuesBoard {
   id: number;
   title: string;
   text: string;
+  columns: IColumns[];
 }
 
 const BoardForm = (props: IProps) => {
-  const { BoardId, boards, setBoards, setchangeBoard } = props;
+  const dispatch = useAppDispatch();
+  const { boardId, boards, setchangeBoard } = props;
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>();
-  const onSubmit = (data: FormValues) => {
-    if (BoardId !== null && BoardId > boards.length) {
-      data.id = BoardId;
+  } = useForm<FormValuesBoard>();
+  const onSubmit = (data: FormValuesBoard) => {
+    if (boardId !== null && boardId > boards.length) {
+      data.columns = [];
+      dispatch(addBoard(data));
+    } else if (boardId !== null && boardId <= boards.length) {
+      data.columns = boards[boardId].columns;
+      dispatch(changeBoard({ data, boardId }));
     }
-    const board = boards;
-    board.splice(BoardId!, 1, data);
-    setBoards(board);
     setchangeBoard(false);
   };
   return (
     <BoardFormWrapper>
-      <FormWrapper onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <Close onClick={() => setchangeBoard(false)} />
-        <LabelWrapper>
+        <Label>
           Title
-          <InputWrapper
+          <Input
             type="text"
             {...register('title', {
               required: 'enter title',
             })}
           />
           <div>{errors?.title && errors.title.message}</div>
-        </LabelWrapper>
-        <LabelWrapper>
+        </Label>
+        <Label>
           Description
-          <InputWrapper
+          <Input
             type="text"
             {...register('text', {
               required: 'enter description',
             })}
           />
           <div>{errors?.text && errors.text.message}</div>
-        </LabelWrapper>
-        <ButtonWrapper type="submit">Submit</ButtonWrapper>
-      </FormWrapper>
+        </Label>
+        <Button type="submit">Submit</Button>
+      </Form>
     </BoardFormWrapper>
   );
 };

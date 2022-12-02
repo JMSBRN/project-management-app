@@ -1,19 +1,14 @@
-import { getRandomID, IColumns, IData } from 'pages/boards/board/Board';
 import React from 'react';
+import { getRandomID, IColumns } from 'pages/boards/Boards';
+import { BoardForm, Button, Close, Form, Input, Label } from './TaskForm.style';
+import { useAppDispatch } from 'app/hooks';
 import { useForm } from 'react-hook-form';
-import {
-  BoardFormWrapper,
-  ButtonWrapper,
-  Close,
-  FormWrapper,
-  InputWrapper,
-  LabelWrapper,
-} from './TaskForm.style';
+import { addColumns } from 'features/boards/BoardsSlice';
+import clone from 'clone';
 
 interface IProps {
   tasksIdArr: number[];
   setChangeTask: (arg0: boolean) => void;
-  setColumns: React.Dispatch<React.SetStateAction<IColumns[]>>;
   columns: IColumns[];
   createNewTask: boolean;
   ColumnId: number | null;
@@ -27,15 +22,8 @@ interface FormValues {
 }
 
 const TaskForm = (props: IProps) => {
-  const {
-    columns,
-    setColumns,
-    setChangeTask,
-    tasksIdArr,
-    createNewTask,
-    ColumnId,
-    setCreateNewTask,
-  } = props;
+  const dispatch = useAppDispatch();
+  const { columns, setChangeTask, tasksIdArr, createNewTask, ColumnId, setCreateNewTask } = props;
   const {
     register,
     handleSubmit,
@@ -45,29 +33,32 @@ const TaskForm = (props: IProps) => {
   });
   const onSubmit = (data: FormValues) => {
     if (createNewTask) {
-      columns[ColumnId!].items = [
-        ...columns[ColumnId!].items,
+      const newColumns = clone(columns);
+      newColumns[ColumnId!].items = [
+        ...newColumns[ColumnId!].items,
         {
           id: getRandomID(),
           Task: data.title,
           message: data.text,
         },
       ];
+      dispatch(addColumns({ newColumns }));
       setCreateNewTask(false);
     } else {
-      columns[tasksIdArr[0]].items[tasksIdArr[1]].Task = data.title;
-      columns[tasksIdArr[0]].items[tasksIdArr[1]].message = data.text;
+      const newColumns = clone(columns);
+      newColumns[tasksIdArr[0]].items[tasksIdArr[1]].Task = data.title;
+      newColumns[tasksIdArr[0]].items[tasksIdArr[1]].message = data.text;
+      dispatch(addColumns({ newColumns }));
     }
-    setColumns(columns);
     setChangeTask(false);
   };
   return (
-    <BoardFormWrapper>
-      <FormWrapper onSubmit={handleSubmit(onSubmit)}>
+    <BoardForm>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <Close onClick={() => setChangeTask(false)} />
-        <LabelWrapper>
+        <Label>
           Title
-          <InputWrapper
+          <Input
             type="text"
             {...register('title', {
               required: 'enter title',
@@ -78,10 +69,10 @@ const TaskForm = (props: IProps) => {
             })}
           />
           <div>{errors?.title && errors.title.message}</div>
-        </LabelWrapper>
-        <LabelWrapper>
+        </Label>
+        <Label>
           Description
-          <InputWrapper
+          <Input
             type="text"
             {...register('text', {
               required: 'enter description',
@@ -92,10 +83,10 @@ const TaskForm = (props: IProps) => {
             })}
           />
           <div>{errors?.text && errors.text.message}</div>
-        </LabelWrapper>
-        <ButtonWrapper type="submit">Submit</ButtonWrapper>
-      </FormWrapper>
-    </BoardFormWrapper>
+        </Label>
+        <Button type="submit">Submit</Button>
+      </Form>
+    </BoardForm>
   );
 };
 export default TaskForm;
