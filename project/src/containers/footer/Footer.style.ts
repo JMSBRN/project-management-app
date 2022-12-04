@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 export const FooterWrapper = styled.div`
   width: 100%;
-  height: 70px;
+  min-height: 70px;
+  gap: 10px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -23,12 +24,13 @@ export const LogoSchool = styled.a`
 `;
 
 export const Autors = styled.div`
-  width: 500px;
-  height: 70px;
+  width: min(70%, 600px);
+  min-height: 70px;
   display: flex;
   align-items: center;
   justify-content: space-around;
   flex-wrap: wrap;
+  gap: 10px;
   @media (max-width: 450px) {
     width: 300px;
   }
