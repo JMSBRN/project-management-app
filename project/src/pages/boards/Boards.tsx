@@ -5,6 +5,7 @@ import {
   BoardWrapper,
   Description,
   Icons,
+  Input,
   NewBoard,
   NewBoardWrapper,
   Title,
@@ -43,9 +44,21 @@ export function getRandomID() {
 const Boards = () => {
   const dispatch = useAppDispatch();
   const { boards, boardId } = useAppSelector(boardsSelect);
+  const [sortedBoards, setSortedBoards] = useState(boards);
   const navigate = useNavigate();
   const [changeBoard, setchangeBoard] = useState(false);
   const [isDelete, setisDelete] = useState(false);
+
+  const createfilterBoards = (value: string) => {
+    const filterBords = boards.filter((board) => {
+      if (value === '') {
+        return boards;
+      } else {
+        return board.title.toLowerCase().includes(value.toLowerCase());
+      }
+    });
+    setSortedBoards(filterBords);
+  };
 
   const deleteBoards = (id: number) => {
     const newBoardsArr = boards.filter((n, index) => {
@@ -55,13 +68,20 @@ const Boards = () => {
   };
 
   useEffect(() => {
+    setSortedBoards(boards);
     dispatch(setBoardsBtns(true));
-  }, [dispatch]);
+  }, [boards, dispatch]);
 
   return (
     <Wrapper>
+      <Input
+        placeholder="search"
+        onChange={(event) => {
+          createfilterBoards(event.target.value);
+        }}
+      />
       <BoardsWrapper>
-        {boards.map((item: IBoard, index: number) => {
+        {sortedBoards.map((item: IBoard, index: number) => {
           return (
             <BoardWrapper key={index}>
               <Board

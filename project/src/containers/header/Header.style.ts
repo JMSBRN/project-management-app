@@ -22,7 +22,7 @@ export const HeadersWrapper = styled.div<IHeaderWrapper>`
   z-index: 1;
 `;
 export const Name = styled.div`
-  color: green;
+  margin-right: 50px;
 `;
 export const LinksNavWrapper = styled.div<ILinksNav>`
   width: ${(props) => (props.isAuth ? '560px' : '360px')};
@@ -30,7 +30,7 @@ export const LinksNavWrapper = styled.div<ILinksNav>`
   align-items: center;
   justify-content: space-around;
   margin-right: 5%;
-  @media (max-width: 650px) {
+  @media (max-width: 770px) {
     width: 180px;
     height: ${(props) => (props.isAuth ? '200px' : '160px')};
     flex-direction: column;

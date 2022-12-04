@@ -22,7 +22,7 @@ const ModalDelete = (props: ModalDelete) => {
     <Delete>
       <DeleteForm>
         <Img />
-        <div>{t('main.taskForm.delete')}</div>
+        <div>{t('main.modalDelete.delete')}</div>
         <Flex>
           <Button
             onClick={() => {
@@ -44,7 +44,7 @@ const ModalDelete = (props: ModalDelete) => {
               setisDelete(false);
             }}
           >
-            {t('main.taskForm.cansel')}
+            {t('main.modalDelete.cansel')}
           </Button>
         </Flex>
       </DeleteForm>
