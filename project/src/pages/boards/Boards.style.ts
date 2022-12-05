@@ -5,7 +5,18 @@ export const Wrapper = styled.div`
   width: 100%;
   min-height: 90vh;
   display: flex;
+  flex-direction: column;
   padding-top: 70px;
+`;
+
+export const Input = styled.input`
+  width: 300px;
+  margin: 30px auto;
+  padding: 6px;
+  border-radius: 7px;
+  ::-webkit-input-placeholder {
+    color: black;
+  }
 `;
 
 export const BoardsWrapper = styled.div`

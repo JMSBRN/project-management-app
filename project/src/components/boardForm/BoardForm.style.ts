@@ -2,13 +2,16 @@ import styled from 'styled-components';
 import close from '../../assets/img/close.png';
 
 export const BoardFormWrapper = styled.div`
-  width: 100%;
-  min-height: 90vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   backdrop-filter: blur(5px);
+  z-index: 9999;
 `;
 
 export const Form = styled.form`

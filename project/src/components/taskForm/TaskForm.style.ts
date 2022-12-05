@@ -3,12 +3,15 @@ import close from '../../assets/img/close.png';
 
 export const BoardForm = styled.div`
   width: 100%;
-  min-height: 90vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
   backdrop-filter: blur(5px);
+  z-index: 9999;
 `;
 
 export const Form = styled.form`
