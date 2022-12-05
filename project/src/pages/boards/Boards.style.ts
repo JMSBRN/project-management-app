@@ -3,7 +3,7 @@ import plus from '../../assets/img/plus.png';
 
 export const Wrapper = styled.div`
   width: 100%;
-  min-height: 90vh;
+  min-height: 88vh;
   display: flex;
   flex-direction: column;
   padding-top: 70px;
