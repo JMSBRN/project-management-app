@@ -80,7 +80,6 @@ const Board = () => {
   const deleteTask = () => {
     const newColumns = clone(columns);
     newColumns[tasksIdArr[0]].items.splice(tasksIdArr[1], 1);
-    console.log(newColumns);
     setDeleteTasks(false);
     dispatch(addColumns({ newColumns }));
   };
