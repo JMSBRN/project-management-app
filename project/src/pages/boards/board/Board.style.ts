@@ -3,7 +3,7 @@ import plus from '../../../assets/img/plus.png';
 
 export const Container = styled.div`
   width: 100%;
-  min-height: 90vh;
+  min-height: 88vh;
   padding-top: 90px;
   overflow-y: hidden;
 `;
