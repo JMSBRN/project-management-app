@@ -1,8 +1,7 @@
 import { FormValues } from 'components/form/Form';
 import { IUser } from 'features/user/userInterfaces';
 
-const { REACT_APP_API_LOCAL_URL, REACT_APP_TOKEN_SERVER_MONGO, REACT_APP_API_URL_MONGO_RENDER } =
-  process.env;
+const { REACT_APP_API_LOCAL_URL, REACT_APP_API_URL_MONGO_RENDER } = process.env;
 const setUrl = (data: NodeJS.ProcessEnv) => {
   if (data.NODE_ENV === 'development') {
     return REACT_APP_API_LOCAL_URL;
@@ -14,7 +13,6 @@ const url = setUrl(process.env);
 const urlUsers = `${url}/users`;
 const urlSignIn = `${url}/auth/signin`;
 const urlSignUp = `${url}/auth/signup`;
-const token = `Bearer ${REACT_APP_TOKEN_SERVER_MONGO}`;
 export const getUsers = async (token: string) => {
   try {
     const res = await fetch(urlUsers, {
@@ -126,8 +124,8 @@ export const getTimeFromToken = async (token: string) => {
   return getParsedJwt(token)?.iat as number;
 };
 export const setTimeFromToken = async (data: FormValues) => {
-  const time = await signIn(data).then(async ({ token }) => {
-    return await getTimeFromToken(token);
+  const time = await signIn(data).then(({ token }) => {
+    return getTimeFromToken(token);
   });
   return time;
 };

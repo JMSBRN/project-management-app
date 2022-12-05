@@ -7,7 +7,7 @@ export const signUpThunk = createAsyncThunk(
   'api/sign-up-user',
   async (user: IUser, { dispatch }) => {
     const { login, password } = user;
-    await signIn({ login: login, password: password }).then(async ({ token }) => {
+    await signIn({ login: login, password: password }).then(({ token }) => {
       if (token) {
         dispatch(setErrorApiMessage('User is Already exist! Please try another name or login.'));
         setTimeout(() => {
@@ -16,7 +16,7 @@ export const signUpThunk = createAsyncThunk(
         dispatch(setLoader(false));
         return;
       } else {
-        await signUp(user).then(({ name, message, id, login }) => {
+        signUp(user).then(({ name, message, id, login }) => {
           if (name) {
             dispatch(setUserSignUpData({ id, login, name }));
           } else {
