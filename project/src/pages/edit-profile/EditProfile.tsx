@@ -14,7 +14,7 @@ const EditProfile = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { errorApiMessage, deleteStatusMessage } = useAppSelector(selectApi);
-  const { loggedUserId } = useAppSelector(selectApi);
+  const { loggedUserId, token } = useAppSelector(selectApi);
   const [isModal, setIsModal] = useState(false);
   const { t } = useTranslation();
 
@@ -23,7 +23,7 @@ const EditProfile = () => {
     dispatch(getUserIdThunk(data));
   };
   const handleDeleUser = () => {
-    dispatch(deleteUserThunk(loggedUserId));
+    dispatch(deleteUserThunk({ id: loggedUserId, token: token }));
     dispatch(setSignOut());
     navigate('/');
   };

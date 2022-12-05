@@ -92,7 +92,7 @@ export const signIn = async (user: IUser) => {
     console.error('error from signIn', e);
   }
 };
-export const deleteUser = async (id: string) => {
+export const deleteUser = async (id: string, token: string) => {
   try {
     const res = await fetch(`${urlUsers}/${id}`, {
       method: 'DELETE',
