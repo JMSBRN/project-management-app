@@ -9,7 +9,7 @@
   ✔️ Buttons for Sign In / Sign Up / Sign Out are everywhere where they should be **2 point** \
   ✔️ Form fields should be implemented according to the backend API. Validation should be implemented. **4 point** \
   ✔️ Upon successful login, the user should be redirected to "Main route" **1 point** \
-  ❌ If user already logged in and he try to reach this routes - he should be redirected to Main route. **1 point**
+  ✔️ If user already logged in and he try to reach this routes - he should be redirected to Main route. **1 point**
 # Main route - max 8 points.
   ✔️ Board creation functionality **2 points** \
   ✔️ Displays all created boards as a list/grid **1 point** \
@@ -31,10 +31,10 @@
   ✔️ The column should have a delete button. By clicking -> confirmation modal -> when approving -> deleting. **1 point**
  # General requirements - max 11 points
   ✔️ Backend error handling - (Not found, unhandled rejection, etc) should be performed in a user-friendly way (toast, pop-up or anything else you implement). **4 points**\
-  ❌ Localization **1 point**\
+  ✔️ Localization **1 point**\
   ✔️ Backend is deployed and publicly available **2 points** \
   ✔️ Sticky header **2 point** \
-  ❌ Extra scope same complexity as Global search **2 points**
+  ✔️ Extra scope same complexity as Global search **2 points**
  # Penalties
   ✔️ React default favicon - **1 points**\
   ❌ The presence of errors and warnings in the console - **2 point** for each \
