@@ -8,6 +8,7 @@ const Footer = () => {
       <Autors>
         <AutorLink href="https://github.com/alexshishkov">Alexey Shishkov</AutorLink>
         <AutorLink href="https://github.com/JMSBRN">Aleksandr Zakhavai</AutorLink>
+        <AutorLink href="https://github.com/botino-k">botino-k</AutorLink>
       </Autors>
       © 2022. React 2022Q3
     </FooterWrapper>

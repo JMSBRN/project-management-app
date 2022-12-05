@@ -12,6 +12,7 @@ import {
 import taskImg from '../../assets/img/taskImg.png';
 import development from '../../assets/img/development.png';
 import front from '../../assets/img/frontend.png';
+import front2 from '../../assets/img/frontend2.png';
 import teamlead from '../../assets/img/teamlead.png';
 import telegram from '../../assets/img/telegram.png';
 import linkedIn from '../../assets/img/linkedIn.png';
@@ -67,6 +68,24 @@ const Welcome = () => {
             <LinksDevelopers href={'https://github.com/alexshishkov'} img={github} />
           </LinksWrapper>
         </Description>
+      </DescriptionWrapper>
+      <DescriptionWrapper>
+        <ReversWrapper>
+          <Description>
+            <h3>{t(`main.welcome.team.team-member-3`)}</h3>
+            <ul>
+              <li>Frontend</li>
+              <li>Tried not to spoil =)</li>
+              <li>i18n, presentation</li>
+            </ul>
+            <LinksWrapper>
+              <LinksDevelopers href={'https://t.me/sivelia'} img={telegram} />
+              <LinksDevelopers href={'https://www.linkedin.com/in/botino-k/'} img={linkedIn} />
+              <LinksDevelopers href={'https://github.com/botino-k'} img={github} />
+            </LinksWrapper>
+          </Description>
+          <ImageAvatar img={front2} />
+        </ReversWrapper>
       </DescriptionWrapper>
     </WelcomeWrapper>
   );

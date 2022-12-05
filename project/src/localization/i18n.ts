@@ -27,6 +27,7 @@ i18n.use(initReactI18next).init({
               'team-title': 'Team',
               'team-member-1': 'Aleksandr Zakhavai',
               'team-member-2': 'Alexey Shishkov',
+              'team-member-3': 'Maria Gavrilova',
             },
           },
           auth: {
@@ -96,6 +97,7 @@ i18n.use(initReactI18next).init({
               'team-title': 'Команда',
               'team-member-1': 'Александр Захавай',
               'team-member-2': 'Алексей Шишков',
+              'team-member-3': 'Мария Гаврилова',
             },
           },
           auth: {
