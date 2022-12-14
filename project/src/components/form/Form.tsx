@@ -39,6 +39,7 @@ const Form = (props: IFormProps) => {
     //dispatch(refreshTokenThunk(data));
     isSignUpForm ? dispatch(signUpThunk(data)) : dispatch(signInThunk(data));
     reset();
+    dispatch(setLoader(false));
   };
   return (
     <FormWrapper onSubmit={handleSubmit(isEditProfileForm ? onSubmiteEditProfeileForm! : onSubmit)}>
@@ -55,7 +56,7 @@ const Form = (props: IFormProps) => {
                 message: `${t('main.auth.name-input-msg-length')}`,
               },
               pattern: {
-                value: /^[A-Z][-a-zA-Z]+$/,
+                value: /^[a-zA-Zа-яА-Я]+$/,
                 message: `${t('main.auth.name-input-msg-pattern')}`,
               },
             })}
