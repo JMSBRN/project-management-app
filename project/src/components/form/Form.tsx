@@ -55,7 +55,7 @@ const Form = (props: IFormProps) => {
                 message: `${t('main.auth.name-input-msg-length')}`,
               },
               pattern: {
-                value: /^[A-Z][-a-zA-Z]+$/,
+                value: /^[a-zA-Zа-яА-Я]+$/,
                 message: `${t('main.auth.name-input-msg-pattern')}`,
               },
             })}
