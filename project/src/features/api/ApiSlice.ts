@@ -53,6 +53,7 @@ const apiSlice = createSlice({
       state.token = '';
       state.userName = '';
       localStorage.removeItem('user-name');
+      localStorage.removeItem('token');
       state.loggedUserId = '';
       state.boardsBtns = false;
       state.registered = false;

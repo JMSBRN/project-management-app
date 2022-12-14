@@ -9,6 +9,7 @@ export const signInThunk = createAsyncThunk(
     await signIn(user).then(async ({ message, token }) => {
       dispatch(setErrorApiMessage(message));
       if (token) {
+        localStorage.setItem('token', JSON.stringify(token));
         dispatch(setToken(token));
         dispatch(setUserName(await getUserName(getParsedJwt(token)?.id as string, token)));
       } else if (message) {
