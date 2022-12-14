@@ -39,6 +39,7 @@ const Form = (props: IFormProps) => {
     dispatch(refreshTokenThunk(data));
     isSignUpForm ? dispatch(signUpThunk(data)) : dispatch(signInThunk(data));
     reset();
+    dispatch(setLoader(false));
   };
   return (
     <FormWrapper onSubmit={handleSubmit(isEditProfileForm ? onSubmiteEditProfeileForm! : onSubmit)}>

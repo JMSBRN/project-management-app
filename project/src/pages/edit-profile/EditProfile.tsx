@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import Form, { FormValues } from 'components/form/Form';
 import ModalDelete from 'components/modalDelete/ModalDelete';
-import { selectApi, setSignOut } from 'features/api/ApiSlice';
+import { selectApi, setLoader, setSignOut } from 'features/api/ApiSlice';
 import { deleteUserThunk } from 'features/api/thunks/deleteUserThunk';
 import { getUserIdThunk } from 'features/api/thunks/getUserIdThunk';
 import { signInThunk } from 'features/api/thunks/signInThunk';
@@ -19,8 +19,10 @@ const EditProfile = () => {
   const { t } = useTranslation();
 
   const onSubmit = (data: FormValues) => {
+    dispatch(setLoader(true));
     dispatch(signInThunk(data));
     dispatch(getUserIdThunk(data));
+    dispatch(setLoader(false));
   };
   const handleDeleUser = () => {
     dispatch(deleteUserThunk(loggedUserId));
