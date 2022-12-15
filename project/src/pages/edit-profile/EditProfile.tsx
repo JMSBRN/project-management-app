@@ -22,7 +22,6 @@ const EditProfile = () => {
     dispatch(setLoader(true));
     dispatch(signInThunk(data));
     dispatch(getUserIdThunk(data));
-    dispatch(setLoader(false));
   };
   const handleDeleUser = () => {
     dispatch(
