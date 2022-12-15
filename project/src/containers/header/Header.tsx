@@ -53,8 +53,12 @@ const Header = (props: IProps) => {
           ) : (
             <>
               <Language />
-              <Link to={'/auth-sign-in'} text={t(`header.sign-in`)} />
-              <Link to={'/auth-sign-up'} text={t(`header.sign-up`)} />
+              <div onClick={() => changeBurgerMenu()}>
+                <Link to={'/auth-sign-in'} text={t(`header.sign-in`)} />
+              </div>
+              <div onClick={() => changeBurgerMenu()}>
+                <Link to={'/auth-sign-up'} text={t(`header.sign-up`)} />
+              </div>
             </>
           )}
         </LinksNavWrapper>
